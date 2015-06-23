@@ -1,6 +1,6 @@
-"" Rust language
+"" Rust: language support
 NeoBundle 'rust-lang/rust.vim'
-"" Rust Tagbar settings
+"" Rust: Tagbar settings
 let g:tagbar_type_rust = {
     \ 'ctagstype' : 'rust',
     \ 'kinds' : [
@@ -14,3 +14,7 @@ let g:tagbar_type_rust = {
         \'i:impls,trait implementations',
     \]
     \}
+
+"" Bdelete: Delete a buffer without closing the window.
+NeoBundle 'moll/vim-bbye'
+nnoremap <Leader>c :Bdelete<CR>
