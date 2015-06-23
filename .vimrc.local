@@ -9,3 +9,9 @@ set shiftwidth=4
 filetype plugin indent on
 syntax on
 auto BufWritePre *.go Fmt
+
+"" Bbye:
+nnoremap <Leader>c :Bdelete<CR>
+
+"" Airline:
+let g:airline_powerline_fonts = 1
