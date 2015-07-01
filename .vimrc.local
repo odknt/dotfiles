@@ -15,3 +15,7 @@ nnoremap <Leader>c :Bdelete<CR>
 
 "" Airline:
 let g:airline_powerline_fonts = 1
+
+"" Markdown:
+set syntax=markdown
+au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
