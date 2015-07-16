@@ -23,3 +23,6 @@ NeoBundle 'Blackrush/vim-gocode'
 set rtp+=$GOROOT/misc/vim
 "" Golint:
 exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
+
+"" Vim Surround:
+NeoBundle 'tpope/vim-surround'
