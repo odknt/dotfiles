@@ -9,6 +9,7 @@ set shiftwidth=4
 filetype plugin indent on
 syntax on
 auto BufWritePre *.go Fmt
+let $GOPATH .= ':./_vendor'
 
 "" Bbye:
 nnoremap <Leader>c :Bdelete<CR>
