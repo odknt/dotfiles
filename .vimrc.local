@@ -5,6 +5,9 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
+"" Web: use space width 2
+au BufRead,BufNewFile *.{tmpl,html,htm,phtml,less,css,js,jsx,coffee} set tabstop=2 shiftwidth=2
+
 "" Golint:
 filetype plugin indent on
 syntax on
