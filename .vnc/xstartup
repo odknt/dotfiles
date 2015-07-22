@@ -6,6 +6,10 @@ unset DBUS_SESSION_BUS_ADDRESS
 
 source ~/.zshrc
 
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+
 xsetroot -solid grey
 exec xfce4-panel &
 exec xfce4-session &
