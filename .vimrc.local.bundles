@@ -15,14 +15,14 @@ let g:tagbar_type_rust = {
     \]
     \}
 
+"" Go:
+NeoBundle 'vim-jp/vim-go-extra'
+
 "" Bdelete: Delete a buffer without closing the window.
 NeoBundle 'moll/vim-bbye'
 
-"" Gocode:
-NeoBundle 'Blackrush/vim-gocode'
-set rtp+=$GOROOT/misc/vim
-"" Golint:
-exe "set rtp+=" . globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-
 "" Vim Surround:
 NeoBundle 'tpope/vim-surround'
+
+"" Vdebug:
+NeoBundle 'joonty/vdebug'

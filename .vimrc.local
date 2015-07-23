@@ -8,11 +8,20 @@ set shiftwidth=4
 "" Web: use space width 2
 au BufRead,BufNewFile *.{tmpl,html,htm,phtml,less,css,js,jsx,coffee} set tabstop=2 shiftwidth=2
 
-"" Golint:
+"" Go:
 filetype plugin indent on
 syntax on
 auto BufWritePre *.go Fmt
-let $GOPATH .= ':./_vendor'
+let $GOPATH = $GOPATH . ":" . globpath(getcwd(), "_vendor")
+set completeopt=menu
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1
 
 "" Bbye:
 nnoremap <Leader>c :Bdelete<CR>
@@ -26,3 +35,18 @@ au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 
 "" Clipboard:
 set clipboard=unnamed
+
+"" Keymap:
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
