@@ -26,3 +26,7 @@ NeoBundle 'tpope/vim-surround'
 
 "" Vdebug:
 NeoBundle 'joonty/vdebug'
+
+"" EditorConfig:
+NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'vim-scripts/PreserveNoEOL'

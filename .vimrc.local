@@ -1,12 +1,6 @@
 set autoindent
 set smartindent
 set showmode
-set expandtab
-set tabstop=4
-set shiftwidth=4
-
-"" Web: use space width 2
-au BufRead,BufNewFile *.{tmpl,html,htm,phtml,less,css,js,jsx,coffee} set tabstop=2 shiftwidth=2
 
 "" Go:
 filetype plugin indent on
@@ -37,6 +31,7 @@ au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 set clipboard=unnamed
 
 "" Keymap:
+let mapleader=";"
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
