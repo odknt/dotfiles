@@ -13,11 +13,14 @@ indent_style = space
 indent_size = 4
 
 ############################################################################
-## Makefile
+## Special files
 ############################################################################
 [Makefile]
 indent_style = tab
 tab_width = 4
+
+[*.md]
+trim_trailing_whitespace = false
 
 ############################################################################
 ## Favorite languages
