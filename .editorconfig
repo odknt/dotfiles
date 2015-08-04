@@ -32,7 +32,7 @@ insert_final_newline = false
 indent_size = 2
 max_line_length = 80
 
-[*.go]
+[*.{go,s,S}]
 indent_style = tab
 tab_width = 4
 
@@ -43,7 +43,7 @@ max_line_length = 80
 ############################################################################
 ## HTML, JS, CSS base languages
 ############################################################################
-[*.{html,htm,tmpl,tpl,css,less,scss,js,jsx,coffee,yml,json}]
+[*.{html,htm,tmpl,tpl,css,less,scss,js,jsx,coffee,yml,yaml,toml,json}]
 indent_size = 2
 
 ############################################################################
