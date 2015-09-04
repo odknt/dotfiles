@@ -24,8 +24,16 @@ NeoBundle 'moll/vim-bbye'
 "" Vim Surround:
 NeoBundle 'tpope/vim-surround'
 
+"" PHP:
+NeoBundle 'arnaud-lb/vim-php-namespace'
+
 "" Vdebug:
 NeoBundle 'joonty/vdebug'
+let g:vdebug_options = {
+    \ 'server' : 0.0.0.0,
+    \ 'path_maps' : {
+    \   '/var/haken2012' : '/home/oda/repos/en-projectB2015_new/src/haken2012'
+    \ }}
 
 "" EditorConfig:
 NeoBundle 'editorconfig/editorconfig-vim'

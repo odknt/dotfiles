@@ -1,12 +1,13 @@
 set autoindent
 set smartindent
 set showmode
+set ttyfast
 
 "" Go:
 filetype plugin indent on
 syntax on
 auto BufWritePre *.go Fmt
-let $GOPATH = $GOPATH . ":" . globpath(getcwd(), "_vendor")
+let $GOPATH = $GOPATH . globpath(getcwd(), "_vendor")
 set completeopt=menu
 
 let g:go_highlight_functions = 1
@@ -19,6 +20,9 @@ let g:go_fmt_fail_silently = 1
 
 "" Bbye:
 nnoremap <Leader>c :Bdelete<CR>
+
+"" Tags: looks up and up
+set tags=./tags;/,tags;/
 
 "" Airline:
 let g:airline_powerline_fonts = 1
