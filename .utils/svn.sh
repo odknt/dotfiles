@@ -5,7 +5,7 @@ STASH_FILE="default"
 source "`dirname $0`/common.sh"
 
 # stash save
-function svn_save() {
+function svn_stash_save() {
     if [ ! -d "$STASH_DIR" ]; then
         mkdir -p $STASH_DIR
     fi
@@ -26,7 +26,7 @@ function svn_save() {
 alias svn-save=svn_save
 
 # stash pop
-function svn_pop() {
+function svn_stash_pop() {
     if [ -n "$1" ]; then
         STASH_FILE="$1"
     fi
@@ -46,7 +46,7 @@ function svn_pop() {
 alias svn-pop=svn_pop
 
 # stash list
-function svn_list() {
+function svn_stash_list() {
     local RET=1
     if [ ! -d "$STASH_DIR" ]; then
         mkdir -p $STASH_DIR
@@ -60,3 +60,21 @@ function svn_list() {
     return $RET
 }
 alias svn-list=svn_list
+
+# svn stash
+function svn_stash() {
+    case $1 in
+        save    ) svn_stash_save $2 ;;
+        pop     ) svn_stash_pop $2 ;;
+        ""|list ) svn_stash_list ;;
+        *       ) svn $@ ;;
+    esac
+}
+
+# svn wrapper
+function svnc() {
+    case $1 in
+        stash ) svn_stash ${@:2:($#-1)};;
+        * )     svn $@;;
+    esac
+}
