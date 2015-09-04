@@ -1,15 +1,24 @@
 #!/bin/sh
-export XKLXMODMAPDISABLE=1
 
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
-
-source ~/.zshrc
-
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS="@im=fcitx"
-
+OS=`uname -s`
+if [ $OS = 'Linux' ]; then
+  case "$WINDOWMANAGER" in
+    *gnome*)
+      if [ -e /etc/SuSE-release ]; then
+        PATH=$PATH:/opt/gnome/bin
+        export PATH
+      fi
+      ;;
+  esac
+fi
+if [ -x /etc/X11/xinit/xinitrc ]; then
+  exec /etc/X11/xinit/xinitrc
+fi
+if [ -f /etc/X11/xinit/xinitrc ]; then
+  exec sh /etc/X11/xinit/xinitrc
+fi
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 xsetroot -solid grey
-exec xfce4-panel &
-exec xfce4-session &
+xfce4-terminal &
