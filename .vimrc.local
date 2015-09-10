@@ -3,6 +3,14 @@ set smartindent
 set showmode
 set ttyfast
 
+"" PHP:
+au FileType php set isk-=-
+
+"" Gtags:
+"let g:unite_source_gtags_ref_option = 'r'
+let g:unite_source_gtags_def_option = 'i'
+"let g:unite_source_gtags_result_option = 'ctags-x'
+
 "" Go:
 filetype plugin indent on
 syntax on
@@ -58,8 +66,10 @@ nnoremap <C-l> :Unite gtags/file<CR>
 nnoremap <C-g> :Unite gtags/grep<CR>
 " カーソル以下の定義元
 nnoremap <C-]> :Unite gtags/def<CR>
+vnoremap <C-]> :Unite gtags/def<CR>
 " カーソル以下の呼び出し元
 nnoremap <C-k> :Unite gtags/ref<CR>
+vnoremap <C-k> :Unite gtags/ref<CR>
 " 次の検索結果
 nnoremap <C-n> :cn<CR>
 " 前の検索結果

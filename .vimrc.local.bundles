@@ -1,3 +1,6 @@
+"" Unite:
+NeoBundle 'Shougo/unite.vim'
+
 "" Rust: language support
 NeoBundle 'rust-lang/rust.vim'
 "" Rust: Tagbar settings
@@ -43,5 +46,5 @@ NeoBundle 'vim-scripts/PreserveNoEOL'
 NeoBundle 'Shirk/vim-gas'
 
 "" Gtags:
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'hewes/unite-gtags'
+NeoBundle 'odknt/unite-gtags-custom'
