@@ -49,3 +49,18 @@ au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
 au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
+
+" 検索結果を閉じる
+nnoremap <C-q> <C-w><C-w><C-w>q
+" このファイルの関数一覧
+nnoremap <C-l> :Unite gtags/file<CR>
+" Grep
+nnoremap <C-g> :Unite gtags/grep<CR>
+" カーソル以下の定義元
+nnoremap <C-]> :Unite gtags/def<CR>
+" カーソル以下の呼び出し元
+nnoremap <C-k> :Unite gtags/ref<CR>
+" 次の検索結果
+nnoremap <C-n> :cn<CR>
+" 前の検索結果
+nnoremap <C-p> :cp<CR>
