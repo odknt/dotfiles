@@ -34,6 +34,7 @@ NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'joonty/vdebug'
 let g:vdebug_options = {
     \ 'server' : 0.0.0.0,
+    \ 'break_on_open' : 0,
     \ 'path_maps' : {
     \   '/var/haken2012' : '/home/oda/repos/en-projectB2015_new/src/haken2012'
     \ }}

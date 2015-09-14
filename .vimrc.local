@@ -3,9 +3,6 @@ set smartindent
 set showmode
 set ttyfast
 
-"" PHP:
-au FileType php set isk-=-
-
 "" Gtags:
 "let g:unite_source_gtags_ref_option = 'r'
 let g:unite_source_gtags_def_option = 'i'
@@ -58,19 +55,38 @@ au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
-" 検索結果を閉じる
-nnoremap <C-q> <C-w><C-w><C-w>q
-" このファイルの関数一覧
+"" Gtags_Keymap:
+" Show function list in current file
 nnoremap <C-l> :Unite gtags/file<CR>
 " Grep
 nnoremap <C-g> :Unite gtags/grep<CR>
-" カーソル以下の定義元
+" Show def under cursor
 nnoremap <C-]> :Unite gtags/def<CR>
 vnoremap <C-]> :Unite gtags/def<CR>
-" カーソル以下の呼び出し元
+" Show ref under cursor
 nnoremap <C-k> :Unite gtags/ref<CR>
 vnoremap <C-k> :Unite gtags/ref<CR>
-" 次の検索結果
-nnoremap <C-n> :cn<CR>
-" 前の検索結果
-nnoremap <C-p> :cp<CR>
+" Show all tokens
+nnoremap <C-/> :Unite gtags/completion<CR>
+
+"" Gvim:
+" Disable italic
+function! s:disable_italic()
+    let his = ''
+    redir => his
+    silent hi
+    redir END
+    let his = substitute(his, '\n\s\+', ' ', 'g')
+    for line in split(his, "\n")
+        if line !~ ' links to ' && line !~ ' cleared$'
+            exe 'hi' substitute(substitute(line, ' xxx ', ' ', ''), 'italic', 'none', 'g')
+        endif
+    endfor
+endfunction
+command! DisableItalic call s:disable_italic()
+if has('vim_starting')
+    call s:disable_italic()
+endif
+
+set guifont=Rounded\ M+\ 1m\ Medium\ 10
+set novb
