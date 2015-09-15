@@ -1,0 +1,3 @@
+define hookpost-up
+dashboard
+end
