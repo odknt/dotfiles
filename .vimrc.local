@@ -2,6 +2,7 @@ set autoindent
 set smartindent
 set showmode
 set ttyfast
+set guioptions=
 
 "" Gtags:
 "let g:unite_source_gtags_ref_option = 'r'
