@@ -9,3 +9,4 @@
 - vim
 - vncserver
 - xmodmap
+- xsettingsd

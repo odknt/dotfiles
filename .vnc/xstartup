@@ -21,4 +21,3 @@ if [ -f /etc/X11/xinit/xinitrc ]; then
 fi
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 xsetroot -solid grey
-xfce4-terminal &
