@@ -49,3 +49,8 @@ NeoBundle 'Shirk/vim-gas'
 "" Gtags:
 NeoBundle 'hewes/unite-gtags'
 NeoBundle 'odknt/unite-gtags-custom'
+
+"" Twitter:
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'basyura/twibill.vim'
+NeoBundle 'basyura/TweetVim'
