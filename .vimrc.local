@@ -91,3 +91,26 @@ endif
 
 set guifont=Rounded\ M+\ 1m\ Medium\ 10
 set novb
+
+"" Tweet:
+let s:tweetvim_update_interval_seconds = 60
+let s:tweetvim_timestamp = reltime()[0]
+
+function! s:tweetvim_autoupdate()
+    let current = reltime()[0]
+    if current - s:tweetvim_timestamp > s:tweetvim_update_interval_seconds
+        call feedkeys("\<Plug>(tweetvim_action_reload)")
+        let s:tweetvim_timestamp = current
+    endif
+    call feedkeys(mode() ==# 'i' ? "\<C-g>\<ESC>" : "g\<ESC>", 'n')
+endfunction
+
+function! s:tweetvim_setup_autoupdate()
+    augroup vimrc-tweetvim-autoupdate
+        autocmd!
+        autocmd CursorHold * call <SID>tweetvim_autoupdate()
+    augroup END
+endfunction
+
+command! -nargs=0 TweetVimAutoUpdate call <SID>tweetvim_setup_autoupdate()
+command! -nargs=0 TweetVimStopAutoUpdate autocmd! vimrc-tweetvim-autoupdate
