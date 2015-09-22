@@ -29,6 +29,7 @@ NeoBundle 'tpope/vim-surround'
 
 "" PHP:
 NeoBundle 'arnaud-lb/vim-php-namespace'
+NeoBundle 'everzet/phpfolding.vim'
 
 "" Vdebug:
 NeoBundle 'joonty/vdebug'
