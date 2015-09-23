@@ -55,3 +55,6 @@ NeoBundle 'odknt/unite-gtags-custom'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/TweetVim'
+
+"" Riot:
+NeoBundle 'nicklasos/vim-jsx-riot'
