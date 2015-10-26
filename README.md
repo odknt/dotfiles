@@ -24,5 +24,5 @@
 #### Arch Linux
 
 ```bash
-yaourt -S awesome xsettingsd lxappearance paper-gtk-theme-git
+yaourt -S awesome xsettingsd-git lxappearance paper-gtk-theme-git
 ```
