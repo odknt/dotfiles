@@ -1,8 +1,8 @@
-"" Unite:
-NeoBundle 'Shougo/unite.vim'
-
 "" Rust: language support
-NeoBundle 'rust-lang/rust.vim'
+NeoBundleLazy 'rust-lang/rust.vim', {
+    \ 'autoload': { 'filetypes': [ 'rust' ] }
+    \ }
+
 "" Rust: Tagbar settings
 let g:tagbar_type_rust = {
     \ 'ctagstype' : 'rust',
@@ -18,9 +18,6 @@ let g:tagbar_type_rust = {
     \]
     \}
 
-"" Go:
-NeoBundle 'vim-jp/vim-go-extra'
-
 "" Bdelete: Delete a buffer without closing the window.
 NeoBundle 'moll/vim-bbye'
 
@@ -28,16 +25,18 @@ NeoBundle 'moll/vim-bbye'
 NeoBundle 'tpope/vim-surround'
 
 "" PHP:
-NeoBundle 'arnaud-lb/vim-php-namespace'
-NeoBundle 'everzet/phpfolding.vim'
+NeoBundleLazy 'arnaud-lb/vim-php-namespace', {
+    \ 'autoload': { 'filetypes': [ 'php' ] }
+    \ }
 
 "" Vdebug:
-NeoBundle 'joonty/vdebug'
+NeoBundle 'joonty/vdebug', {
+    \ 'autoload': { 'filetypes': [ 'php' ] }
+    \ }
 let g:vdebug_options = {
     \ 'server' : 0.0.0.0,
     \ 'break_on_open' : 0,
     \ 'path_maps' : {
-    \   '/var/haken2012' : '/home/oda/repos/en-projectB2015_new/src/haken2012'
     \ }}
 
 "" EditorConfig:
@@ -45,26 +44,41 @@ NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'vim-scripts/PreserveNoEOL'
 
 "" GAS:
-NeoBundle 'Shirk/vim-gas'
+NeoBundleLazy 'Shirk/vim-gas', {
+    \ 'autoload': { 'filetypes': [ 'gas' ] }
+    \ }
 
 "" Gtags:
-NeoBundle 'hewes/unite-gtags'
-NeoBundle 'odknt/unite-gtags-custom'
+NeoBundleLazy 'odknt/unite-gtags-custom', {
+    \ 'autoload': { 'filetypes': [ 'php' ] },
+    \ 'depends': [ 'hewes/unite-gtags', 'Shougo/unite.vim' ]
+    \ }
 
 "" Twitter:
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/TweetVim'
+NeoBundleLazy 'basyura/twibill.vim', {
+    \ 'autoload': { 'command': [ 'TweetVimHomeTimeline' ] },
+    \ 'depends': [ 'tyru/open-browser.vim', 'Shougo/unite.vim' ]
+    \ }
 
 "" Riot:
-NeoBundle 'nicklasos/vim-jsx-riot'
+NeoBundleLazy 'nicklasos/vim-jsx-riot', {
+    \ 'autoload': { 'filetypes': [ 'javascript' ] }
+    \ }
 
 "" Watchdogs:
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'osyo-manga/shabadou.vim'
-NeoBundle 'osyo-manga/vim-watchdogs'
+NeoBundleLazy 'osyo-manga/vim-watchdogs', {
+    \ 'autoload': { 'filetypes': [ 'typescript', 'go', 'php' ] },
+    \ 'depends': [ 'thinca/vim-quickrun', 'osyo-manga/shabadou.vim' ]
+    \ }
 
 "" Typescript:
-NeoBundle 'clausreinke/typescript-tools.vim'
-auto FileType typescript setlocal omnifunc=TSScompleteFunc
-let g:TSS = ['tss', '--module', 'commonjs']
+NeoBundleLazy 'clausreinke/typescript-tools.vim', {
+    \ 'build': 'npm install -g',
+    \ 'autoload': { 'filetypes': [ 'typescript' ] }
+    \ }
+if exists('*TSScompleteFunc')
+    auto FileType typescript setlocal omnifunc=TSScompleteFunc
+    let g:TSS = ['tss', '--module', 'commonjs']
+    let g:neocomplete#sources#omni#input_patterns.typescript = '\h\w*\|[^. \t]\.\w*'
+endif

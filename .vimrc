@@ -76,9 +76,6 @@ NeoBundle 'honza/vim-snippets'
 "" Color
 NeoBundle 'tomasr/molokai'
 
-"" Vim-Bootstrap Updater
-NeoBundle 'sherzberg/vim-bootstrap-updater'
-
 if v:version >= 703
   NeoBundle 'Shougo/vimshell.vim'
 endif
@@ -88,31 +85,30 @@ if v:version >= 704
 endif
 
 "" Custom bundles
+NeoBundle "Yggdroot/indentLine"
+NeoBundleLazy "scrooloose/syntastic", {
+    \ 'autoload': { 'filetypes': [ 'javascript', 'python' ] }
+    \ }
+NeoBundleLazy "majutsushi/tagbar", {
+    \ 'autoload': { 'filetypes': [ 'go', 'python', 'rust', 'php' ] }
+    \ }
 
 "" Python Bundle
-NeoBundle "davidhalter/jedi-vim"
-NeoBundle "scrooloose/syntastic"
-NeoBundle "majutsushi/tagbar"
-NeoBundle "Yggdroot/indentLine"
-
+NeoBundleLazy "davidhalter/jedi-vim", {
+    \ 'autoload': { 'filetypes': [ 'python' ] }
+    \ }
 
 "" Go Lang Bundle
-NeoBundle "majutsushi/tagbar"
-NeoBundle "fatih/vim-go"
-
-
-"" Javascript Bundle
-NeoBundle "scrooloose/syntastic"
-
+NeoBundleLazy 'vim-jp/vim-go-extra', {
+    \ 'autoload': { 'filetypes': [ 'go' ] },
+    \ 'depends': [ 'fatih/vim-go' ]
+    \ }
 
 "" HTML Bundle
-NeoBundle 'amirh/HTML-AutoCloseTag'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'gorodinskiy/vim-coloresque'
-NeoBundle 'tpope/vim-haml'
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+    \ 'autoload': { 'filetypes': [ 'css', 'less', 'sass', 'scss' ] }
+    \ }
 NeoBundle 'mattn/emmet-vim'
-
-
 
 "" Include user's extra bundle
 if filereadable(expand("~/.vimrc.local.bundles"))
@@ -503,11 +499,6 @@ let g:syntastic_python_flake8_post_args='--ignore=W391'
 " vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
-
-" Tagbar
-nmap <silent> <F4> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-
 
 " Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
