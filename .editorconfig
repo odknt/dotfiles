@@ -43,7 +43,7 @@ max_line_length = 80
 ############################################################################
 ## HTML, JS, CSS base languages
 ############################################################################
-[*.{html,htm,tmpl,tpl,css,less,scss,js,jsx,coffee,yml,yaml,toml,json}]
+[*.{html,htm,tmpl,tpl,css,less,scss,js,ts,jsx,coffee,yml,yaml,toml,json}]
 indent_size = 2
 
 ############################################################################

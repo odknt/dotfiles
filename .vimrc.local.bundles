@@ -58,3 +58,13 @@ NeoBundle 'basyura/TweetVim'
 
 "" Riot:
 NeoBundle 'nicklasos/vim-jsx-riot'
+
+"" Watchdogs:
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'osyo-manga/shabadou.vim'
+NeoBundle 'osyo-manga/vim-watchdogs'
+
+"" Typescript:
+NeoBundle 'clausreinke/typescript-tools.vim'
+auto FileType typescript setlocal omnifunc=TSScompleteFunc
+let g:TSS = ['tss', '--module', 'commonjs']
