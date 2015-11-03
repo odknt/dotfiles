@@ -1,6 +1,3 @@
-"" Unite:
-NeoBundle 'Shougo/unite.vim'
-
 "" Rust: language support
 NeoBundleLazy 'rust-lang/rust.vim', {
     \ 'autoload': { 'filetypes': [ 'rust' ] }
@@ -54,14 +51,14 @@ NeoBundleLazy 'Shirk/vim-gas', {
 "" Gtags:
 NeoBundleLazy 'odknt/unite-gtags-custom', {
     \ 'autoload': { 'filetypes': [ 'php' ] },
-    \ 'depends': [ 'hewes/unite-gtags' ]
+    \ 'depends': [ 'hewes/unite-gtags', 'Shougo/unite.vim' ]
     \ }
 
 "" Twitter:
 NeoBundle 'basyura/TweetVim'
 NeoBundleLazy 'basyura/twibill.vim', {
     \ 'autoload': { 'command': [ 'TweetVimHomeTimeline' ] },
-    \ 'depends': [ 'tyru/open-browser.vim' ]
+    \ 'depends': [ 'tyru/open-browser.vim', 'Shougo/unite.vim' ]
     \ }
 
 "" Riot:
@@ -78,7 +75,8 @@ NeoBundleLazy 'osyo-manga/vim-watchdogs', {
 "" Typescript:
 NeoBundleLazy 'clausreinke/typescript-tools.vim', {
     \ 'build': 'npm install -g',
-    \ 'autoload': { 'filetypes': [ 'typescript' ] }
+    \ 'autoload': { 'filetypes': [ 'typescript' ] },
+    \ 'depends': [ 'osyo-manga/vim-watchdogs' ]
     \ }
 auto FileType typescript setlocal omnifunc=TSScompleteFunc
 let g:TSS = ['tss', '--module', 'commonjs']
