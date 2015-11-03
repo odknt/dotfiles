@@ -78,5 +78,3 @@ NeoBundleLazy 'clausreinke/typescript-tools.vim', {
     \ 'autoload': { 'filetypes': [ 'typescript' ] },
     \ 'depends': [ 'osyo-manga/vim-watchdogs' ]
     \ }
-auto FileType typescript setlocal omnifunc=TSScompleteFunc
-let g:TSS = ['tss', '--module', 'commonjs']
