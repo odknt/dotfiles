@@ -1,3 +1,6 @@
+"" Unite:
+NeoBundle 'Shougo/unite.vim'
+
 "" Rust: language support
 NeoBundleLazy 'rust-lang/rust.vim', {
     \ 'autoload': { 'filetypes': [ 'rust' ] }
@@ -51,14 +54,14 @@ NeoBundleLazy 'Shirk/vim-gas', {
 "" Gtags:
 NeoBundleLazy 'odknt/unite-gtags-custom', {
     \ 'autoload': { 'filetypes': [ 'php' ] },
-    \ 'depends': [ 'hewes/unite-gtags', 'Shougo/unite.vim' ]
+    \ 'depends': [ 'hewes/unite-gtags' ]
     \ }
 
 "" Twitter:
 NeoBundle 'basyura/TweetVim'
 NeoBundleLazy 'basyura/twibill.vim', {
     \ 'autoload': { 'command': [ 'TweetVimHomeTimeline' ] },
-    \ 'depends': [ 'tyru/open-browser.vim', 'Shougo/unite.vim' ]
+    \ 'depends': [ 'tyru/open-browser.vim' ]
     \ }
 
 "" Riot:
