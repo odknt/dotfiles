@@ -79,4 +79,3 @@ NeoBundleLazy 'clausreinke/typescript-tools.vim', {
     \ }
 auto FileType typescript setlocal omnifunc=TSScompleteFunc
 let g:TSS = ['tss', '--module', 'commonjs']
-let g:neocomplete#sources#omni#input_patterns.typescript = '\h\w*\|[^. \t]\.\w*'
