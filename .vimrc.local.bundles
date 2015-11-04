@@ -68,8 +68,9 @@ NeoBundleLazy 'nicklasos/vim-jsx-riot', {
 
 "" Watchdogs:
 NeoBundleLazy 'osyo-manga/vim-watchdogs', {
-    \ 'autoload': { 'filetypes': [ 'typescript', 'go', 'php' ] },
-    \ 'depends': [ 'thinca/vim-quickrun', 'osyo-manga/shabadou.vim' ]
+    \ 'autoload': { 'filetypes': [ 'typescript', 'go', 'php', 'python', 'vim', 'lua' ] },
+    \ 'depends': [ 'thinca/vim-quickrun', 'osyo-manga/shabadou.vim', 'jceb/vim-hier',
+    \   'dannyob/quickfixstatus' ]
     \ }
 
 "" Typescript:
