@@ -1,3 +1,10 @@
+"" Easymotion:
+NeoBundle 'easymotion/vim-easymotion'
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_leader_key= "'"
+let g:EasyMotion_grouping=1
+let g:EasyMotion_use_migemo=1
+
 "" Rust: language support
 NeoBundleLazy 'rust-lang/rust.vim', {
     \ 'autoload': { 'filetypes': [ 'rust' ] }
@@ -69,7 +76,7 @@ NeoBundleLazy 'nicklasos/vim-jsx-riot', {
 "" Watchdogs:
 NeoBundleLazy 'osyo-manga/vim-watchdogs', {
     \ 'autoload': { 'filetypes': [ 'typescript', 'go', 'php', 'python', 'vim', 'lua' ] },
-    \ 'depends': [ 'thinca/vim-quickrun', 'osyo-manga/shabadou.vim', 'jceb/vim-hier',
+    \ 'depends': [ 'thinca/vim-quickrun', 'osyo-manga/shabadou.vim', 'jceb/vim-hier', 'dannyob/quickfixstatus',
     \   'dannyob/quickfixstatus' ]
     \ }
 
