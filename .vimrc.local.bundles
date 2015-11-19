@@ -1,5 +1,12 @@
+"" VimPlug: variables for lazy load
+let b:for_unite = [ 'unite' ]
+let b:for_gtags_custom = [ 'php' ]
+let b:on_unite = [ 'Unite' ]
+let b:on_tweetvim = [ 'TweetVimHomeTimeline' ]
+let b:on_watchdogs = [ 'WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep' ]
+
 "" Unite:
-Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite.vim', { 'on': 'Unite', 'for': [ 'unite' ] }
 
 "" QuickRun:
 Plug 'thinca/vim-quickrun'
@@ -55,13 +62,13 @@ Plug 'vim-scripts/PreserveNoEOL'
 Plug 'Shirk/vim-gas', { 'for': [ 'gas' ] }
 
 "" Gtags:
-Plug 'hewes/unite-gtags', { 'for': [ 'php' ] } |
-    \ Plug 'odknt/unite-gtags-custom', { 'for': [ 'php' ] }
+Plug 'hewes/unite-gtags', { 'on': b:on_unite, 'for': b:for_unite } |
+    \ Plug 'odknt/unite-gtags-custom', { 'for': b:for_gtags_custom }
 
 "" Twitter:
 Plug 'basyura/TweetVim'
 Plug 'tyru/open-browser.vim' |
-    \ Plug 'basyura/twibill.vim', { 'on': [ 'TweetVimHomeTimeline' ] }
+    \ Plug 'basyura/twibill.vim', { 'on': b:on_tweetvim }
 
 "" Riot:
 Plug 'nicklasos/vim-jsx-riot', { 'for': [ 'javascript' ] }
@@ -70,11 +77,10 @@ Plug 'nicklasos/vim-jsx-riot', { 'for': [ 'javascript' ] }
 Plug 'syngan/vim-vimlint'
 
 "" Watchdogs:
-Plug 'dannyob/quickfixstatus' |
-Plug 'jceb/vim-hier' |
-Plug 'osyo-manga/shabadou.vim' |
-    \ Plug 'osyo-manga/vim-watchdogs', {
-    \   'on': [ 'WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep' ] } |
+Plug 'dannyob/quickfixstatus', { 'on': b:on_watchdogs } |
+Plug 'jceb/vim-hier', { 'on': b:on_watchdogs } |
+Plug 'osyo-manga/shabadou.vim', { 'on': b:on_watchdogs } |
+    \ Plug 'osyo-manga/vim-watchdogs', { 'on': b:on_watchdogs } |
 "" Typescript:
     \ Plug 'clausreinke/typescript-tools.vim', {
     \   'do': 'npm install -g',
