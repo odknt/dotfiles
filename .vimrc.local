@@ -1,7 +1,9 @@
 set autoindent
 set smartindent
 set showmode
-set ttyfast
+set lazyredraw
+set nottyfast
+set mouse=a
 set guioptions=
 
 "" Watchdogs:

@@ -1,6 +1,5 @@
 "" VimPlug: variables for lazy load
 let b:for_unite = [ 'unite' ]
-let b:for_gtags_custom = [ 'php' ]
 let b:on_unite = [ 'Unite' ]
 let b:on_tweetvim = [ 'TweetVimHomeTimeline' ]
 let b:on_watchdogs = [ 'WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep' ]
@@ -63,7 +62,7 @@ Plug 'Shirk/vim-gas', { 'for': [ 'gas' ] }
 
 "" Gtags:
 Plug 'hewes/unite-gtags', { 'on': b:on_unite, 'for': b:for_unite } |
-    \ Plug 'odknt/unite-gtags-custom', { 'for': b:for_gtags_custom }
+    \ Plug 'odknt/unite-gtags-custom', { 'on': b:on_unite, 'for': b:for_unite }
 
 "" Twitter:
 Plug 'basyura/TweetVim'
