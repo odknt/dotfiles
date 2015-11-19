@@ -2,7 +2,6 @@ set autoindent
 set smartindent
 set showmode
 set lazyredraw
-set nottyfast
 set mouse=a
 set guioptions=
 
