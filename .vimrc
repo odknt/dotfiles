@@ -1,134 +1,103 @@
 "*****************************************************************************
-"" NeoBundle core
+"" vim-plug core
 "*****************************************************************************
-
 if has('vim_starting')
-  set nocompatible               " Be iMproved
-
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+    " Required:
+    set runtimepath+=~/.vim/plugged/vim-plug/
+    if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+        echo 'install vim-plug...'
+        call system('mkdir -p ~/.vim/plugged/vim-plug')
+        call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+    endif
 endif
 
-let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
-
-let g:vim_bootstrap_langs = "javascript,python,html,go"
-let g:vim_bootstrap_editor = "vim"				" nvim or vim
-
-if !filereadable(neobundle_readme)
-  echo "Installing NeoBundle..."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim/
-  let g:not_finsh_neobundle = "yes"
-
-  " Run shell script if exist on custom select language
-
-
-
-
-
-
-
-
-
-endif
+let g:vim_bootstrap_langs = 'javascript,python,html,go'
+let g:vim_bootstrap_editor = 'vim'
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+call g:plug#begin('~/.vim/plugged/')
 
 "*****************************************************************************
-"" NeoBundle install packages
+"" vim-plug install packages
 "*****************************************************************************
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'sheerun/vim-polyglot'
-NeoBundle 'vim-scripts/grep.vim'
-NeoBundle 'vim-scripts/CSApprox'
-NeoBundle 'bronson/vim-trailing-whitespace'
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+"" Filer: NERDTree
+Plug 'scrooloose/nerdtree', { 'on': [ 'NERDTreeToggle', 'NERDTreeFind' ] }
+"" Commentary:
+Plug 'tpope/vim-commentary', {
+    \ 'on': [ 'Commentary', 'CommentaryLine', 'CommentaryUndo', 'ChangeCommentary' ]
+    \ }
+"" Git:
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+"" CtrlP: Grep file path
+Plug 'ctrlpvim/ctrlp.vim'
+"" Airline: Enchansment status bar like Powerline
+Plug 'bling/vim-airline'
+"" LanguagePack:
+Plug 'sheerun/vim-polyglot'
+"" Utils:
+Plug 'vim-scripts/grep.vim'
+Plug 'bronson/vim-trailing-whitespace'
+"" VimProc: Required
+Plug 'Shougo/vimproc.vim', { 'do' : 'make -f make_unix.mak' }
 
-"" Vim-Session
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-session'
+"" VimSession:
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
-"" Snippets
+"" Color:
+Plug 'vim-scripts/CSApprox'
+Plug 'tomasr/molokai'
+
+"" Snippets:
 if v:version >= 704
-  NeoBundle 'SirVer/ultisnips'
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+  Plug 'FelikZ/ctrlp-py-matcher'
 endif
 
-NeoBundle 'honza/vim-snippets'
-
-"" Color
-NeoBundle 'tomasr/molokai'
-
+"" Shell:
 if v:version >= 703
-  NeoBundle 'Shougo/vimshell.vim'
+  Plug 'Shougo/vimshell.vim'
 endif
 
-if v:version >= 704
-  NeoBundle 'FelikZ/ctrlp-py-matcher'
-endif
-
-"" Custom bundles
-NeoBundle "Yggdroot/indentLine"
-NeoBundleLazy "scrooloose/syntastic", {
-    \ 'autoload': { 'filetypes': [ 'javascript', 'python' ] }
+"" Custom:
+Plug 'Yggdroot/indentLine'
+Plug 'scrooloose/syntastic', {
+    \ 'for': [ 'javascript', 'python' ],
     \ }
-NeoBundleLazy "majutsushi/tagbar", {
-    \ 'autoload': { 'filetypes': [ 'go', 'python', 'rust', 'php' ] }
+Plug 'majutsushi/tagbar', {
+    \ 'for': [ 'go', 'python', 'rust', 'php' ],
     \ }
 
-"" Python Bundle
-NeoBundleLazy "davidhalter/jedi-vim", {
-    \ 'autoload': { 'filetypes': [ 'python' ] }
+"" Python:
+Plug 'davidhalter/jedi-vim', {
+    \ 'for': [ 'python' ],
     \ }
 
-"" Go Lang Bundle
-NeoBundleLazy 'vim-jp/vim-go-extra', {
-    \ 'autoload': { 'filetypes': [ 'go' ] },
-    \ 'depends': [ 'fatih/vim-go' ]
-    \ }
+"" Golang:
+Plug 'fatih/vim-go', { 'for': [ 'go' ] } |
+    \ Plug 'vim-jp/vim-go-extra', { 'for': [ 'go' ] }
 
-"" HTML Bundle
-NeoBundleLazy 'hail2u/vim-css3-syntax', {
-    \ 'autoload': { 'filetypes': [ 'css', 'less', 'sass', 'scss' ] }
-    \ }
-NeoBundle 'mattn/emmet-vim'
+"" HTML:
+Plug 'hail2u/vim-css3-syntax', { 'for': [ 'css', 'less', 'sass', 'scss' ] }
+Plug 'mattn/emmet-vim', { 'for': [ 'html', 'js', 'jsx', 'markdown', 'typescript' ] }
 
 "" Include user's extra bundle
-if filereadable(expand("~/.vimrc.local.bundles"))
+if filereadable(expand('~/.vimrc.local.bundles'))
   source ~/.vimrc.local.bundles
 endif
 
-call neobundle#end()
+call g:plug#end()
 
 " Required:
 filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
 
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
 "" Encoding
 set encoding=utf-8
+scriptencoding utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
@@ -142,7 +111,7 @@ set shiftwidth=4
 set expandtab
 
 "" Map leader to ,
-let mapleader=','
+let g:mapleader=','
 
 "" Enable hidden buffers
 set hidden
@@ -167,9 +136,9 @@ set showcmd
 set shell=/bin/sh
 
 " session management
-let g:session_directory = "~/.vim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
+let g:session_directory = '~/.vim/session'
+let g:session_autoload = 'no'
+let g:session_autosave = 'no'
 let g:session_command_aliases = 1
 
 "*****************************************************************************
@@ -179,7 +148,7 @@ syntax on
 set ruler
 set number
 
-let no_buffers_menu=1
+let g:no_buffers_menu=1
 if !exists('g:not_finsh_neobundle')
   colorscheme molokai
 endif
@@ -190,24 +159,24 @@ set t_Co=256
 set guioptions=egmrti
 set gfn=Monospace\ 10
 
-if has("gui_running")
-  if has("gui_mac") || has("gui_macvim")
+if has('gui_running')
+  if has('gui_mac') || has('gui_macvim')
     set guifont=Menlo:h12
     set transparency=7
   endif
 else
   let g:CSApprox_loaded = 1
 
-  if $COLORTERM == 'gnome-terminal'
+  if $COLORTERM ==# 'gnome-terminal'
     set term=gnome-256color
   else
-    if $TERM == 'xterm'
+    if $TERM ==# 'xterm'
       set term=xterm-256color
     endif
   endif
 endif
 
-if &term =~ '256color'
+if &term =~# '256color'
   set t_ut=
 endif
 
@@ -234,7 +203,7 @@ set titlestring=%F
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
-if exists("*fugitive#statusline")
+if exists('*fugitive#statusline')
   set statusline+=%{fugitive#statusline()}
 endif
 
@@ -278,6 +247,7 @@ else
   let g:airline_symbols.readonly = ''
   let g:airline_symbols.linenr = ''
 endif
+
 "*****************************************************************************
 "" Abbreviations
 "*****************************************************************************
@@ -307,14 +277,14 @@ noremap <F3> :NERDTreeToggle<CR>
 
 " grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
-let Grep_Default_Options = '-IR'
+let g:Grep_Default_Options = '-IR'
 
 " vimshell.vim
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_prompt =  '$ '
 
 " terminal emulation
-if g:vim_bootstrap_editor == 'nvim'
+if g:vim_bootstrap_editor ==# 'nvim'
   nnoremap <silent> <leader>sh :terminal<CR>
 else
   nnoremap <silent> <leader>sh :VimShellCreate<CR>
@@ -335,28 +305,28 @@ endif
 "" Autocmd Rules
 "*****************************************************************************
 "" The PC is fast enough, do syntax highlight syncing from start
-augroup vimrc-sync-fromstart
-  autocmd!
-  autocmd BufEnter * :syntax sync fromstart
+augroup vimrc_sync_fromstart
+  au!
+  au BufEnter * :syntax sync fromstart
 augroup END
 
 "" Remember cursor position
-augroup vimrc-remember-cursor-position
-  autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup vimrc_remember_cursor_position
+  au!
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 "" txt
-augroup vimrc-wrapping
-  autocmd!
-  autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
+augroup vimrc_wrapping
+  au!
+  au BufRead,BufNewFile *.txt call s:setupWrapping()
 augroup END
 
 "" make/cmake
-augroup vimrc-make-cmake
-  autocmd!
-  autocmd FileType make setlocal noexpandtab
-  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
+augroup vimrc_make_cmake
+  au!
+  au FileType make setlocal noexpandtab
+  au BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
 set autoread
@@ -410,10 +380,10 @@ let g:ctrlp_map = '<leader>e'
 let g:ctrlp_open_new_file = 'r'
 
 " snippets
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<c-b>'
+let g:UltiSnipsEditSplit='vertical'
 
 " syntastic
 let g:syntastic_always_populate_loc_list=1
@@ -423,7 +393,6 @@ let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
-
 
 " Disable visualbell
 set visualbell t_vb=
@@ -475,22 +444,22 @@ noremap ,o :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=lin
 "" Custom configs
 
 " vim-python
-augroup vimrc-python
-  autocmd!
-  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
+augroup vimrc_python
+  au!
+  au FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
       \ formatoptions+=croq softtabstop=4 smartindent
       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
 
 " jedi-vim
 let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "0"
-let g:jedi#completions_command = "<C-Space>"
+let g:jedi#goto_assignments_command = '<leader>g'
+let g:jedi#goto_definitions_command = '<leader>d'
+let g:jedi#documentation_command = 'K'
+let g:jedi#usages_command = '<leader>n'
+let g:jedi#rename_command = '<leader>r'
+let g:jedi#show_call_signatures = '0'
+let g:jedi#completions_command = '<C-Space>'
 
 " syntastic
 let g:syntastic_python_checkers=['python', 'flake8']
@@ -532,14 +501,9 @@ augroup FileType go
   au FileType go nmap <leader>gt <Plug>(go-test)
 augroup END
 
-
 let g:javascript_enable_domhtmlcss = 1
 
-
-
-
-
 "" Include user's local vim config
-if filereadable(expand("~/.vimrc.local"))
+if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif

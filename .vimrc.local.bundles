@@ -1,14 +1,19 @@
+"" Unite:
+Plug 'Shougo/unite.vim'
+
+"" QuickRun:
+Plug 'thinca/vim-quickrun'
+let g:quickrun_config = { '*': { 'hook/time/enable': '1' } }
+
 "" Easymotion:
-NeoBundle 'easymotion/vim-easymotion'
-let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key= "'"
-let g:EasyMotion_grouping=1
-let g:EasyMotion_use_migemo=1
+Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_leader_key = "'"
+let g:EasyMotion_grouping = 1
+let g:EasyMotion_use_migemo = 1
 
 "" Rust: language support
-NeoBundleLazy 'rust-lang/rust.vim', {
-    \ 'autoload': { 'filetypes': [ 'rust' ] }
-    \ }
+Plug 'rust-lang/rust.vim', { 'for': [ 'rust' ] }
 
 "" Rust: Tagbar settings
 let g:tagbar_type_rust = {
@@ -26,20 +31,16 @@ let g:tagbar_type_rust = {
     \}
 
 "" Bdelete: Delete a buffer without closing the window.
-NeoBundle 'moll/vim-bbye'
+Plug 'moll/vim-bbye'
 
 "" Vim Surround:
-NeoBundle 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 "" PHP:
-NeoBundleLazy 'arnaud-lb/vim-php-namespace', {
-    \ 'autoload': { 'filetypes': [ 'php' ] }
-    \ }
+Plug 'arnaud-lb/vim-php-namespace', { 'for': [ 'php' ] }
 
 "" Vdebug:
-NeoBundle 'joonty/vdebug', {
-    \ 'autoload': { 'filetypes': [ 'php' ] }
-    \ }
+Plug 'joonty/vdebug', { 'for': [ 'php' ] }
 let g:vdebug_options = {
     \ 'server' : 0.0.0.0,
     \ 'break_on_open' : 0,
@@ -47,42 +48,35 @@ let g:vdebug_options = {
     \ }}
 
 "" EditorConfig:
-NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'vim-scripts/PreserveNoEOL'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'vim-scripts/PreserveNoEOL'
 
 "" GAS:
-NeoBundleLazy 'Shirk/vim-gas', {
-    \ 'autoload': { 'filetypes': [ 'gas' ] }
-    \ }
+Plug 'Shirk/vim-gas', { 'for': [ 'gas' ] }
 
 "" Gtags:
-NeoBundleLazy 'odknt/unite-gtags-custom', {
-    \ 'autoload': { 'filetypes': [ 'php' ] },
-    \ 'depends': [ 'hewes/unite-gtags', 'Shougo/unite.vim' ]
-    \ }
+Plug 'hewes/unite-gtags', { 'for': [ 'php' ] } |
+    \ Plug 'odknt/unite-gtags-custom', { 'for': [ 'php' ] }
 
 "" Twitter:
-NeoBundle 'basyura/TweetVim'
-NeoBundleLazy 'basyura/twibill.vim', {
-    \ 'autoload': { 'command': [ 'TweetVimHomeTimeline' ] },
-    \ 'depends': [ 'tyru/open-browser.vim', 'Shougo/unite.vim' ]
-    \ }
+Plug 'basyura/TweetVim'
+Plug 'tyru/open-browser.vim' |
+    \ Plug 'basyura/twibill.vim', { 'on': [ 'TweetVimHomeTimeline' ] }
 
 "" Riot:
-NeoBundleLazy 'nicklasos/vim-jsx-riot', {
-    \ 'autoload': { 'filetypes': [ 'javascript' ] }
-    \ }
+Plug 'nicklasos/vim-jsx-riot', { 'for': [ 'javascript' ] }
+
+"" Vimscript:
+Plug 'syngan/vim-vimlint'
 
 "" Watchdogs:
-NeoBundleLazy 'osyo-manga/vim-watchdogs', {
-    \ 'autoload': { 'filetypes': [ 'typescript', 'go', 'php', 'python', 'vim', 'lua' ] },
-    \ 'depends': [ 'thinca/vim-quickrun', 'osyo-manga/shabadou.vim', 'jceb/vim-hier', 'dannyob/quickfixstatus',
-    \   'dannyob/quickfixstatus' ]
-    \ }
-
+Plug 'dannyob/quickfixstatus' |
+Plug 'jceb/vim-hier' |
+Plug 'osyo-manga/shabadou.vim' |
+    \ Plug 'osyo-manga/vim-watchdogs', {
+    \   'on': [ 'WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep' ] } |
 "" Typescript:
-NeoBundleLazy 'clausreinke/typescript-tools.vim', {
-    \ 'build': 'npm install -g',
-    \ 'autoload': { 'filetypes': [ 'typescript' ] },
-    \ 'depends': [ 'osyo-manga/vim-watchdogs' ]
+    \ Plug 'clausreinke/typescript-tools.vim', {
+    \   'do': 'npm install -g',
+    \   'for': [ 'typescript' ]
     \ }
