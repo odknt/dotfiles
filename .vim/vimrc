@@ -78,6 +78,7 @@ set mouse=a
 syntax on
 set ruler
 set number
+set ttyfast
 set lazyredraw
 set foldmethod=marker
 
@@ -90,9 +91,10 @@ set t_Co=256
 " Disable visualbell
 set visualbell t_vb=
 
-" {{{2 set cursorline
+" {{{2 Gvim
 set guioptions=
-set gfn=Monospace\ 10
+set guifont=Rounded\ M+\ 1m\ Medium\ 10
+set novb
 
 if has('gui_running')
   if has('gui_mac') || has('gui_macvim')
@@ -197,13 +199,54 @@ cnoreabbrev Q q
 cnoreabbrev Qall qall
 
 " {{{1 Functions
-
+" {{{2 StartupWrapping
 if !exists('*s:setupWrapping')
   function s:setupWrapping()
     set wrap
     set wm=2
     set textwidth=79
   endfunction
+endif
+
+" {{{2 Twitter
+function! s:tweetvim_autoupdate()
+    let l:current = reltime()[0]
+    if l:current - s:tweetvim_timestamp > s:tweetvim_update_interval_seconds
+        call feedkeys("\<Plug>(tweetvim_action_reload)")
+        let s:tweetvim_timestamp = l:current
+    endif
+    call feedkeys(mode() ==# 'i' ? "\<C-g>\<ESC>" : "g\<ESC>", 'n')
+endfunction
+
+function! s:tweetvim_setup_autoupdate()
+    augroup vimrc_local_tweetvim_autoupdate
+        au!
+        au CursorHold * call <SID>tweetvim_autoupdate()
+    augroup END
+endfunction
+
+command! -nargs=0 TweetVimAutoUpdate call <SID>tweetvim_setup_autoupdate()
+command! -nargs=0 TweetVimStopAutoUpdate au! vimrc_local_tweetvim_autoupdate
+
+" {{{2 Gvim
+
+" Disable italic
+function! s:disable_italic()
+    let l:his = ''
+    redir => l:his
+    silent hi
+    redir END
+    let l:his = substitute(l:his, '\n\s\+', ' ', 'g')
+    for l:line in split(l:his, "\n")
+        if l:line !~# ' links to ' && l:line !~# ' cleared$'
+            exe 'hi' substitute(substitute(l:line, ' xxx ', ' ', ''), 'italic', 'none', 'g')
+        endif
+    endfor
+endfunction
+command! DisableItalic call s:disable_italic()
+
+if has('vim_starting')
+    call s:disable_italic()
 endif
 
 " {{{1 Autocmd Rules
@@ -233,6 +276,22 @@ augroup vimrc_make_cmake
 augroup END
 
 set autoread
+
+" {{{2 Watchdogs
+augroup vimrc_local_watchdogs
+    autocmd!
+    autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
+augroup END
+
+" {{{2 Omni
+augroup vimrc_local_omni
+    au!
+    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
 
 " {{{1 Mappings
 " {{{2 Split
@@ -362,6 +421,48 @@ let g:jedi#completions_command = '<C-Space>'
 " {{{2 Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
 
+" {{{2 set mapleader to ;
+let g:mapleader = ';'
+
+" {{{2 Watchdogs
+nnoremap <C-c> :WatchdogsRunSilent<CR>
+
+" {{{2 Go
+augroup vimrc_local_golang
+    au!
+    au FileType go nmap <leader>r <Plug>(go-run)
+    au FileType go nmap <leader>b <Plug>(go-build)
+    au FileType go nmap <leader>t <Plug>(go-test)
+    au FileType go nmap <leader>c <Plug>(go-coverage)
+    au FileType go nmap <Leader>ds <Plug>(go-def-split)
+    au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+    au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+    au FileType go nmap <Leader>gd <Plug>(go-doc)
+    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+    au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+    au FileType go nmap <Leader>s <Plug>(go-implements)
+    au FileType go nmap <Leader>i <Plug>(go-info)
+    au FileType go nmap <Leader>e <Plug>(go-rename)
+augroup END
+
+" {{{2 Bbye
+nnoremap <Leader>c :Bdelete<CR>
+
+" {{{2 Gtags
+
+" Show function list in current file
+nnoremap <C-l> :Unite gtags/file<CR>
+" Grep
+nnoremap <C-g> :Unite gtags/grep<CR>
+" Show def under cursor
+nnoremap <C-]> :Unite gtags/def<CR>
+vnoremap <C-]> :Unite gtags/def<CR>
+" Show ref under cursor
+nnoremap <C-k> :Unite gtags/ref<CR>
+vnoremap <C-k> :Unite gtags/ref<CR>
+" Show all tokens
+nnoremap <C-/> :Unite gtags/completion<CR>
+
 " {{{1 Custom configs
 " {{{2 vim-python
 augroup vimrc_python
@@ -389,7 +490,86 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
     \ }
 
-" {{{1 syntastic
+" {{{2 Watchdogs
+
+" Watchdogs target language's extension
+let $watchdogs_target = '*.js,*.ts,*.go,*.php,*.py,*.lua,*.vim*'
+let g:watchdogs_check_CursorHold_enable = 1
+let g:watchdogs_check_BufWritePost_enable = 1
+
+" {{{2 QuickrunConfig
+let g:quickrun_config = {
+    \   '_': {
+    \       'runner': 'vimproc',
+    \       'runner/vimproc/updatetime': 10
+    \   },
+    \   'watchdogs_checker/_': {
+    \       'outputter/quickfix/open_cmd': '',
+    \       'runner/vimproc/updatetime': 10
+    \   },
+    \   'vim/watchdogs_checker': {
+    \       'type': executable('vint') ? 'watchdogs_checker/vint' : 'watchdogs_checker/vim-vimlint'
+    \   },
+    \   'watchdogs_checker/vint': {
+    \       'command': 'vint',
+    \       'exec': '%c %o %s:p'
+    \   },
+    \   'watchdogs_checker/php': {
+    \       'command': 'php',
+    \       'cmdopt':  '-l -d error_reporting=E_ALL -d display_errors=1 -d display_startup_errors=1 -d log_errors=0 -d xdebug.cli_color=0',
+    \        'exec':    '%c %o %s:p',
+    \        'errorformat': '%m\ in\ %f\ on\ line\ %l'
+    \   },
+    \   'watchdogs_checker/tslint': {
+    \       'command': 'tslint',
+    \       'exec': '%c %o %s:p',
+    \       'cmdopt': '--module commonjs'
+    \   },
+    \   'typescript/watchdogs_checker': {
+    \       'type': 'watchdogs_checker/tslint'
+    \   }
+    \ }
+
+" {{{2 Gtags
+"let g:unite_source_gtags_ref_option = 'r'
+let g:unite_source_gtags_def_option = 'i'
+"let g:unite_source_gtags_result_option = 'ctags-x'
+
+" {{{2 Go
+filetype plugin indent on
+syntax on
+auto BufWritePre *.go Fmt
+let $GOPATH = $GOPATH . globpath(getcwd(), '_vendor')
+set completeopt=menu
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_fail_silently = 1
+
+" {{{2 Ctags looks up and up
+set tags=./tags;/,tags;/
+
+" {{{2 Riot
+au BufRead,BufNewFile *.tag set filetype=javascript
+let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
+
+" {{{2 TweetVim
+let s:tweetvim_update_interval_seconds = 60
+let s:tweetvim_timestamp = reltime()[0]
+
+" {{{2 Markdown
+set syntax=markdown
+au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+
+" {{{2 Clipboard
+set clipboard=unnamed
+
+" {{{1 Syntastic
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -403,6 +583,7 @@ let g:syntastic_python_flake8_post_args='--ignore=W391'
 let g:javascript_enable_domhtmlcss = 1
 
 " {{{1 Include user's local vim config
-if filereadable(expand($VIMHOME . '/.vim/vimrc.local'))
-  source $VIMHOME/.vim/vimrc.local
+" {{{2 Load local configuration
+if filereadable(expand($VIMHOME . '/.vim/local.vim'))
+  source $VIMHOME/.vim/local.vim
 endif
