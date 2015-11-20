@@ -1,11 +1,12 @@
-set autoindent
-set smartindent
-set showmode
-set lazyredraw
-set mouse=a
-set guioptions=
+" {{{1 Plugin settings
+" {{{2 Watchdogs
 
-"" Watchdogs:
+" Watchdogs target language's extension
+let $watchdogs_target = '*.js,*.ts,*.go,*.php,*.py,*.lua,*.vim*'
+let g:watchdogs_check_CursorHold_enable = 1
+let g:watchdogs_check_BufWritePost_enable = 1
+
+" {{{2 QuickrunConfig
 let g:quickrun_config = {
     \   '_': {
     \       'runner': 'vimproc',
@@ -27,23 +28,23 @@ let g:quickrun_config = {
     \       'cmdopt':  '-l -d error_reporting=E_ALL -d display_errors=1 -d display_startup_errors=1 -d log_errors=0 -d xdebug.cli_color=0',
     \        'exec':    '%c %o %s:p',
     \        'errorformat': '%m\ in\ %f\ on\ line\ %l'
+    \   },
+    \   'watchdogs_checker/tslint': {
+    \       'command': 'tslint',
+    \       'exec': '%c %o %s:p',
+    \       'cmdopt': '--module commonjs'
+    \   },
+    \   'typescript/watchdogs_checker': {
+    \       'type': 'watchdogs_checker/tslint'
     \   }
     \ }
 
-let $watchdogs_target = '*.js,*.ts,*.go,*.php,*.py,*.lua,*.vim*'
-let g:watchdogs_check_CursorHold_enable = 1
-let g:watchdogs_check_BufWritePost_enable = 1
-augroup vimrc_local_watchdogs
-    autocmd!
-    autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
-augroup END
-
-"" Gtags:
+" {{{2 Gtags
 "let g:unite_source_gtags_ref_option = 'r'
 let g:unite_source_gtags_def_option = 'i'
 "let g:unite_source_gtags_result_option = 'ctags-x'
 
-"" Go:
+" {{{2 Go
 filetype plugin indent on
 syntax on
 auto BufWritePre *.go Fmt
@@ -58,75 +59,32 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 
-"" Bbye:
-nnoremap <Leader>c :Bdelete<CR>
-
-"" Tags: looks up and up
+" {{{2 Ctags looks up and up
 set tags=./tags;/,tags;/
 
-"" Airline:
-let g:airline_powerline_fonts = 1
-
-"" Riot:
+" {{{2 Riot
 au BufRead,BufNewFile *.tag set filetype=javascript
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
 
-"" Markdown:
-set syntax=markdown
-au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-
-"" Clipboard:
-set clipboard=unnamed
-
-"" Omni:
-augroup vimrc_local_omni
-    au!
-    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
-    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-
-"" Typescript:
-" Watchdogs Option
-let g:quickrun_config['watchdogs_checker/tslint'] = {
-    \ 'command': 'tslint',
-    \ 'exec': '%c %o %s:p',
-    \ 'cmdopt': '--module commonjs'
-    \ }
-let g:quickrun_config['typescript/watchdogs_checker'] = {
-    \ 'type': 'watchdogs_checker/tslint'
-    \ }
-
-"" Gvim:
-" Disable italic
-function! s:disable_italic()
-    let l:his = ''
-    redir => l:his
-    silent hi
-    redir END
-    let l:his = substitute(l:his, '\n\s\+', ' ', 'g')
-    for l:line in split(l:his, "\n")
-        if l:line !~# ' links to ' && l:line !~# ' cleared$'
-            exe 'hi' substitute(substitute(l:line, ' xxx ', ' ', ''), 'italic', 'none', 'g')
-        endif
-    endfor
-endfunction
-command! DisableItalic call s:disable_italic()
-
-if has('vim_starting')
-    call s:disable_italic()
-endif
-
-set guifont=Rounded\ M+\ 1m\ Medium\ 10
-set novb
-
-"" Tweet:
+" {{{2 TweetVim
 let s:tweetvim_update_interval_seconds = 60
 let s:tweetvim_timestamp = reltime()[0]
 
+" {{{2 Markdown
+set syntax=markdown
+au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+
+" {{{2 Clipboard
+set clipboard=unnamed
+
+" {{{1 Visual settings
+" {{{2 Gvim
+set guifont=Rounded\ M+\ 1m\ Medium\ 10
+set novb
+
+" {{{1 Functions
+" {{{2 Twitter
 function! s:tweetvim_autoupdate()
     let l:current = reltime()[0]
     if l:current - s:tweetvim_timestamp > s:tweetvim_update_interval_seconds
@@ -146,10 +104,51 @@ endfunction
 command! -nargs=0 TweetVimAutoUpdate call <SID>tweetvim_setup_autoupdate()
 command! -nargs=0 TweetVimStopAutoUpdate au! vimrc_local_tweetvim_autoupdate
 
+" {{{2 Gvim
 
-"" Keymap:
+" Disable italic
+function! s:disable_italic()
+    let l:his = ''
+    redir => l:his
+    silent hi
+    redir END
+    let l:his = substitute(l:his, '\n\s\+', ' ', 'g')
+    for l:line in split(l:his, "\n")
+        if l:line !~# ' links to ' && l:line !~# ' cleared$'
+            exe 'hi' substitute(substitute(l:line, ' xxx ', ' ', ''), 'italic', 'none', 'g')
+        endif
+    endfor
+endfunction
+command! DisableItalic call s:disable_italic()
+
+if has('vim_starting')
+    call s:disable_italic()
+endif
+
+" {{{1 Autocmd Rules
+" {{{2 Watchdogs
+augroup vimrc_local_watchdogs
+    autocmd!
+    autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
+augroup END
+
+" {{{2 Omni
+augroup vimrc_local_omni
+    au!
+    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup END
+
+" {{{1 Keymap
 let g:mapleader = ';'
+
+" {{{2 Watchdogs
 nnoremap <C-c> :WatchdogsRunSilent<CR>
+
+" {{{2 Go
 augroup vimrc_local_golang
     au!
     au FileType go nmap <leader>r <Plug>(go-run)
@@ -167,7 +166,11 @@ augroup vimrc_local_golang
     au FileType go nmap <Leader>e <Plug>(go-rename)
 augroup END
 
-"" Gtags_Keymap:
+" {{{2 Bbye
+nnoremap <Leader>c :Bdelete<CR>
+
+" {{{2 Gtags
+
 " Show function list in current file
 nnoremap <C-l> :Unite gtags/file<CR>
 " Grep
