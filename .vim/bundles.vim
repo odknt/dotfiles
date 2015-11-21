@@ -25,7 +25,8 @@ Plug 'tpope/vim-commentary', {
     \ }
 
 " {{{1 Git
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/vim-gita'
 Plug 'airblade/vim-gitgutter'
 
 " {{{1 CtrlP: Grep file path
@@ -108,6 +109,11 @@ let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key = "'"
 let g:EasyMotion_grouping = 1
 let g:EasyMotion_use_migemo = 1
+
+" {{{1 Wildfire
+Plug 'gcmt/wildfire.vim'
+let g:wildfire_water_map = '<S-Enter>'
+let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it', 'i>']
 
 " {{{1 Rust: language support
 Plug 'rust-lang/rust.vim', { 'for': [ 'rust' ] }
