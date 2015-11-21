@@ -18,8 +18,8 @@ endif
 
 " {{{1 vim-plug install packages
 call g:plug#begin($VIMHOME . '/.vim/plugged/')
-if filereadable(expand($VIMHOME . '/.vim/vimrc.bundles'))
-  source $VIMHOME/.vim/vimrc.bundles
+if filereadable(expand($VIMHOME . '/.vim/bundles.vim'))
+  source $VIMHOME/.vim/bundles.vim
 endif
 call g:plug#end()
 
@@ -39,6 +39,9 @@ set backspace=indent,eol,start
 set autoindent
 set smartindent
 
+" {{{2 Setting for windows
+set shellslash
+
 " {{{2 Tabs. May be overriten by autocmd rules
 set tabstop=4
 set softtabstop=0
@@ -49,10 +52,12 @@ set expandtab
 set hidden
 
 " {{{2 Searching
-set hlsearch
+set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
+set wrapscan
+set noshowmatch
 
 " {{{2 Directories for swp files
 set nobackup
@@ -77,8 +82,8 @@ set mouse=a
 " {{{1 Visual Settings
 syntax on
 set ruler
-set number
-set ttyfast
+set nonumber
+set wildmenu
 set lazyredraw
 set foldmethod=marker
 
@@ -93,7 +98,8 @@ set visualbell t_vb=
 
 " {{{2 Gvim
 set guioptions=
-set guifont=Rounded\ M+\ 1m\ Medium\ 10
+set guifont=Inconsolata\ for\ Powerline\ 10
+set guifontwide=Rounded\ M+\ 1m\ Medium\ 10
 set novb
 
 if has('gui_running')
@@ -149,10 +155,7 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-if $TERM !~# 'rxvt'
-  let g:airline_powerline_fonts=1
-endif
-
+let g:airline_powerline_fonts=1
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
