@@ -98,8 +98,8 @@ set visualbell t_vb=
 
 " {{{2 Gvim
 set guioptions=
-set guifont="Inconsolata for Powerline 10"
-set guifontwide="Rounded M+ 1m Medium 10"
+set guifont=Inconsolata\ for\ Powerline\ Medium\ 10
+set guifontwide=Rounded\ M+\ 1m\ Medium\ Medium\ 10
 set novb
 
 if has('gui_running')
