@@ -182,3 +182,6 @@ Plug 'osyo-manga/shabadou.vim', { 'on': b:on_watchdogs } |
     \   'do': 'npm install -g',
     \   'for': [ 'typescript' ]
     \ }
+
+" {{{2 lexima.vim
+Plug 'cohama/lexima.vim'
