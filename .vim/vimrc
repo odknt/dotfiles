@@ -424,6 +424,9 @@ let g:jedi#completions_command = '<C-Space>'
 " {{{2 Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
 
+" {{{2 Bbye
+nnoremap <Leader>c :Bdelete<CR>
+
 " {{{2 set mapleader to ;
 let g:mapleader = ';'
 
@@ -447,9 +450,6 @@ augroup vimrc_local_golang
     au FileType go nmap <Leader>i <Plug>(go-info)
     au FileType go nmap <Leader>e <Plug>(go-rename)
 augroup END
-
-" {{{2 Bbye
-nnoremap <Leader>c :Bdelete<CR>
 
 " {{{2 Gtags
 

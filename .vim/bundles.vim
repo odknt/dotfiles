@@ -183,5 +183,10 @@ Plug 'osyo-manga/shabadou.vim', { 'on': b:on_watchdogs } |
     \   'for': [ 'typescript' ]
     \ }
 
-" {{{2 lexima.vim
+" {{{1 lexima.vim
 Plug 'cohama/lexima.vim'
+
+" {{{1 previm
+Plug 'kannokanno/previm', {
+    \ 'on': [ 'PrevimOpen' ]
+    \ }
