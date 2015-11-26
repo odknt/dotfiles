@@ -162,9 +162,9 @@ Plug 'hewes/unite-gtags', { 'on': b:on_unite, 'for': b:for_unite } |
     \ Plug 'odknt/unite-gtags-custom', { 'on': b:on_unite, 'for': b:for_unite }
 
 " {{{1 Twitter
-Plug 'basyura/TweetVim'
 Plug 'tyru/open-browser.vim' |
-    \ Plug 'basyura/twibill.vim', { 'on': b:on_tweetvim }
+    \ Plug 'basyura/twibill.vim', { 'on': b:on_tweetvim } |
+    \ Plug 'basyura/TweetVim', { 'on': b:on_tweetvim }
 
 " {{{1 Riot
 Plug 'nicklasos/vim-jsx-riot', { 'for': [ 'javascript' ] }
