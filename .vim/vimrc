@@ -74,7 +74,7 @@ let g:session_autosave = 'no'
 let g:session_command_aliases = 1
 
 " {{{2 Map leader to ,
-let g:mapleader=','
+let g:mapleader="\<Space>"
 
 " {{{2 Mouse settings
 set mouse=a
@@ -297,6 +297,9 @@ augroup vimrc_local_omni
 augroup END
 
 " {{{1 Mappings
+" {{{2 Save
+noremap <leader>w :w<CR>
+
 " {{{2 Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
@@ -368,9 +371,9 @@ endif
 
 " {{{2 Buffer nav
 noremap <leader>z :bp<CR>
-noremap <leader>q :bp<CR>
+noremap <leader>p :bp<CR>
 noremap <leader>x :bn<CR>
-noremap <leader>w :bn<CR>
+noremap <leader>n :bn<CR>
 
 " {{{2 Close buffer
 noremap <leader>c :bd<CR>
@@ -425,10 +428,7 @@ let g:jedi#completions_command = '<C-Space>'
 nmap <silent> <F4> :TagbarToggle<CR>
 
 " {{{2 Bbye
-nnoremap <Leader>c :Bdelete<CR>
-
-" {{{2 set mapleader to ;
-let g:mapleader = ';'
+nnoremap <Leader>q :Bdelete<CR>
 
 " {{{2 Watchdogs
 nnoremap <C-c> :WatchdogsRunSilent<CR>

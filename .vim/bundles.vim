@@ -188,5 +188,5 @@ Plug 'cohama/lexima.vim'
 
 " {{{1 previm
 Plug 'kannokanno/previm', {
-    \ 'on': [ 'PrevimOpen' ]
+    \ 'for': [ 'markdown' ]
     \ }
