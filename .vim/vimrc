@@ -371,9 +371,9 @@ endif
 
 " {{{2 Buffer nav
 noremap <leader>z :bp<CR>
-noremap <leader>p :bp<CR>
+noremap <leader>j :bp<CR>
 noremap <leader>x :bn<CR>
-noremap <leader>n :bn<CR>
+noremap <leader>k :bn<CR>
 
 " {{{2 Close buffer
 noremap <leader>c :bd<CR>
@@ -467,6 +467,9 @@ vnoremap <C-k> :Unite gtags/ref<CR>
 nnoremap <C-/> :Unite gtags/completion<CR>
 
 " {{{1 Custom configs
+" {{{2 gitgutter
+let g:gitgutter_map_keys = 0
+
 " {{{2 vim-python
 augroup vimrc_python
   au!

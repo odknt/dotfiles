@@ -20,9 +20,7 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
 " {{{1 Commentary
-Plug 'tpope/vim-commentary', {
-    \ 'on': [ 'Commentary', 'CommentaryLine', 'CommentaryUndo', 'ChangeCommentary' ]
-    \ }
+Plug 'tpope/vim-commentary'
 
 " {{{1 Git
 "Plug 'tpope/vim-fugitive'
