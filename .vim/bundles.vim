@@ -190,3 +190,6 @@ Plug 'cohama/lexima.vim'
 Plug 'kannokanno/previm', {
     \ 'for': [ 'markdown' ]
     \ }
+
+" {{{1 neocomplete
+Plug 'Shougo/neocomplete.vim'

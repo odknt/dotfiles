@@ -572,6 +572,9 @@ au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 " {{{2 Clipboard
 set clipboard=unnamed
 
+" {{{2 neocomplete
+let g:neocomplete#enable_at_startup = 1
+
 " {{{1 Syntastic
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗'
