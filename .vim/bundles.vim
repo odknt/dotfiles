@@ -71,10 +71,6 @@ endif
 " {{{1 InddentLine: Show indent level
 Plug 'Yggdroot/indentLine'
 
-" {{{1 Syntastic: Syntax Highlight
-Plug 'scrooloose/syntastic', {
-    \ 'for': [ 'javascript', 'python' ],
-    \ }
 
 " {{{1 Tagbar
 Plug 'majutsushi/tagbar', {

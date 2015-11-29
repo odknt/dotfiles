@@ -280,12 +280,6 @@ augroup END
 
 set autoread
 
-" {{{2 Watchdogs
-augroup vimrc_local_watchdogs
-    autocmd!
-    autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
-augroup END
-
 " {{{2 Omni
 augroup vimrc_local_omni
     au!
@@ -452,7 +446,8 @@ augroup vimrc_local_golang
 augroup END
 
 " {{{2 Gtags
-
+" Generate Gtags
+nnoremap <leader>G :QuickRun gtags<CR>
 " Show function list in current file
 nnoremap <C-l> :Unite gtags/file<CR>
 " Grep
@@ -499,15 +494,25 @@ let g:tagbar_type_go = {
 " {{{2 Watchdogs
 
 " Watchdogs target language's extension
-let $watchdogs_target = '*.js,*.ts,*.go,*.php,*.py,*.lua,*.vim*'
+let $watchdogs_target = '*.js,*.ts,*.go,*.php,*.py,*.lua,*.vim*,vimrc'
 let g:watchdogs_check_CursorHold_enable = 1
 let g:watchdogs_check_BufWritePost_enable = 1
+augroup vimrc_local_watchdogs
+    autocmd!
+    autocmd InsertLeave,BufWritePost,TextChanged $watchdogs_target WatchdogsRunSilent
+    autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
+augroup END
 
 " {{{2 QuickrunConfig
 let g:quickrun_config = {
     \   '_': {
     \       'runner': 'vimproc',
     \       'runner/vimproc/updatetime': 10
+    \   },
+    \   'gtags': {
+    \       'command': 'gtags',
+    \       'exec': '%c',
+    \       'outputter': 'error:buffer:quickfix'
     \   },
     \   'watchdogs_checker/_': {
     \       'outputter/quickfix/open_cmd': '',
@@ -578,18 +583,6 @@ set clipboard=unnamed
 " {{{2 neocomplete
 let g:neocomplete#enable_at_startup = 1
 
-" {{{1 Syntastic
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_auto_loc_list=1
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_python_checkers=['python', 'flake8']
-let g:syntastic_python_flake8_post_args='--ignore=W391'
-
-let g:javascript_enable_domhtmlcss = 1
 
 " {{{1 Include user's local vim config
 " {{{2 Load local configuration
