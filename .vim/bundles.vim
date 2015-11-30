@@ -152,6 +152,7 @@ Plug 'vim-scripts/PreserveNoEOL'
 Plug 'Shirk/vim-gas', { 'for': [ 'gas' ] }
 
 " {{{1 Gtags
+Plug 'jsfaint/gen_tags.vim'
 Plug 'hewes/unite-gtags', { 'on': b:on_unite, 'for': b:for_unite } |
     \ Plug 'odknt/unite-gtags-custom', { 'on': b:on_unite, 'for': b:for_unite }
 

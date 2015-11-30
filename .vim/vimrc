@@ -562,7 +562,7 @@ let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 
 " {{{2 Ctags looks up and up
-set tags=./tags;/,tags;/
+set tags=~/.cache/tags_dir/*/prj_tags
 
 " {{{2 Riot
 au BufRead,BufNewFile *.tag set filetype=javascript
@@ -582,7 +582,6 @@ set clipboard=unnamed
 
 " {{{2 neocomplete
 let g:neocomplete#enable_at_startup = 1
-
 
 " {{{1 Include user's local vim config
 " {{{2 Load local configuration
