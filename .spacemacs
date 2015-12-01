@@ -100,7 +100,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Rounded M+ 1m"
-                               :size 12
+                               :size 11
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -202,6 +202,7 @@ values."
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
+  spacemacs-theme-comment-bg
   )
 
 (defun dotspacemacs/user-config ()
@@ -209,9 +210,9 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (evil-leader/set-key
-    "r" 'quickrun
+    "C-r" 'quickrun
     "C-k" 'kill-this-buffer
-    "w" 'save-buffer
+    "C-w" 'save-buffer
     )
   (add-hook 'twittering-mode-hook
             (lambda ()
@@ -228,6 +229,23 @@ layers configuration. You are free to put any user code."
     :config
     (progn (setq-default neo-theme 'nerd))
     )
+  ;; Encoding and Font settings
+  (set-language-environment 'Japanese)
+  (prefer-coding-system 'utf-8)
+  (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Rounded M+ 1m"))
+  ;; Enable ggtags
+  (ggtags-mode t)
+  ;; Disable pulse after jumped
+  (use-package helm-gtags
+    :defer t
+    :init
+    (progn
+      (setq helm-gtags-ignore-case t
+            helm-gtags-auto-update t
+            helm-gtags-use-input-at-cursor t
+            helm-gtags-pulse-at-cursor nil)))
+  ;; Disable highlight current line
+  (spacemacs/toggle-highlight-current-line-globally-off)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
