@@ -84,6 +84,7 @@ syntax on
 set ruler
 set nonumber
 set wildmenu
+set ttyfast
 set lazyredraw
 set foldmethod=marker
 
