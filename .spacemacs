@@ -50,6 +50,7 @@ values."
    '(
      quickrun
      tabbar
+     w3m
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(smooth-scrolling)
@@ -100,7 +101,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Rounded M+ 1m"
-                               :size 11
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -245,6 +246,25 @@ layers configuration. You are free to put any user code."
             helm-gtags-pulse-at-cursor nil)))
   ;; Disable highlight current line
   (spacemacs/toggle-highlight-current-line-globally-off)
+  ;; Markdown Preview Settings
+  (defun w3m-browse-url-other-window (url &optional newwin)
+    (let ((w3m-pop-up-windows t))
+      (if (one-window-p) (split-window))
+      (other-window 1)
+      (w3m-browse-url url newwin)))
+
+  (defun markdown-render-w3m (n)
+    (interactive "p")
+    (message (buffer-file-name))
+    (call-process "/usr/sbin/grip" nil nil nil
+                  "--export"
+                  (buffer-file-name)
+                  "/tmp/grip.html")
+    (w3m-browse-url-other-window "file:///tmp/grip.html")
+    )
+  (add-hook 'markdown-mode-hook
+            (lambda()
+              (define-key markdown-mode-map "\C-c \C-c" 'markdown-render-w3m)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
