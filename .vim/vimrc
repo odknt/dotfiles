@@ -65,7 +65,6 @@ set noswapfile
 
 set fileformats=unix,dos,mac
 set showcmd
-set shell=/bin/sh
 
 " {{{2 session management
 let g:session_directory = $VIMHOME . '/.vim/session'
@@ -549,7 +548,6 @@ let g:unite_source_gtags_def_option = 'i'
 
 " {{{2 Go
 filetype plugin indent on
-syntax on
 auto BufWritePre *.go Fmt
 let $GOPATH = $GOPATH . globpath(getcwd(), '_vendor')
 set completeopt=menu

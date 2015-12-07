@@ -4,27 +4,15 @@ let b:on_unite = [ 'Unite' ]
 let b:on_tweetvim = [ 'TweetVimHomeTimeline' ]
 let b:on_watchdogs = [ 'WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep' ]
 " }}}
-" {{{1 NERDTree
-Plug 'scrooloose/nerdtree', { 'on': [ 'NERDTreeToggle', 'NERDTreeFind' ] }
 
-" NERDTree configuration
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 20
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-noremap <F3> :NERDTreeToggle<CR>
+" {{{1 dirvish
+Plug 'justinmk/vim-dirvish'
+noremap <F3> :Dirvish<CR>
 
 " {{{1 Commentary
 Plug 'tpope/vim-commentary'
 
 " {{{1 Git
-"Plug 'tpope/vim-fugitive'
-Plug 'lambdalisue/vim-gita'
 Plug 'airblade/vim-gitgutter'
 
 " {{{1 CtrlP: Grep file path
@@ -189,5 +177,5 @@ Plug 'kannokanno/previm', {
 " {{{1 neocomplete
 Plug 'Shougo/neocomplete.vim'
 
-" {{{1
+" {{{1 vim-test
 Plug 'janko-m/vim-test'
