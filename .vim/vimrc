@@ -85,6 +85,7 @@ set nonumber
 set wildmenu
 set ttyfast
 set lazyredraw
+set ambiwidth=double
 set foldmethod=marker
 
 let g:no_buffers_menu=1
@@ -291,6 +292,9 @@ augroup vimrc_local_omni
 augroup END
 
 " {{{1 Mappings
+" {{{2 General
+nnoremap <leader>sh :sh<CR>
+
 " {{{2 Save
 noremap <leader>w :w<CR>
 
@@ -580,8 +584,6 @@ let g:previm_enable_realtime = 1
 " {{{2 Clipboard
 set clipboard=unnamed
 
-" {{{2 neocomplete
-let g:neocomplete#enable_at_startup = 1
 
 " {{{1 Include user's local vim config
 " {{{2 Load local configuration
