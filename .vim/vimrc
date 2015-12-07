@@ -500,7 +500,7 @@ let g:watchdogs_check_CursorHold_enable = 1
 let g:watchdogs_check_BufWritePost_enable = 1
 augroup vimrc_local_watchdogs
     autocmd!
-    autocmd InsertLeave,BufWritePost,TextChanged $watchdogs_target WatchdogsRunSilent
+    " autocmd InsertLeave,BufWritePost,TextChanged $watchdogs_target WatchdogsRunSilent
     autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
 augroup END
 

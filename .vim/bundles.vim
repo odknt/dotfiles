@@ -188,3 +188,6 @@ Plug 'kannokanno/previm', {
 
 " {{{1 neocomplete
 Plug 'Shougo/neocomplete.vim'
+
+" {{{1
+Plug 'janko-m/vim-test'
