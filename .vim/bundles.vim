@@ -19,7 +19,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " {{{1 Airline: Enchansment status bar like Powerline
-Plug 'bling/vim-airline'
+" Plug 'bling/vim-airline'
 
 " {{{1 LanguagePack
 Plug 'sheerun/vim-polyglot'
