@@ -1,586 +1,100 @@
-" {{{1 OS
+" =========================================================================
+" common
+"
 if $XDG_CONFIG_HOME ==# ''
-    let $XDG_CONFIG_HOME = '~/.config'
+    let $XDG_CONFIG_HOME = expand($HOME.'/.config')
 endif
 
-if has('win32')
-	let $VIMHOME = $VIM
+let s:is_windows = has('win16') || has('win32') || has('win64')
+
+if s:is_windows
+	let g:vim_config_home = $VIM
 elseif has('nvim')
-	let $VIMHOME = $XDG_CONFIG_HOME.'/nvim'
+	let g:vim_config_home = expand($XDG_CONFIG_HOME.'/nvim')
 else
-	let $VIMHOME = '~/.vim'
+	let g:vim_config_home = expand($HOME.'/.vim')
 endif
 
-" {{{1 vim-plug core
+" =========================================================================
+" function
+"
+if !exists('*s:setupWrapping')
+    " Startup Wrapping
+    function s:setupWrapping()
+        set wrap
+        set wm=2
+        set textwidth=79
+    endfunction
+endif
+
+" Load Fragment
+function! s:load_flagments(path)
+    let l:file_path = expand(g:vim_config_home . '/frags/' . a:path)
+    let g:hogehoge = l:file_path
+    if filereadable(l:file_path)
+        execute 'source' fnameescape(l:file_path)
+    endif
+endfunction
+
+" =========================================================================
+" plugins
+"
 if has('vim_starting')
-    " Required
-    set runtimepath+=$VIMHOME/plugged/vim-plug/
-    if !isdirectory(expand($VIMHOME . '/plugged/vim-plug'))
+    " vim-plug core
+    let &runtimepath .= expand(',' . g:vim_config_home . '/plugged/vim-plug/')
+    if !isdirectory(expand(g:vim_config_home . '/plugged/vim-plug'))
         echo 'install vim-plug...'
-        call system('mkdir -p ' . $VIMHOME . '/plugged/vim-plug')
-        call system('git clone https://github.com/junegunn/vim-plug.git ' . $VIMHOME . '/plugged/vim-plug/autoload')
+        call system('mkdir -p ' . g:vim_config_home . '/plugged/vim-plug')
+        call system('git clone https://github.com/junegunn/vim-plug.git ' . g:vim_config_home . '/plugged/vim-plug/autoload')
     endif
 endif
 
-" {{{1 vim-plug install packages
-call g:plug#begin($VIMHOME . '/plugged/')
-if filereadable(expand($VIMHOME . '/bundles.vim'))
-  source $VIMHOME/bundles.vim
-endif
+call g:plug#begin(g:vim_config_home . '/plugged/')
+call s:load_flagments('bundles.vim')
 call g:plug#end()
 
 filetype plugin indent on
 
-" {{{1 Basic Setup
-" {{{2 Encoding
-set encoding=utf-8
-scriptencoding utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
-set bomb
-set binary
+" =========================================================================
+" encoding
+"
+call s:load_flagments('encoding.vim')
 
-" {{{2 Fix backspace indent
-set backspace=indent,eol,start
-set autoindent
-set smartindent
-
-" {{{2 Setting for windows
-set shellslash
-
-" {{{2 Tabs. May be overriten by autocmd rules
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
-set expandtab
-
-" {{{2 Enable hidden buffers
-set hidden
-
-" {{{2 Searching
-set nohlsearch
-set incsearch
-set ignorecase
-set smartcase
-set wrapscan
-set noshowmatch
-
-" {{{2 Directories for swp files
-set nobackup
-set noswapfile
-
-set fileformats=unix,dos,mac
-set showcmd
-
-" {{{2 session management
-let g:session_directory = $VIMHOME . '/session'
-let g:session_autoload = 'no'
-let g:session_autosave = 'no'
-let g:session_command_aliases = 1
-
-" {{{2 Map leader to ,
-let g:mapleader="\<Space>"
-
-" {{{2 Mouse settings
-set mouse=
-
-" {{{2 Complete
-set completeopt=menuone
-set complete=.
-set pumheight=20
-
-" {{{1 Visual Settings
-syntax on
-set ruler
-set nonumber
-set wildmenu
-set lazyredraw
-set ambiwidth=double
-set foldmethod=marker
-
-"" neovim always set ttyfast
-if ! has('nvim')
-    set ttyfast
+" =========================================================================
+" for windows
+"
+if s:is_windows
+    call s:load_flagments('windows.vim')
 endif
 
-set mousemodel=popup
-set t_Co=256
+" =========================================================================
+" edit settings
+"
+call s:load_flagments('edit.vim')
 
-set background=dark
-hi clear
-if exists('syntax_on')
-    syntax reset
-endif
-let g:colors_name='molokai'
-let g:no_buffers_menu=1
-let g:molokai_original = 1
+" =========================================================================
+" autocmd settings
+"
+call s:load_flagments('autocmds.vim')
 
-" Disable visualbell
-set novisualbell
+" =========================================================================
+" visual setting
+"
+call s:load_flagments('visual.vim')
 
-" Show lastline
-set display=lastline
-
-" {{{2 Gvim
-if !has('nvim')
-    set guioptions=
-    set guifont=Inconsolata\ for\ Powerline\ Bold\ 10
-    set guifontwide=Rounded\ M+\ 1m\ Medium\ 10
-    set novb
-
-    if has('gui_running')
-      if has('gui_mac') || has('gui_macvim')
-        set guifont=Menlo:h12
-        set transparency=7
-      endif
-    else
-      let g:CSApprox_loaded = 1
-
-      if $COLORTERM ==# 'gnome-terminal'
-        set term=gnome-256color
-      else
-        if $TERM ==# 'xterm'
-          set term=xterm-256color
-        endif
-      endif
-    endif
-
-    if &term =~# '256color'
-      set t_ut=
-    endif
+" =========================================================================
+" gui settings
+"
+if has('gui_running')
+    call s:load_flagments('gui.vim')
 endif
 
-" {{{2 Disable the blinking cursor.
-set gcr=a:blinkon0
-set scrolloff=3
-
-" {{{2 Statusline
-set laststatus=2
-set showmode
-
-" Set statusline.
-let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
-      \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
-      \ '['.(&filetype!=''?&filetype.',':'')"
-      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
-      \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
-
-" {{{3 Use modeline overrides
-set modeline
-set modelines=10
-
-set title
-set titleold="Terminal"
-set titlestring=%F
-
-" {{{1 Abbreviations
-
-" {{{2 no one is really happy until you have this shortcuts
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
-
-" {{{1 Functions
-" {{{2 StartupWrapping
-if !exists('*s:setupWrapping')
-  function s:setupWrapping()
-    set wrap
-    set wm=2
-    set textwidth=79
-  endfunction
-endif
-
-" {{{2 Twitter
-function! s:tweetvim_autoupdate()
-    let l:current = reltime()[0]
-    if l:current - s:tweetvim_timestamp > s:tweetvim_update_interval_seconds
-        call feedkeys("\<Plug>(tweetvim_action_reload)")
-        let s:tweetvim_timestamp = l:current
-    endif
-    call feedkeys(mode() ==# 'i' ? "\<C-g>\<ESC>" : "g\<ESC>", 'n')
-endfunction
-
-function! s:tweetvim_setup_autoupdate()
-    augroup vimrc_local_tweetvim_autoupdate
-        au!
-        au CursorHold * call <SID>tweetvim_autoupdate()
-    augroup END
-endfunction
-
-command! -nargs=0 TweetVimAutoUpdate call <SID>tweetvim_setup_autoupdate()
-command! -nargs=0 TweetVimStopAutoUpdate au! vimrc_local_tweetvim_autoupdate
-
-" {{{2 Gvim
-
-" Disable italic
-function! s:disable_italic()
-    let l:his = ''
-    redir => l:his
-    silent hi
-    redir END
-    let l:his = substitute(l:his, '\n\s\+', ' ', 'g')
-    for l:line in split(l:his, "\n")
-        if l:line !~# ' links to ' && l:line !~# ' cleared$'
-            exe 'hi' substitute(substitute(l:line, ' xxx ', ' ', ''), 'italic', 'none', 'g')
-        endif
-    endfor
-endfunction
-command! DisableItalic call s:disable_italic()
-
-if has('vim_starting')
-    call s:disable_italic()
-    syntax on
-endif
-
-" {{{1 Autocmd Rules
-" {{{2 The PC is fast enough, do syntax highlight syncing from start
-augroup vimrc_sync_fromstart
-  au!
-  au BufEnter * :syntax sync fromstart
-augroup END
-
-" {{{2 Remember cursor position
-augroup vimrc_remember_cursor_position
-  au!
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
-
-" {{{2 txt support
-augroup vimrc_wrapping
-  au!
-  au BufRead,BufNewFile *.txt call s:setupWrapping()
-augroup END
-
-" {{{2 make/cmake support
-augroup vimrc_make_cmake
-  au!
-  au FileType make setlocal noexpandtab
-  au BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
-augroup END
-
-set autoread
-
-" {{{2 Omni
-augroup vimrc_local_omni
-    au!
-    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
-    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup END
-
-" {{{1 Mappings
-" {{{2 General
-if has('nvim')
-    nnoremap <leader>to :Topen<CR>
-    nnoremap <leader>tc :Tclose<CR>
-else
-    nnoremap <leader>sh :sh<CR>
-endif
-
-" {{{2 Save
-noremap <leader>w :w<CR>
-
-" {{{2 Split
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
-
-" {{{2 session management
-nnoremap <leader>so :OpenSession
-nnoremap <leader>ss :SaveSession
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
-
-" {{{2 Tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew<CR>
-
-" {{{2 Directory
-" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
-" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" {{{2 grep.vim
-nnoremap <silent> <leader>f :Rgrep<CR>
-
-" {{{2 ctrlp.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|tox)$'
-let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
-let g:ctrlp_use_caching = 0
-cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-noremap <leader>b :CtrlPBuffer<CR>
-let g:ctrlp_map = '<leader>e'
-let g:ctrlp_open_new_file = 'r'
-
-" {{{2 snippets
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<c-b>'
-let g:UltiSnipsEditSplit='vertical'
-
-" {{{2 Copy/Paste/Cut
-if has('unnamedplus')
-  set clipboard=unnamedplus
-endif
-noremap YY "+y<CR>
-noremap P "+gP<CR>
-noremap XX "+x<CR>
-
-if has('macunix')
-  " pbcopy for OSX copy/paste
-  vmap <C-x> :!pbcopy<CR>
-  vmap <C-c> :w !pbcopy<CR><CR>
-endif
-
-" {{{2 Buffer nav
-noremap <leader>z :bp<CR>
-noremap <leader>j :bp<CR>
-noremap <leader>x :bn<CR>
-noremap <leader>k :bn<CR>
-
-" {{{2 Close buffer
-noremap <leader>c :bd<CR>
-
-" {{{2 Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
-
-" {{{2 Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
-
-" {{{2 Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
-" {{{2 Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-" {{{2 Open current line on GitHub
-noremap ,o :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs open<CR><CR>
-
-" {{{2 vim-go
-augroup FileType go
-  au!
-  au FileType go nmap gd <Plug>(go-def)
-  au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
-
-  au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
-  au FileType go nmap <Leader>db <Plug>(go-doc-browser)
-
-  au FileType go nmap <Leader>gi <Plug>(go-info)
-
-  au FileType go nmap <leader>gr <Plug>(go-run)
-  au FileType go nmap <leader>rb <Plug>(go-build)
-  au FileType go nmap <leader>gt <Plug>(go-test)
-augroup END
-
-" {{{2 jedi-vim
-let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = '<leader>g'
-let g:jedi#goto_definitions_command = '<leader>d'
-let g:jedi#documentation_command = 'K'
-let g:jedi#usages_command = '<leader>n'
-let g:jedi#rename_command = '<leader>r'
-let g:jedi#show_call_signatures = '0'
-let g:jedi#completions_command = '<C-Space>'
-
-" {{{2 Tagbar
-nmap <silent> <F4> :TagbarToggle<CR>
-
-" {{{2 Bbye
-nnoremap <Leader>q :Bdelete<CR>
-
-" {{{2 Watchdogs
-nnoremap <C-c> :WatchdogsRunSilent<CR>
-
-" {{{2 Go
-augroup vimrc_local_golang
-    au!
-    au FileType go nmap <leader>r <Plug>(go-run)
-    au FileType go nmap <leader>b <Plug>(go-build)
-    au FileType go nmap <leader>t <Plug>(go-test)
-    au FileType go nmap <leader>c <Plug>(go-coverage)
-    au FileType go nmap <Leader>ds <Plug>(go-def-split)
-    au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-    au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-    au FileType go nmap <Leader>gd <Plug>(go-doc)
-    au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-    au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-    au FileType go nmap <Leader>s <Plug>(go-implements)
-    au FileType go nmap <Leader>i <Plug>(go-info)
-    au FileType go nmap <Leader>e <Plug>(go-rename)
-augroup END
-
-" {{{2 Gtags
-" Generate Gtags
-nnoremap <leader>G :QuickRun gtags<CR>
-" Show function list in current file
-nnoremap <C-l> :Unite gtags/file<CR>
-" Grep
-nnoremap <C-g> :Unite gtags/grep<CR>
-" Show def under cursor
-nnoremap <C-]> :Unite gtags/def<CR>
-vnoremap <C-]> :Unite gtags/def<CR>
-" Show ref under cursor
-nnoremap <C-k> :Unite gtags/ref<CR>
-vnoremap <C-k> :Unite gtags/ref<CR>
-" Show all tokens
-nnoremap <C-/> :Unite gtags/completion<CR>
-
-" {{{2 ctrlp.vim
-nnoremap <C-p> :CtrlP<CR>
-
-" {{{1 Custom configs
-" {{{2 gitgutter
-let g:gitgutter_map_keys = 0
-
-" {{{2 vim-python
-augroup vimrc_python
-  au!
-  au FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
-      \ formatoptions+=croq softtabstop=4 smartindent
-      \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-augroup END
-
-" {{{2 vim-airline
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-
-" {{{2 Tagbar
-let g:tagbar_autofocus = 1
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
-        \ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-        \ 'r:constructor', 'f:functions' ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-    \ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-    \ }
-
-" {{{2 Watchdogs
-
-" Watchdogs target language's extension
-let $watchdogs_target = '*.js,*.ts,*.go,*.php,*.py,*.lua,*.vim*,vimrc'
-let g:watchdogs_check_CursorHold_enable = 1
-let g:watchdogs_check_BufWritePost_enable = 1
-augroup vimrc_local_watchdogs
-    autocmd!
-    " autocmd InsertLeave,BufWritePost,TextChanged $watchdogs_target WatchdogsRunSilent
-    autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
-augroup END
-
-" {{{2 QuickrunConfig
-let g:quickrun_config = {
-    \   '_': {
-    \       'runner': 'vimproc',
-    \       'outputter/quickfix/open_cmd': '',
-    \       'runner/vimproc/updatetime': 10
-    \   },
-    \   'gtags': {
-    \       'command': 'gtags',
-    \       'exec': '%c',
-    \       'outputter': 'error:buffer:quickfix'
-    \   },
-    \   'watchdogs_checker/_': {
-    \       'runner/vimproc/updatetime': 10
-    \   },
-    \   'vim/watchdogs_checker': {
-    \       'type': executable('vint') ? 'watchdogs_checker/vint' : 'watchdogs_checker/vim-vimlint'
-    \   },
-    \   'watchdogs_checker/vint': {
-    \       'command': 'vint',
-    \       'exec': '%c %o %s:p'
-    \   },
-    \   'watchdogs_checker/php': {
-    \       'command': 'php',
-    \       'cmdopt':  '-l -d error_reporting=E_ALL -d display_errors=1 -d display_startup_errors=1 -d log_errors=0 -d xdebug.cli_color=0',
-    \        'exec':    '%c %o %s:p',
-    \        'errorformat': '%m\ in\ %f\ on\ line\ %l'
-    \   },
-    \   'watchdogs_checker/shellcheck': {
-    \       'command': 'shellcheck',
-    \       'cmdopt': '-f gcc',
-    \   },
-    \   'sh/watchdogs_checker': {
-    \       'type': 'watchdogs_checker/shellcheck'
-    \   },
-    \   'watchdogs_checker/tslint': {
-    \       'command': 'tslint',
-    \       'exec': '%c %o %s:p',
-    \       'cmdopt': '--module commonjs'
-    \   },
-    \   'typescript/watchdogs_checker': {
-    \       'type': 'watchdogs_checker/tslint'
-    \   }
-    \ }
-
-" {{{2 Gtags
-"let g:unite_source_gtags_ref_option = 'r'
-let g:unite_source_gtags_def_option = 'i'
-"let g:unite_source_gtags_result_option = 'ctags-x'
-
-" {{{2 Go
-filetype plugin indent on
-auto BufWritePre *.go Fmt
-let $GOPATH = $GOPATH . globpath(getcwd(), '_vendor')
-set completeopt=menu
-
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = 'goimports'
-let g:go_fmt_fail_silently = 1
-
-" {{{2 Ctags looks up and up
-set tags=~/.cache/tags_dir/*/prj_tags
-
-" {{{2 Riot
-au BufRead,BufNewFile *.tag set filetype=javascript
-let g:syntastic_javascript_checkers = ['jsxhint']
-let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
-
-" {{{2 TweetVim
-let s:tweetvim_update_interval_seconds = 60
-let s:tweetvim_timestamp = reltime()[0]
-
-" {{{2 Markdown
-set syntax=markdown
-au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-let g:previm_enable_realtime = 1
-let g:previm_custom_css_path = $VIMHOME.'/previm.css'
-
-
-" {{{2 deoplete
-let g:deoplete#enable_at_startup = 1
-
-" {{{1 Include user's local vim config
-" {{{2 Load local configuration
-if filereadable(expand($VIMHOME . '/local.vim'))
-  source $VIMHOME/local.vim
-endif
+" =========================================================================
+" key mappings
+"
+call s:load_flagments('mappings.vim')
+
+" =========================================================================
+" plugin settings
+"
+call s:load_flagments('plugins.vim')

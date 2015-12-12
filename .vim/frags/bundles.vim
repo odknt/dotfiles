@@ -43,7 +43,6 @@ Plug 'tomasr/molokai'
 
 " {{{1 Snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet.vim'
 
 " {{{1 Tagbar
 Plug 'majutsushi/tagbar', {
