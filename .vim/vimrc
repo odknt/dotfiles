@@ -154,9 +154,18 @@ endif
 set gcr=a:blinkon0
 set scrolloff=3
 
-" {{{2 Status bar
+" {{{2 Statusline
 set laststatus=2
 set showmode
+
+" Set statusline.
+let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+      \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+      \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
+      \ . "\ %=%{(winnr('$')==1 || winnr('#')!=winnr()) ?
+      \ '['.(&filetype!=''?&filetype.',':'')"
+      \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
+      \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 " {{{3 Use modeline overrides
 set modeline
@@ -165,12 +174,6 @@ set modelines=10
 set title
 set titleold="Terminal"
 set titlestring=%F
-
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-
-if exists('*fugitive#statusline')
-  set statusline+=%{fugitive#statusline()}
-endif
 
 " {{{1 Abbreviations
 
