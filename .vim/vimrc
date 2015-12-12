@@ -1,25 +1,31 @@
 " {{{1 OS
+if $XDG_CONFIG_HOME ==# ''
+    let $XDG_CONFIG_HOME = '~/.config'
+endif
+
 if has('win32')
 	let $VIMHOME = $VIM
+elseif has('nvim')
+	let $VIMHOME = $XDG_CONFIG_HOME.'/nvim'
 else
-	let $VIMHOME = '~'
+	let $VIMHOME = '~/.vim'
 endif
 
 " {{{1 vim-plug core
 if has('vim_starting')
     " Required
-    set runtimepath+=$VIMHOME/.vim/plugged/vim-plug/
-    if !isdirectory(expand($VIMHOME . '/.vim/plugged/vim-plug'))
+    set runtimepath+=$VIMHOME/plugged/vim-plug/
+    if !isdirectory(expand($VIMHOME . '/plugged/vim-plug'))
         echo 'install vim-plug...'
-        call system('mkdir -p ' . $VIMHOME . '/.vim/plugged/vim-plug')
-        call system('git clone https://github.com/junegunn/vim-plug.git ' . $VIMHOME . '/.vim/plugged/vim-plug/autoload')
+        call system('mkdir -p ' . $VIMHOME . '/plugged/vim-plug')
+        call system('git clone https://github.com/junegunn/vim-plug.git ' . $VIMHOME . '/plugged/vim-plug/autoload')
     endif
 endif
 
 " {{{1 vim-plug install packages
-call g:plug#begin($VIMHOME . '/.vim/plugged/')
-if filereadable(expand($VIMHOME . '/.vim/bundles.vim'))
-  source $VIMHOME/.vim/bundles.vim
+call g:plug#begin($VIMHOME . '/plugged/')
+if filereadable(expand($VIMHOME . '/bundles.vim'))
+  source $VIMHOME/bundles.vim
 endif
 call g:plug#end()
 
@@ -67,7 +73,7 @@ set fileformats=unix,dos,mac
 set showcmd
 
 " {{{2 session management
-let g:session_directory = $VIMHOME . '/.vim/session'
+let g:session_directory = $VIMHOME . '/session'
 let g:session_autoload = 'no'
 let g:session_autosave = 'no'
 let g:session_command_aliases = 1
@@ -76,52 +82,72 @@ let g:session_command_aliases = 1
 let g:mapleader="\<Space>"
 
 " {{{2 Mouse settings
-set mouse=a
+set mouse=
+
+" {{{2 Complete
+set completeopt=menuone
+set complete=.
+set pumheight=20
 
 " {{{1 Visual Settings
 syntax on
 set ruler
 set nonumber
 set wildmenu
-set ttyfast
 set lazyredraw
 set ambiwidth=double
 set foldmethod=marker
 
-let g:no_buffers_menu=1
-colorscheme molokai
+"" neovim always set ttyfast
+if ! has('nvim')
+    set ttyfast
+endif
 
 set mousemodel=popup
 set t_Co=256
 
+set background=dark
+hi clear
+if exists('syntax_on')
+    syntax reset
+endif
+let g:colors_name='molokai'
+let g:no_buffers_menu=1
+let g:molokai_original = 1
+
 " Disable visualbell
-set visualbell t_vb=
+set novisualbell
+
+" Show lastline
+set display=lastline
 
 " {{{2 Gvim
-set guioptions=
-set guifont=Inconsolata\ for\ Powerline\ Bold\ 10
-set guifontwide=Rounded\ M+\ 1m\ Medium\ 10
-set novb
+if !has('nvim')
+    set guioptions=
+    set guifont=Inconsolata\ for\ Powerline\ Bold\ 10
+    set guifontwide=Rounded\ M+\ 1m\ Medium\ 10
+    set novb
 
-if has('gui_running')
-  if has('gui_mac') || has('gui_macvim')
-    set guifont=Menlo:h12
-    set transparency=7
-  endif
-else
-  let g:CSApprox_loaded = 1
+    if has('gui_running')
+      if has('gui_mac') || has('gui_macvim')
+        set guifont=Menlo:h12
+        set transparency=7
+      endif
+    else
+      let g:CSApprox_loaded = 1
 
-  if $COLORTERM ==# 'gnome-terminal'
-    set term=gnome-256color
-  else
-    if $TERM ==# 'xterm'
-      set term=xterm-256color
+      if $COLORTERM ==# 'gnome-terminal'
+        set term=gnome-256color
+      else
+        if $TERM ==# 'xterm'
+          set term=xterm-256color
+        endif
+      endif
     endif
-  endif
-endif
 
-if &term =~# '256color'
-  set t_ut=
+    if &term =~# '256color'
+      set t_ut=
+    endif
 endif
 
 " {{{2 Disable the blinking cursor.
@@ -145,48 +171,6 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 if exists('*fugitive#statusline')
   set statusline+=%{fugitive#statusline()}
 endif
-
-" {{{3 vim-airline
-" let g:airline_theme = 'powerlineish'
-" let g:airline#extensions#syntastic#enabled = 1
-" let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#tabline#enabled = 1
-" 
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-" 
-" let g:airline_powerline_fonts=1
-" if !exists('g:airline_powerline_fonts')
-"   let g:airline#extensions#tabline#left_sep = ' '
-"   let g:airline#extensions#tabline#left_alt_sep = '|'
-"   let g:airline_left_sep          = '▶'
-"   let g:airline_left_alt_sep      = '»'
-"   let g:airline_right_sep         = '◀'
-"   let g:airline_right_alt_sep     = '«'
-"   let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-"   let g:airline#extensions#readonly#symbol   = '⊘'
-"   let g:airline#extensions#linecolumn#prefix = '¶'
-"   let g:airline#extensions#paste#symbol      = 'ρ'
-"   let g:airline_symbols.linenr    = '␊'
-"   let g:airline_symbols.branch    = '⎇'
-"   let g:airline_symbols.paste     = 'ρ'
-"   let g:airline_symbols.paste     = 'Þ'
-"   let g:airline_symbols.paste     = '∥'
-"   let g:airline_symbols.whitespace = 'Ξ'
-" else
-"   let g:airline#extensions#tabline#left_sep = ''
-"   let g:airline#extensions#tabline#left_alt_sep = ''
-" 
-"   " powerline symbols
-"   let g:airline_left_sep = ''
-"   let g:airline_left_alt_sep = ''
-"   let g:airline_right_sep = ''
-"   let g:airline_right_alt_sep = ''
-"   let g:airline_symbols.branch = ''
-"   let g:airline_symbols.readonly = ''
-"   let g:airline_symbols.linenr = ''
-" endif
 
 " {{{1 Abbreviations
 
@@ -251,6 +235,7 @@ command! DisableItalic call s:disable_italic()
 
 if has('vim_starting')
     call s:disable_italic()
+    syntax on
 endif
 
 " {{{1 Autocmd Rules
@@ -293,7 +278,12 @@ augroup END
 
 " {{{1 Mappings
 " {{{2 General
-nnoremap <leader>sh :sh<CR>
+if has('nvim')
+    nnoremap <leader>to :Topen<CR>
+    nnoremap <leader>tc :Tclose<CR>
+else
+    nnoremap <leader>sh :sh<CR>
+endif
 
 " {{{2 Save
 noremap <leader>w :w<CR>
@@ -301,16 +291,6 @@ noremap <leader>w :w<CR>
 " {{{2 Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
-
-" {{{2 Git
-noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
 
 " {{{2 session management
 nnoremap <leader>so :OpenSession
@@ -355,7 +335,7 @@ let g:UltiSnipsEditSplit='vertical'
 
 " {{{2 Copy/Paste/Cut
 if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
+  set clipboard=unnamedplus
 endif
 noremap YY "+y<CR>
 noremap P "+gP<CR>
@@ -465,6 +445,9 @@ vnoremap <C-k> :Unite gtags/ref<CR>
 " Show all tokens
 nnoremap <C-/> :Unite gtags/completion<CR>
 
+" {{{2 ctrlp.vim
+nnoremap <C-p> :CtrlP<CR>
+
 " {{{1 Custom configs
 " {{{2 gitgutter
 let g:gitgutter_map_keys = 0
@@ -511,6 +494,7 @@ augroup END
 let g:quickrun_config = {
     \   '_': {
     \       'runner': 'vimproc',
+    \       'outputter/quickfix/open_cmd': '',
     \       'runner/vimproc/updatetime': 10
     \   },
     \   'gtags': {
@@ -586,13 +570,14 @@ let s:tweetvim_timestamp = reltime()[0]
 set syntax=markdown
 au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 let g:previm_enable_realtime = 1
+let g:previm_custom_css_path = $VIMHOME.'/previm.css'
 
-" {{{2 Clipboard
-set clipboard=unnamed
 
+" {{{2 deoplete
+let g:deoplete#enable_at_startup = 1
 
 " {{{1 Include user's local vim config
 " {{{2 Load local configuration
-if filereadable(expand($VIMHOME . '/.vim/local.vim'))
-  source $VIMHOME/.vim/local.vim
+if filereadable(expand($VIMHOME . '/local.vim'))
+  source $VIMHOME/local.vim
 endif

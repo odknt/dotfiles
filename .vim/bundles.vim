@@ -18,9 +18,6 @@ Plug 'airblade/vim-gitgutter'
 " {{{1 CtrlP: Grep file path
 Plug 'ctrlpvim/ctrlp.vim'
 
-" {{{1 Airline: Enchansment status bar like Powerline
-" Plug 'bling/vim-airline'
-
 " {{{1 LanguagePack
 Plug 'sheerun/vim-polyglot'
 
@@ -40,25 +37,13 @@ Plug 'xolox/vim-session'
 
 " {{{1 Color
 Plug 'vim-scripts/CSApprox'
+
+" {{{1 Color Scheme
 Plug 'tomasr/molokai'
 
 " {{{1 Snippets
-if v:version >= 704
-  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-  Plug 'FelikZ/ctrlp-py-matcher'
-endif
-
-" {{{1 VimShell
-if v:version >= 703
-    Plug 'Shougo/vimshell.vim'
-
-    let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-    let g:vimshell_prompt =  '$ '
-endif
-
-" {{{1 InddentLine: Show indent level
-Plug 'Yggdroot/indentLine'
-
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet.vim'
 
 " {{{1 Tagbar
 Plug 'majutsushi/tagbar', {
@@ -71,8 +56,7 @@ Plug 'davidhalter/jedi-vim', {
     \ }
 
 " {{{1 Golang
-Plug 'fatih/vim-go', { 'for': [ 'go' ] } |
-    \ Plug 'vim-jp/vim-go-extra', { 'for': [ 'go' ] }
+Plug 'fatih/vim-go', { 'for': [ 'go' ] }
 
 " {{{1 HTML
 Plug 'hail2u/vim-css3-syntax', { 'for': [ 'css', 'less', 'sass', 'scss' ] }
@@ -177,3 +161,17 @@ Plug 'kannokanno/previm', {
 
 " {{{1 vim-test
 Plug 'janko-m/vim-test'
+
+" {{{1 for neovim plugins
+if has('nvim')
+    " Alt neocomplete
+    Plug 'Shougo/deoplete.nvim'
+    " Non blocking debugger
+    Plug 'critiqjo/lldb.nvim'
+    " Async make
+    Plug 'benekastah/neomake', {
+    \   'on': [ 'Neomake', 'NeomakeFile', 'NeomakeListJobs', 'NeomakeProject', 'NeomakeSh' ]
+    \ }
+    " Terminal
+    Plug 'kassio/neoterm'
+endif
