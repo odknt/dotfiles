@@ -1,4 +1,6 @@
-set encoding=utf-8
+if has('vim_starting')
+    set encoding=utf-8
+endif
 scriptencoding utf-8
 
 set fileencoding=utf-8

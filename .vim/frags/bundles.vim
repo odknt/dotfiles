@@ -7,7 +7,6 @@ let b:on_watchdogs = [ 'WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep'
 
 " {{{1 dirvish
 Plug 'justinmk/vim-dirvish'
-noremap <F3> :Dirvish<CR>
 
 " {{{1 Commentary
 Plug 'tpope/vim-commentary'
@@ -15,15 +14,14 @@ Plug 'tpope/vim-commentary'
 " {{{1 Git
 Plug 'airblade/vim-gitgutter'
 
-" {{{1 CtrlP: Grep file path
-Plug 'ctrlpvim/ctrlp.vim'
+" {{{1 CtrlP Grep file path
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'nixprime/cpsm', { 'do': './install.sh' }
 
 " {{{1 LanguagePack
 Plug 'sheerun/vim-polyglot'
 
 " {{{1 Grep
 Plug 'vim-scripts/grep.vim'
-let g:Grep_Default_Options = '-IR'
 
 " {{{1 TrailingWhitespace
 Plug 'bronson/vim-trailing-whitespace'
@@ -66,37 +64,15 @@ Plug 'Shougo/unite.vim', { 'on': 'Unite', 'for': [ 'unite' ] }
 
 " {{{1 QuickRun
 Plug 'thinca/vim-quickrun'
-let g:quickrun_config = { '*': { 'hook/time/enable': '1' } }
 
 " {{{1 Easymotion
 Plug 'easymotion/vim-easymotion'
-let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key = "'"
-let g:EasyMotion_grouping = 1
-let g:EasyMotion_use_migemo = 1
 
 " {{{1 Wildfire
 Plug 'gcmt/wildfire.vim'
-let g:wildfire_water_map = '<S-Enter>'
-let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it', 'i>']
 
 " {{{1 Rust: language support
 Plug 'rust-lang/rust.vim', { 'for': [ 'rust' ] }
-
-" {{{1 Rust: Tagbar settings
-let g:tagbar_type_rust = {
-    \ 'ctagstype' : 'rust',
-    \ 'kinds' : [
-        \'T:types,type definitions',
-        \'f:functions,function definitions',
-        \'g:enum,enumeration names',
-        \'s:structure names',
-        \'m:modules,module names',
-        \'c:consts,static constants',
-        \'t:traits,traits',
-        \'i:impls,trait implementations',
-    \]
-    \}
 
 " {{{1 Bdelete: Delete a buffer without closing the window.
 Plug 'moll/vim-bbye'
@@ -109,11 +85,6 @@ Plug 'arnaud-lb/vim-php-namespace', { 'for': [ 'php' ] }
 
 " {{{1 Vdebug
 Plug 'joonty/vdebug', { 'for': [ 'php' ] }
-let g:vdebug_options = {
-    \ 'server' : 0.0.0.0,
-    \ 'break_on_open' : 0,
-    \ 'path_maps' : {
-    \ }}
 
 " {{{1 EditorConfig
 Plug 'editorconfig/editorconfig-vim'
@@ -157,20 +128,5 @@ Plug 'kannokanno/previm', {
     \ 'for': [ 'markdown' ]
     \ }
 
-
 " {{{1 vim-test
 Plug 'janko-m/vim-test'
-
-" {{{1 for neovim plugins
-if has('nvim')
-    " Alt neocomplete
-    Plug 'Shougo/deoplete.nvim'
-    " Non blocking debugger
-    Plug 'critiqjo/lldb.nvim'
-    " Async make
-    Plug 'benekastah/neomake', {
-    \   'on': [ 'Neomake', 'NeomakeFile', 'NeomakeListJobs', 'NeomakeProject', 'NeomakeSh' ]
-    \ }
-    " Terminal
-    Plug 'kassio/neoterm'
-endif

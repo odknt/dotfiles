@@ -4,6 +4,44 @@ let g:session_autoload = 'no'
 let g:session_autosave = 'no'
 let g:session_command_aliases = 1
 
+" {{{1 grep
+let g:Grep_Default_Options = '-IR'
+
+" {{{1 ctrlp + cpsm
+let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+
+" {{{1 easymotion
+let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_leader_key = "'"
+let g:EasyMotion_grouping = 1
+let g:EasyMotion_use_migemo = 1
+
+" {{{1 wildfire
+let g:wildfire_water_map = '<S-Enter>'
+let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it', 'i>']
+
+" {{{1 Rust: Tagbar settings
+let g:tagbar_type_rust = {
+    \ 'ctagstype' : 'rust',
+    \ 'kinds' : [
+        \'T:types,type definitions',
+        \'f:functions,function definitions',
+        \'g:enum,enumeration names',
+        \'s:structure names',
+        \'m:modules,module names',
+        \'c:consts,static constants',
+        \'t:traits,traits',
+        \'i:impls,trait implementations',
+    \]
+    \}
+
+" {{{1 vdebug
+let g:vdebug_options = {
+    \ 'server' : 0.0.0.0,
+    \ 'break_on_open' : 0,
+    \ 'path_maps' : {
+    \ }}
+
 " {{{1 gitgutter
 let g:gitgutter_map_keys = 0
 
@@ -47,6 +85,7 @@ augroup END
 
 " {{{1 QuickrunConfig
 let g:quickrun_config = {
+    \   '*': { 'hook/time/enable': '1' },
     \   '_': {
     \       'runner': 'vimproc',
     \       'outputter/quickfix/open_cmd': '',
@@ -97,9 +136,6 @@ let g:unite_source_gtags_def_option = 'i'
 
 " {{{1 Go
 filetype plugin indent on
-auto BufWritePre *.go Fmt
-let $GOPATH = $GOPATH . globpath(getcwd(), '_vendor')
-set completeopt=menu
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
