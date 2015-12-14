@@ -83,7 +83,7 @@ augroup vimrc_local_watchdogs
     autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
 augroup END
 
-" {{{1 QuickrunConfig
+" {{{1 quickrun config
 let g:quickrun_config = {
     \   '*': { 'hook/time/enable': '1' },
     \   '_': {
@@ -91,42 +91,74 @@ let g:quickrun_config = {
     \       'outputter/quickfix/open_cmd': '',
     \       'runner/vimproc/updatetime': 10
     \   },
-    \   'gtags': {
-    \       'command': 'gtags',
-    \       'exec': '%c',
-    \       'outputter': 'error:buffer:quickfix'
-    \   },
     \   'watchdogs_checker/_': {
     \       'runner/vimproc/updatetime': 10
     \   },
-    \   'vim/watchdogs_checker': {
-    \       'type': executable('vint') ? 'watchdogs_checker/vint' : 'watchdogs_checker/vim-vimlint'
-    \   },
-    \   'watchdogs_checker/vint': {
-    \       'command': 'vint',
-    \       'exec': '%c %o %s:p'
-    \   },
-    \   'watchdogs_checker/php': {
-    \       'command': 'php',
-    \       'cmdopt':  '-l -d error_reporting=E_ALL -d display_errors=1 -d display_startup_errors=1 -d log_errors=0 -d xdebug.cli_color=0',
-    \        'exec':    '%c %o %s:p',
-    \        'errorformat': '%m\ in\ %f\ on\ line\ %l'
-    \   },
-    \   'watchdogs_checker/shellcheck': {
-    \       'command': 'shellcheck',
-    \       'cmdopt': '-f gcc',
-    \   },
-    \   'sh/watchdogs_checker': {
-    \       'type': 'watchdogs_checker/shellcheck'
-    \   },
-    \   'watchdogs_checker/tslint': {
-    \       'command': 'tslint',
-    \       'exec': '%c %o %s:p',
-    \       'cmdopt': '--module commonjs'
-    \   },
-    \   'typescript/watchdogs_checker': {
-    \       'type': 'watchdogs_checker/tslint'
-    \   }
+    \ }
+
+" ==============================================================
+" gtags
+"
+let g:quickrun_config['gtags'] = {
+    \   'command': 'gtags',
+    \   'exec': '%c',
+    \   'outputter': 'error:buffer:quickfix'
+    \ }
+
+" ==============================================================
+" vim
+"
+let g:quickrun_config['vim/watchdogs_checker'] = {
+    \   'type': executable('vint') ? 'watchdogs_checker/vint' : 'watchdogs_checker/vim-vimlint'
+    \ }
+let g:quickrun_config['watchdogs_checker/vint'] = {
+    \   'command': 'vint',
+    \   'exec': '%c %o %s:p'
+    \ }
+
+" ==============================================================
+" php
+"
+let g:quickrun_config['watchdogs_checker/php'] = {
+    \   'command': 'php',
+    \   'cmdopt':  '-l -d error_reporting=E_ALL -d display_errors=1 -d display_startup_errors=1 -d log_errors=0 -d xdebug.cli_color=0',
+    \   'exec':    '%c %o %s:p',
+    \   'errorformat': '%m\ in\ %f\ on\ line\ %l'
+    \ }
+
+" ==============================================================
+" shell script
+"
+let g:quickrun_config['watchdogs_checker/shellcheck'] = {
+    \   'command': 'shellcheck',
+    \   'cmdopt': '-f gcc',
+    \ }
+let g:quickrun_config['sh/watchdogs_checker'] = {
+    \   'type': 'watchdogs_checker/shellcheck'
+    \ }
+
+" ==============================================================
+" typescript
+"
+let g:quickrun_config['watchdogs_checker/tslint'] = {
+    \   'command': 'tslint',
+    \   'exec': '%c %o %s:p',
+    \   'cmdopt': '--module commonjs'
+    \ }
+let g:quickrun_config['typescript/watchdogs_checker'] = {
+    \   'type': 'watchdogs_checker/tslint'
+    \ }
+
+" ==============================================================
+" swift
+"
+let g:quickrun_config['watchdogs_checker/swiftc'] = {
+    \   'command': 'swiftc',
+    \   'exec': '%c %o %s:p',
+    \   'cmdopt': ''
+    \ }
+let g:quickrun_config['swift/watchdogs_checker'] = {
+    \   'type': 'watchdogs_checker/swiftc'
     \ }
 
 " {{{1 Gtags
