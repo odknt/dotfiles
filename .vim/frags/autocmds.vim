@@ -29,7 +29,7 @@ if !exists('*s:setupWrapping')
     " Startup Wrapping
     function s:setupWrapping()
         set wrap
-        set wm=2
+        set wrapmargin=2
         set textwidth=79
     endfunction
 endif
@@ -66,4 +66,26 @@ augroup END
 augroup frags_autocmds_golang
     au!
     au BufWritePre *.go GoFmt
+augroup END
+
+" =========================================================================
+" Neomake & Watchdogs
+"
+let g:syntax_check_command = 'WatchdogsRunSilent'
+if has('nvim')
+    let g:syntax_check_command = 'Neomake'
+endif
+
+augroup frags_autocmds_neomake_watchdogs
+    au!
+    " au InsertLeave,BufWritePost,TextChanged * exe g:syntax_check_command
+    au BufNewFile,BufRead,BufWritePost * exe g:syntax_check_command
+augroup END
+
+" =========================================================================
+" Hier & Highlight
+"
+augroup frags_autocmds_highlighting
+    au!
+    au BufWritePost * HierUpdate
 augroup END

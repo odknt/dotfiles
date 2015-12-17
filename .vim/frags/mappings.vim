@@ -10,6 +10,9 @@ if has('unnamedplus')
   set clipboard=unnamedplus
 endif
 
+" Open location list
+noremap <silent> <leader>l :<C-u>lwindow<CR>
+
 " Save
 noremap <leader>w :<C-u>w<CR>
 
@@ -44,8 +47,8 @@ noremap <Leader>e :<C-u>e <C-R>=expand("%:p:h") . "/" <CR>
 " Opens a tab edit command with the path of the currently edited file filled
 noremap <Leader>te :<C-u>tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-" grep.vim
-nnoremap <silent> <leader>f :<C-u>Rgrep<CR>
+" Grep
+nnoremap <silent> <leader>f :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 
 " ctrlp.vim
 set wildmode=list:longest,list:full
@@ -130,15 +133,15 @@ augroup frags_mappings_golang
     au FileType go nmap [go]n <Plug>(go-rename)
 augroup END
 
-" Show function list in current file
+" Gtags Show function list in current file
 nnoremap <leader><C-l> :<C-u>Unite gtags/file<CR>
-" Grep
+" Gtags Grep
 nnoremap <leader><C-g> :<C-u>Unite gtags/grep<CR>
-" Show def under cursor
+" Gtags Show def under cursor
 nnoremap <leader><C-]> :<C-u>Unite gtags/def<CR>
 vnoremap <leader><C-]> :<C-u>Unite gtags/def<CR>
-" Show ref under cursor
+" Gtags Show ref under cursor
 nnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
 vnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
-" Show all tokens
+" Gtags Show all tokens
 nnoremap <leader><C-/> :<C-u>Unite gtags/completion<CR>

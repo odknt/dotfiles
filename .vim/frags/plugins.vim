@@ -4,21 +4,21 @@ let g:session_autoload = 'no'
 let g:session_autosave = 'no'
 let g:session_command_aliases = 1
 
+" untie.vim
+" smart case
+let g:unite_enable_smart_case = 1
+
+if executable('ag')
+    let g:untie_source_grep_command = 'ag'
+    let g:untie_source_grep_default_opts = '--nogroup --column --nocolor'
+    let g:untie_source_grep_recursive_opt = ''
+endif
+
 " {{{1 grep
 let g:Grep_Default_Options = '-IR'
 
 " {{{1 ctrlp + cpsm
 let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-
-" {{{1 easymotion
-let g:EasyMotion_keys = 'hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key = "'"
-let g:EasyMotion_grouping = 1
-let g:EasyMotion_use_migemo = 1
-
-" {{{1 wildfire
-let g:wildfire_water_map = '<S-Enter>'
-let g:wildfire_objects = ["i'", 'i"', 'i)', 'i]', 'i}', 'ip', 'it', 'i>']
 
 " {{{1 Rust: Tagbar settings
 let g:tagbar_type_rust = {
@@ -53,10 +53,6 @@ augroup vimrc_python
       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 augroup END
 
-" {{{1 vim-airline
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-
 " {{{1 Tagbar
 let g:tagbar_autofocus = 1
 let g:tagbar_type_go = {
@@ -76,12 +72,6 @@ let g:tagbar_type_go = {
 " Watchdogs target language's extension
 let $watchdogs_target = '*.js,*.ts,*.go,*.php,*.py,*.lua,*.vim*,vimrc'
 let g:watchdogs_check_CursorHold_enable = 1
-let g:watchdogs_check_BufWritePost_enable = 1
-augroup vimrc_local_watchdogs
-    autocmd!
-    " autocmd InsertLeave,BufWritePost,TextChanged $watchdogs_target WatchdogsRunSilent
-    autocmd BufNewFile,BufRead $watchdogs_target WatchdogsRunSilent
-augroup END
 
 " {{{1 quickrun config
 let g:quickrun_config = {
@@ -150,6 +140,13 @@ let g:quickrun_config['typescript/watchdogs_checker'] = {
     \ }
 
 " ==============================================================
+" Go
+"
+let g:quickrun_config['go/watchdogs_checker'] = {
+    \   'type': 'watchdogs_checker/go_vet'
+    \ }
+
+" ==============================================================
 " swift
 "
 let g:quickrun_config['watchdogs_checker/swiftc'] = {
@@ -177,17 +174,10 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_fail_silently = 1
 
-" {{{1 Ctags looks up and up
-set tags=~/.cache/tags_dir/*/prj_tags
-
 " {{{1 Riot
 au BufRead,BufNewFile *.tag set filetype=javascript
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
-
-" {{{1 TweetVim
-let s:tweetvim_update_interval_seconds = 60
-let s:tweetvim_timestamp = reltime()[0]
 
 " {{{1 Markdown
 set syntax=markdown
@@ -195,5 +185,41 @@ au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 let g:previm_enable_realtime = 1
 let g:previm_custom_css_path = g:vim_config_home.'/previm.css'
 
-" {{{1 deoplete
+" {{{1 neocomplete & deoplete
+" neocomplete
+let g:acp_enableAtStartup = 1
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#tags#cache_limit_size = 1000000
+" deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+" source
+let s:sources = {
+    \   '_': [ 'buffer' ],
+    \   'cpp': [ 'buffer', 'tag' ],
+    \   'php': [ 'buffer', 'tag' ],
+    \   'go': [ 'buffer', 'tag' ],
+    \   'ruby': [ 'buffer', 'tag' ],
+    \   'rust': [ 'buffer', 'tag' ],
+    \ }
+let g:neocomplete#sources = s:sources
+let g:deoplete#sources = s:sources
+unlet s:sources
+
+" {{{1 neomake
+let g:neomake_warning_sign = {
+    \ 'text': 'W>',
+    \ 'texthl': 'WarningMsg',
+    \ }
+let g:neomake_error_sign = {
+    \ 'text': 'E>',
+    \ 'texthl': 'ErrorMsg',
+    \ }
+let g:neomake_verbose = 0
+
+" {{{1 markdown-composer
+" Manual open preview page.
+let g:markdown_composer_autostart = 1
+let g:markdown_composer_open_browser = 0

@@ -97,3 +97,8 @@ endif
 " plugin settings
 "
 call s:load_flagments('plugins.vim')
+
+" =========================================================================
+" local settings
+"
+call s:load_flagments('local.vim')
