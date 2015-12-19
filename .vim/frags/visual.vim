@@ -71,4 +71,4 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 
-syntax off
+syntax on

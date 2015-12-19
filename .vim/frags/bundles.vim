@@ -120,3 +120,6 @@ else
     " completion
     Plug 'Shougo/neocomplete.vim'
 endif
+
+" {{{1 phpcomplete
+Plug 'shawncplus/phpcomplete.vim'
