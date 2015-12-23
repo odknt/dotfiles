@@ -31,6 +31,17 @@ let g:no_buffers_menu=1
 let g:molokai_original = 1
 let g:rehash256 = 1
 
+" Word wrap
+set linebreak
+set showbreak=\
+set breakat=\ \ ;:,!?
+if exists('+breakindent')
+    set wrap
+    set breakindent
+else
+    set nowrap
+endif
+
 " Disable visualbell
 set novisualbell
 
@@ -71,4 +82,4 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 
-syntax on
+syntax off

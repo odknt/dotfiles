@@ -12,6 +12,9 @@ set expandtab
 " Enable hidden buffer
 set hidden
 
+" Text width
+set textwidth=0
+
 " Search
 set nohlsearch
 set incsearch
@@ -42,6 +45,13 @@ cnoreabbrev Qall qall
 
 " Mouse settings
 set mouse=
+
+" Clipboard
+if ('unnnamedplus')
+    set clipboard & clipboard+=unnamedplus
+else
+    set clipboard & clipboard+=unnamed
+endif
 
 " Complete
 set completeopt=menuone

@@ -185,28 +185,6 @@ au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 let g:previm_enable_realtime = 1
 let g:previm_custom_css_path = g:vim_config_home.'/previm.css'
 
-" {{{1 neocomplete & deoplete
-" neocomplete
-let g:acp_enableAtStartup = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#tags#cache_limit_size = 1000000
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-
-" source
-let s:sources = {
-    \   '_': [ 'buffer' ],
-    \   'cpp': [ 'buffer', 'tag' ],
-    \   'php': [ 'buffer', 'tag' ],
-    \   'go': [ 'buffer', 'tag' ],
-    \   'ruby': [ 'buffer', 'tag' ],
-    \   'rust': [ 'buffer', 'tag' ],
-    \ }
-let g:neocomplete#sources = s:sources
-let g:deoplete#sources = s:sources
-unlet s:sources
 
 " {{{1 neomake
 let g:neomake_warning_sign = {
@@ -223,3 +201,9 @@ let g:neomake_verbose = 0
 " Manual open preview page.
 let g:markdown_composer_autostart = 1
 let g:markdown_composer_open_browser = 0
+
+" {{{1 ultisnips
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsListSnippets = '<c-tab>'
+let g:UltiSnipsJumpForwardTrigger = '<c-l>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-h>'

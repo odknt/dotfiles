@@ -145,3 +145,6 @@ nnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
 vnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
 " Gtags Show all tokens
 nnoremap <leader><C-/> :<C-u>Unite gtags/completion<CR>
+
+" CTRL-I, CTRL-O
+unmap <C-i>
