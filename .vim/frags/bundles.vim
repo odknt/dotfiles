@@ -18,7 +18,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'nixprime/cpsm', { 'do': './install.sh' }
 
 " {{{1 LanguagePack
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " Golang
 Plug 'fatih/vim-go', { 'for': [ 'go' ] }
@@ -36,7 +36,6 @@ Plug 'xolox/vim-session'
 " {{{1 Color Scheme
 Plug 'vim-scripts/CSApprox'
 Plug 'tomasr/molokai'
-Plug 'altercation/vim-colors-solarized'
 
 " {{{1 Snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -109,3 +108,12 @@ Plug 'suan/vim-instant-markdown', {
 
 " {{{1 vim-test
 Plug 'janko-m/vim-test'
+
+" {{{1 neocomplete / deoplete
+if has('nvim')
+    " Alt neocomplete
+    Plug 'Shougo/deoplete.nvim'
+else
+    " completion
+    Plug 'Shougo/neocomplete.vim'
+endif
