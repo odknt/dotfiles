@@ -37,7 +37,7 @@ let g:tagbar_type_rust = {
 
 " {{{1 vdebug
 let g:vdebug_options = {
-    \ 'server' : 0.0.0.0,
+    \ 'server' : '0.0.0.0',
     \ 'break_on_open' : 0,
     \ 'path_maps' : {
     \ }}

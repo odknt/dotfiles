@@ -35,7 +35,7 @@ nnoremap <silent> <S-t> :<C-u>tabnew<CR>
 cnoremap w!! w !sudo tee > /dev/null %
 
 " Dirvish (filer)
-noremap <F3> :<C-u>Dirvish<CR>
+nnoremap <F1> :<C-u>Dirvish<CR>
 
 " Directory
 " Set working directory
