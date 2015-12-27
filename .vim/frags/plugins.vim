@@ -179,12 +179,8 @@ au BufRead,BufNewFile *.tag set filetype=javascript
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
 
-" {{{1 Markdown
-set syntax=markdown
-au BufRead,BufNewFile *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-let g:previm_enable_realtime = 1
-let g:previm_custom_css_path = g:vim_config_home.'/previm.css'
-
+" {{{1 vim-instant-markdown
+let g:instant_markdown_autostart = 0
 
 " {{{1 neomake
 let g:neomake_warning_sign = {
@@ -196,11 +192,6 @@ let g:neomake_error_sign = {
     \ 'texthl': 'ErrorMsg',
     \ }
 let g:neomake_verbose = 0
-
-" {{{1 markdown-composer
-" Manual open preview page.
-let g:markdown_composer_autostart = 1
-let g:markdown_composer_open_browser = 0
 
 " {{{1 ultisnips
 let g:UltiSnipsExpandTrigger = '<tab>'
