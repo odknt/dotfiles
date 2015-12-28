@@ -40,6 +40,9 @@ if has('vim_starting')
     endif
 endif
 
+syntax off
+filetype off
+
 call g:plug#begin(g:vim_config_home . '/plugged/')
 " Vim plugins
 call s:load_flagments('bundles.vim')

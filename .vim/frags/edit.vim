@@ -48,9 +48,9 @@ set mouse=
 
 " Clipboard
 if ('unnnamedplus')
-    set clipboard & clipboard+=unnamedplus
+    set clipboard+=unnamedplus
 else
-    set clipboard & clipboard+=unnamed
+    set clipboard+=unnamed
 endif
 
 " Complete

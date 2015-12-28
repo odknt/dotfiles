@@ -199,20 +199,5 @@ let g:UltiSnipsListSnippets = '<c-tab>'
 let g:UltiSnipsJumpForwardTrigger = '<c-l>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 
-" {{{1 neocomplete & deoplete
-" neocomplete
-let g:acp_enableAtStartup = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#tags#cache_limit_size = 1000000
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-
-" source
-let s:sources = {
-    \   '_': [ 'buffer', 'tag', 'omni', 'dictionary' ],
-    \ }
-let g:neocomplete#sources = s:sources
-let g:deoplete#sources = s:sources
-unlet s:sources
+" {{{1 YouCompleteMe
+let g:ycm_key_list_select_completion = ['<Down>']

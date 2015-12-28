@@ -11,17 +11,15 @@ Plug 'justinmk/vim-dirvish'
 " {{{1 Commentary
 Plug 'tpope/vim-commentary'
 
-" {{{1 Git
-Plug 'airblade/vim-gitgutter'
-
 " {{{1 CtrlP Grep file path
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'nixprime/cpsm', { 'do': './install.sh' }
 
 " {{{1 LanguagePack
 " Plug 'sheerun/vim-polyglot'
 
-" Golang
+" {{{1 Golang
 Plug 'fatih/vim-go', { 'for': [ 'go' ] }
+Plug 'garyburd/go-explorer', { 'for': [ 'go' ] }
 
 " {{{1 Grep
 Plug 'vim-scripts/grep.vim'
@@ -109,11 +107,5 @@ Plug 'suan/vim-instant-markdown', {
 " {{{1 vim-test
 Plug 'janko-m/vim-test'
 
-" {{{1 neocomplete / deoplete
-if has('nvim')
-    " Alt neocomplete
-    Plug 'Shougo/deoplete.nvim'
-else
-    " completion
-    Plug 'Shougo/neocomplete.vim'
-endif
+" {{{1 YouCompleteMe
+Plug 'Valloric/YouCompleteMe'

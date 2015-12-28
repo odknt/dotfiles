@@ -81,5 +81,3 @@ set modelines=10
 set title
 set titleold="Terminal"
 set titlestring=%F
-
-syntax off
