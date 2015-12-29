@@ -18,18 +18,6 @@ set cmdheight=2
 
 " Right mouse button option
 set mousemodel=popup
-set t_Co=256
-
-set background=dark
-hi clear
-if exists('syntax_on')
-    syntax reset
-endif
-
-let g:colors_name='molokai'
-let g:no_buffers_menu=1
-let g:molokai_original = 1
-let g:rehash256 = 1
 
 " Word wrap
 set linebreak
@@ -45,10 +33,11 @@ endif
 " Disable visualbell
 set novisualbell
 
+" Background color
+set background=dark
+
 " Show lastline
 set display=lastline
-
-let g:CSApprox_loaded = 1
 
 if &term ==# 'xterm'
     set term=xterm-256color

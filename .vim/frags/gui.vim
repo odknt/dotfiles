@@ -27,3 +27,21 @@ if has('vim_starting')
     call s:disable_italic()
     syntax on
 endif
+
+" ============================================================
+" Appearance
+"
+set t_Co=256
+
+set background=dark
+hi clear
+if exists('syntax_on')
+    syntax reset
+endif
+
+let g:colors_name='molokai'
+let g:no_buffers_menu=1
+let g:molokai_original = 1
+let g:rehash256 = 1
+
+syn on

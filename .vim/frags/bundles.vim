@@ -32,7 +32,7 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 
 " {{{1 Color Scheme
-Plug 'vim-scripts/CSApprox'
+" Plug 'vim-scripts/CSApprox'
 Plug 'tomasr/molokai'
 
 " {{{1 Snippets

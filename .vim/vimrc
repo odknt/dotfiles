@@ -27,6 +27,9 @@ function! s:load_flagments(path)
     endif
 endfunction
 
+syntax off
+filetype off
+
 " =========================================================================
 " plugins
 "
@@ -39,9 +42,6 @@ if has('vim_starting')
         call system('git clone https://github.com/junegunn/vim-plug.git ' . g:vim_config_home . '/plugged/vim-plug/autoload')
     endif
 endif
-
-syntax off
-filetype off
 
 call g:plug#begin(g:vim_config_home . '/plugged/')
 " Vim plugins

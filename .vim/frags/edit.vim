@@ -57,3 +57,9 @@ endif
 set completeopt=menuone
 set complete=.
 set pumheight=20
+
+" ============================================================
+" Directories
+"
+set dictionary=/usr/share/dict/words
+set thesaurus=/usr/share/mythes/th_en_US_v2.dat
