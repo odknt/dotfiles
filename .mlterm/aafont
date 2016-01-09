@@ -1,0 +1,10 @@
+#DEFAULT=Rounded M+ 1m medium
+DEFAULT=Inconsolata for Powerline bold
+ISO10646_UCS4_1=Rounded M+ 1m medium
+ISO10646_UCS4_1_BIWIDTH=Rounded M+ 1m medium
+ISO10646_UCS4_1_FULLWIDTH=Rounded M+ 1m medium
+U+2702-27B0=Symbola
+#U+24C2-1F251=Symbola
+U+1F30D-1F567=Symbola
+U+1F600-1F64F=Symbola
+U+1F680-1F6C5=Symbola

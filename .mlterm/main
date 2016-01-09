@@ -1,0 +1,8 @@
+tabsize = 4
+unicode_full_width_areas = U+1F30D-1F6C5
+fontsize = 14
+use_anti_alias = true
+use_scrollbar = false
+fg_color = white
+bg_color = black
+iso88591_font_for_usascii=true
