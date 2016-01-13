@@ -56,4 +56,7 @@ augroup frags_autocmds
 
     " Hier & Highlight
     au BufWritePost * HierUpdate
+
+    " Renewal unnamed buffer
+    au VimEnter * if argc() == 0 && bufname('%') ==# '' | enew | endif
 augroup END
