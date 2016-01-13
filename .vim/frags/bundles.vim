@@ -58,9 +58,6 @@ Plug 'Shougo/unite.vim', { 'on': 'Unite', 'for': [ 'unite' ] }
 " {{{1 QuickRun
 Plug 'thinca/vim-quickrun'
 
-" {{{1 Wildfire
-Plug 'gcmt/wildfire.vim'
-
 " {{{1 Bdelete: Delete a buffer without closing the window.
 Plug 'moll/vim-bbye'
 
@@ -109,3 +106,6 @@ Plug 'janko-m/vim-test'
 
 " {{{1 YouCompleteMe
 Plug 'Valloric/YouCompleteMe'
+
+" {{{1 vim-gista
+Plug 'lambdalisue/vim-gista'
