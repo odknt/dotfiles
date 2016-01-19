@@ -3,8 +3,14 @@ set nonumber
 set wildmenu
 set lazyredraw
 set ttyfast
-set ambiwidth=double
+set ambiwidth=single
 set foldmethod=marker
+
+" Change split lines
+if &encoding ==? 'utf-8'
+    exec "set fillchars=vert:\u2502,fold:\u2500,diff:\u2014"
+    hi VertSplit ctermfg=black ctermbg=61
+endif
 
 " Not move cursor to the first empty line at scroll
 set nostartofline
