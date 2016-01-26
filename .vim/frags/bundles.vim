@@ -5,8 +5,11 @@ let b:on_tweetvim = [ 'TweetVimHomeTimeline' ]
 let b:on_watchdogs = [ 'WatchdogsRun', 'WatchdogsRunSilent', 'WatchdogsRunSweep' ]
 " }}}
 
-" {{{1 dirvish
-Plug 'justinmk/vim-dirvish'
+" {{{1 NERDTree
+Plug 'scrooloose/nerdtree'
+
+" {{{1 ag.vim
+Plug 'rking/ag.vim'
 
 " {{{1 Commentary
 Plug 'tpope/vim-commentary'
@@ -109,3 +112,6 @@ Plug 'Valloric/YouCompleteMe'
 
 " {{{1 vim-gista
 Plug 'lambdalisue/vim-gista'
+
+" {{{1 vim-coffee-script
+Plug 'kchmck/vim-coffee-script'

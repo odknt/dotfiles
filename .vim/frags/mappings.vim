@@ -34,8 +34,8 @@ nnoremap <silent> <S-t> :<C-u>tabnew<CR>
 " Save as super user
 cnoremap w!! w !sudo tee > /dev/null %
 
-" Dirvish (filer)
-nnoremap <F1> :<C-u>Dirvish<CR>
+" NERDTree (filer)
+nnoremap <F1> :<C-u>NERDTreeToggle<CR>
 
 " Directory
 " Set working directory

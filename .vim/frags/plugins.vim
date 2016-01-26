@@ -141,6 +141,13 @@ let g:quickrun_config['typescript/watchdogs_checker'] = {
     \ }
 
 " ==============================================================
+" coffee
+"
+let g:quickrun_config['typescript/watchdogs_checker'] = {
+    \   'type': 'watchdogs_checker/coffee'
+    \ }
+
+" ==============================================================
 " Go
 "
 let g:quickrun_config['go/watchdogs_checker'] = {
