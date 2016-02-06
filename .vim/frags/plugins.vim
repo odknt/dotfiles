@@ -209,3 +209,12 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 
 " {{{1 YouCompleteMe
 let g:ycm_key_list_select_completion = ['<Down>']
+
+" {{{1 memolist
+let g:memolist_memo_suffix = 'md'
+
+" {{{1 livemark.vim
+let g:livemark_python = '/bin/python3'
+let g:livemark_browser = 'luakit'
+
+" vim: foldmethod=marker

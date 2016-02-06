@@ -53,7 +53,7 @@ Plug 'davidhalter/jedi-vim', {
 
 
 " {{{1 HTML
-Plug 'mattn/emmet-vim', { 'for': [ 'html', 'js', 'jsx', 'markdown', 'typescript' ] }
+" Plug 'mattn/emmet-vim', { 'for': [ 'html', 'js', 'jsx', 'markdown', 'typescript' ] }
 
 " {{{1 Unite
 Plug 'Shougo/unite.vim', { 'on': 'Unite', 'for': [ 'unite' ] }
@@ -99,8 +99,8 @@ Plug 'osyo-manga/shabadou.vim', { 'on': b:on_watchdogs } |
     \ }
 
 
-" {{{1 vim-instant-markdown
-Plug 'suan/vim-instant-markdown', {
+" {{{1 livemark.vim
+Plug 'miyakogi/livemark.vim', {
     \ 'for': [ 'markdown' ]
     \ }
 
@@ -115,3 +115,8 @@ Plug 'lambdalisue/vim-gista'
 
 " {{{1 vim-coffee-script
 Plug 'kchmck/vim-coffee-script'
+
+" {{{1 memolist.vim
+Plug 'glidenote/memolist.vim'
+
+" vim: foldmethod=marker

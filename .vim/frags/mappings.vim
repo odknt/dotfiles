@@ -29,7 +29,6 @@ nnoremap <leader>sc :<C-u>CloseSession<CR>
 " Tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :<C-u>tabnew<CR>
 
 " Save as super user
 cnoremap w!! w !sudo tee > /dev/null %

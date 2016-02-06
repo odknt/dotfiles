@@ -3,14 +3,13 @@ set nonumber
 set wildmenu
 set lazyredraw
 set ttyfast
-set foldmethod=marker
+set foldmethod=manual
+set ambiwidth=double
 
 " Change split lines
-if &encoding ==? 'utf-8' && $LANG ==# 'en_US'
-    set ambiwidth=single
-    exec "set fillchars=vert:\u2502,diff:\u2014"
+if &encoding ==? 'utf-8'
+    exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
 else
-    set ambiwidth=double
     exec 'set fillchars=vert:\|,fold:-,diff:.'
 endif
 hi VertSplit ctermfg=black ctermbg=61
@@ -67,11 +66,11 @@ set showmode
 " Set statusline.
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
     \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-    \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}"
+    \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}\ %m"
     \ . "\ %=%{len(getloclist(0))?'E:\ '.len(getloclist(0)):''}"
     \ . "\ %{(winnr('$')==1 || winnr('#')!=winnr()) ? '['.(&filetype!=''?&filetype.',':'')"
     \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
-    \ . "%m%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
+    \ . "%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 set modeline
 set modelines=10

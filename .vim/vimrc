@@ -1,6 +1,11 @@
 " =========================================================================
 " initialize
 "
+
+" init all settings
+set all&
+au!
+
 if $XDG_CONFIG_HOME ==# ''
     let $XDG_CONFIG_HOME = expand($HOME.'/.config')
 endif
@@ -27,8 +32,15 @@ function! s:load_flagments(path)
     endif
 endfunction
 
-syntax off
-filetype off
+" =========================================================================
+" encoding
+"
+call s:load_flagments('encoding.vim')
+
+" =========================================================================
+" finish if vim feature is tiny or small
+"
+if !1 | finish | endif
 
 " =========================================================================
 " plugins
@@ -53,11 +65,6 @@ endif
 call g:plug#end()
 
 filetype plugin indent on
-
-" =========================================================================
-" encoding
-"
-call s:load_flagments('encoding.vim')
 
 " =========================================================================
 " edit settings
