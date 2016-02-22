@@ -14,6 +14,11 @@ else
 endif
 hi VertSplit ctermfg=black ctermbg=61
 
+" Change list chars
+set list
+set listchars=tab:･\ ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+hi SpecialKey ctermbg=none ctermfg=12
+
 " Not move cursor to the first empty line at scroll
 set nostartofline
 
