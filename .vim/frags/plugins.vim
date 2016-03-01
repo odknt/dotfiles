@@ -246,6 +246,8 @@ let g:memolist_memo_suffix = 'md'
 
 " {{{1 livemark.vim
 let g:livemark_python = '/bin/python3'
-let g:livemark_browser = 'luakit'
+let g:livemark_browser = 'firefox'
+let g:livemark_css_files = [expand('~/.vim/github-markdown.css')]
+let g:livemark_highlight_theme = 'friendly'
 
 " vim: foldmethod=marker

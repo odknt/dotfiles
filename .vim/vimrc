@@ -14,10 +14,13 @@ let s:is_windows = has('win16') || has('win32') || has('win64')
 
 if s:is_windows
 	let g:vim_config_home = $VIM
+	let g:dein_cache_dir = expand($VIM.'/.cache/dein.vim')
 elseif has('nvim')
 	let g:vim_config_home = expand($XDG_CONFIG_HOME.'/nvim')
+	let g:dein_cache_dir = expand($HOME.'/.cache/dein.vim')
 else
 	let g:vim_config_home = expand($HOME.'/.vim')
+	let g:dein_cache_dir = expand($HOME.'/.cache/dein.vim')
 endif
 
 " =========================================================================
@@ -46,23 +49,33 @@ if !1 | finish | endif
 " plugins
 "
 if has('vim_starting')
-    " vim-plug core
-    let &runtimepath .= expand(',' . g:vim_config_home . '/plugged/vim-plug/')
-    if !isdirectory(expand(g:vim_config_home . '/plugged/vim-plug'))
-        echo 'install vim-plug...'
-        call system('mkdir -p ' . g:vim_config_home . '/plugged/vim-plug')
-        call system('git clone https://github.com/junegunn/vim-plug.git ' . g:vim_config_home . '/plugged/vim-plug/autoload')
+    " dein.vim core
+    let &runtimepath .= expand(',' . g:dein_cache_dir . '/repos/github.com/Shougo/dein.vim')
+    if !isdirectory(expand(g:dein_cache_dir . '/repos/github.com/Shougo/dein.vim'))
+        echo 'install dein.vim...'
+        call system('mkdir -p ' . g:dein_cache_dir . '/repos/github.com/Shougo/dein.vim')
+        call system('git clone https://github.com/Shougo/dein.vim.git ' . g:dein_cache_dir . '/repos/github.com/Shougo/dein.vim')
     endif
 endif
 
-call g:plug#begin(g:vim_config_home . '/plugged/')
-" Vim plugins
-call s:load_flagments('bundles.vim')
-" Neovim plugins
-if has('nvim')
-    call s:load_flagments('bundles.nvim')
+call g:dein#begin(g:dein_cache_dir)
+
+let s:toml_path = expand(g:vim_config_home . '/bundles.toml')
+let s:toml_lazy_path = expand(g:vim_config_home . '/bundles_lazy.toml')
+if g:dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
+    call g:dein#load_toml(s:toml_path, {'lazy': 0})
+    call g:dein#load_toml(s:toml_lazy_path, {'lazy': 1})
+
+    call g:dein#save_cache()
 endif
-call g:plug#end()
+
+call s:load_flagments('plugins.vim')
+
+call g:dein#end()
+
+if g:dein#check_install()
+    call g:dein#install()
+endif
 
 filetype plugin indent on
 
@@ -102,11 +115,6 @@ call s:load_flagments('mappings.vim')
 if has('nvim')
     call s:load_flagments('mappings.nvim')
 endif
-
-" =========================================================================
-" plugin settings
-"
-call s:load_flagments('plugins.vim')
 
 " =========================================================================
 " local settings

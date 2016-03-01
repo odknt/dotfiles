@@ -1,0 +1,53 @@
+[[plugins]]
+repo = 'hewes/unite-gtags'
+depends = [ 'unite.vim' ]
+
+[[plugins]]
+repo = 'odknt/unite-gtags-custom'
+depends = [ 'unite.vim', 'unite-gtags' ]
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = [ 'go' ]
+
+[[plugins]]
+repo = 'garyburd/go-explorer'
+on_ft = [ 'go' ]
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = [ 'python' ]
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+on_ft =  [ 'go', 'python', 'rust', 'php' ]
+
+[[plugins]]
+repo = 'arnaud-lb/vim-php-namespace'
+on_ft = [ 'php' ]
+
+[[plugins]]
+repo = 'joonty/vdebug'
+on_ft = [ 'php' ]
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'
+on_ft = [ 'coffee' ]
+
+[[plugins]]
+repo = 'osyo-manga/shabadou.vim'
+depends = [ 'quickfixstatus' ]
+
+[[plugins]]
+repo = 'osyo-manga/vim-watchdogs'
+depends = [ 'quickfixstatus', 'shabadou.vim' ]
+
+[[plugins]]
+repo = 'miyakogi/livemark.vim'
+on_ft = [ 'markdown' ]
+
+[[plugins]]
+repo = 'clausreinke/typescript-tools.vim'
+build = 'npm install'
+depends = [ 'quickfixstatus', 'shabadou.vim', 'vim-watchdogs' ]
+on_ft = [ 'typescript' ]
