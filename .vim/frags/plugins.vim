@@ -9,19 +9,19 @@ let g:session_command_aliases = 1
 let g:unite_enable_smart_case = 1
 let g:unite_source_grep_max_candidates = 200
 
-if executable('hw')
-  " Use hw (highway)
-  " https://github.com/tkengo/highway
-  let g:unite_source_grep_command = 'hw'
-  let g:unite_source_grep_default_opts = '--no-group --no-color'
-  let g:unite_source_grep_recursive_opt = ''
-elseif executable('ag')
+if executable('ag')
   " Use ag (the silver searcher)
   " https://github.com/ggreer/the_silver_searcher
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts =
   \ '-i --vimgrep --hidden --ignore ' .
   \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+  let g:unite_source_grep_recursive_opt = ''
+elseif executable('hw')
+  " Use hw (highway)
+  " https://github.com/tkengo/highway
+  let g:unite_source_grep_command = 'hw'
+  let g:unite_source_grep_default_opts = '--no-group --no-color'
   let g:unite_source_grep_recursive_opt = ''
 elseif executable('pt')
   " Use pt (the platinum searcher)
@@ -246,8 +246,18 @@ let g:memolist_memo_suffix = 'md'
 
 " {{{1 livemark.vim
 let g:livemark_python = '/bin/python3'
-let g:livemark_browser = 'firefox'
+let g:livemark_browser = 'cyberfox'
 let g:livemark_css_files = [expand('~/.vim/github-markdown.css')]
 let g:livemark_highlight_theme = 'friendly'
+
+" {{{1 vim-racer
+set hidden
+let $RUST_SRC_PATH = expand('./src')
+
+" {{{1 syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " vim: foldmethod=marker

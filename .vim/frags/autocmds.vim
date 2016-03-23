@@ -51,11 +51,10 @@ augroup frags_autocmds
     au BufWritePre *.go GoFmt
 
     " Neomake or Watchdogs
-    " au InsertLeave,BufWritePost,TextChanged * exe g:syntax_check_command
-    au BufNewFile,BufRead,BufWritePost * exe g:syntax_check_command
+    " au BufNewFile,BufRead,BufWritePost * exe g:syntax_check_command
 
     " Hier & Highlight
-    au BufWritePost * HierUpdate
+    " au BufWritePost * HierUpdate
 
     " Renewal unnamed buffer
     au VimEnter * if argc() == 0 && bufname('%') ==# '' | enew | endif

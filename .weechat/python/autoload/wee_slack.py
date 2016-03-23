@@ -13,6 +13,7 @@ import HTMLParser
 import sys
 import traceback
 import collections
+import subprocess
 from websocket import create_connection,WebSocketConnectionClosedException
 
 # hack to make tests possible.. better way?
@@ -495,10 +496,16 @@ class Channel(object):
                     pass
 
     def send_message(self, message):
-        message = self.linkify_text(message)
-        dbg(message)
-        request = {"type": "message", "channel": self.identifier, "text": message, "_server": self.server.domain}
-        self.server.send_to_websocket(request)
+        name = re.compile(r"^\+:(?P<name>\w+):").search(message)
+        if name:
+            prev_msg = self.my_last_message()
+            request = {"channel": self.identifier, "timestamp": prev_msg['ts'], "name": name.group('name')}
+            async_slack_api_request(self.server.domain, self.server.token, 'reactions.add', request)
+        else:
+            message = self.linkify_text(message)
+            dbg(message)
+            request = {"type": "message", "channel": self.identifier, "text": message, "_server": self.server.domain}
+            self.server.send_to_websocket(request)
 
     def linkify_text(self, message):
         message = message.split(' ')
