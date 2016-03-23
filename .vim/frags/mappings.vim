@@ -108,9 +108,6 @@ nmap <silent> <F4> :<C-u>TagbarToggle<CR>
 " Bbye
 nnoremap <Leader>q :<C-u>Bdelete<CR>
 
-" Watchdogs
-nnoremap <C-c> :<C-u>WatchdogsRunSilent<CR>
-
 " Go
 augroup frags_mappings_golang
     au!
