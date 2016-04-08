@@ -260,4 +260,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" {{{1 parenmatch
+let g:loaded_matchparen = 1
+
 " vim: foldmethod=marker

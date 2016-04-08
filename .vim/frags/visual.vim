@@ -4,7 +4,7 @@ set wildmenu
 set lazyredraw
 set ttyfast
 set foldmethod=manual
-set ambiwidth=double
+set ambiwidth=single
 
 " Change split lines
 if &encoding ==? 'utf-8'

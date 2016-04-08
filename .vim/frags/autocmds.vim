@@ -1,16 +1,4 @@
 " =========================================================================
-" function
-"
-if !exists('*s:setupWrapping')
-    " Startup Wrapping
-    function s:setupWrapping()
-        set wrap
-        set wrapmargin=2
-        set textwidth=79
-    endfunction
-endif
-
-" =========================================================================
 " Neomake & Watchdogs
 "
 let g:syntax_check_command = 'WatchdogsRunSilent'
@@ -29,9 +17,6 @@ augroup frags_autocmds
 
     " The PC is fast enough, do syntax highlight syncing from start
     au BufEnter * :syntax sync fromstart
-
-    " txt support
-    au BufRead,BufNewFile *.txt call s:setupWrapping()
 
     " Remember cursor position
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif

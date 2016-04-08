@@ -125,4 +125,7 @@ Plug 'racer-rust/vim-racer'
 " {{{1 syntastic
 Plug 'scrooloose/syntastic'
 
+" {{{1 parenmatch
+Plug 'itchyny/vim-parenmatch'
+
 " vim: foldmethod=marker
