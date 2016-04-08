@@ -49,11 +49,10 @@ values."
    dotspacemacs-additional-packages
    '(
      quickrun
-     tabbar
      w3m
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(helm-gitignore)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -89,13 +88,14 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(default
+                         zenburn
+                         spacemacs-dark
                          spacemacs-light
                          solarized-light
                          solarized-dark
                          leuven
-                         monokai
-                         zenburn)
+                         monokai)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -178,7 +178,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -209,6 +209,26 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (utf-translate-cjk-set-unicode-range
+   '((#x00a2 . #x00a3)                    ; ￠, ￡
+     (#x00a7 . #x00a8)                    ; §, ¨
+     (#x00ac . #x00ac)                    ; ￢
+     (#x00b0 . #x00b1)                    ; °, ±
+     (#x00b4 . #x00b4)                    ; ´
+     (#x00b6 . #x00b6)                    ; ¶
+     (#x00d7 . #x00d7)                    ; ×
+     (#X00f7 . #x00f7)                    ; ÷
+     (#x0370 . #x03ff)                    ; Greek and Coptic
+     (#x0400 . #x04FF)                    ; Cyrillic
+     (#x2000 . #x206F)                    ; General Punctuation
+     (#x2100 . #x214F)                    ; Letterlike Symbols
+     (#x2190 . #x21FF)                    ; Arrows
+     (#x2200 . #x22FF)                    ; Mathematical Operators
+     (#x2300 . #x23FF)                    ; Miscellaneous Technical
+     (#x2500 . #x257F)                    ; Box Drawing
+     (#x25A0 . #x25FF)                    ; Geometric Shapes
+     (#x2600 . #x26FF)                    ; Miscellaneous Symbols
+     (#x2e80 . #xd7a3) (#xff00 . #xffef)))
   (evil-leader/set-key
     "C-r" 'quickrun
     "C-k" 'kill-this-buffer
