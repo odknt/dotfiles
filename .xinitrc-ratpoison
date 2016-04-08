@@ -44,7 +44,7 @@ export XMODIFIERS='@im=uim'
 export XMODIFIERS='@im=uim'
 
 # Default browser
-export BROWSER='luakit'
+export BROWSER='cyberfox'
 
 xsettingsd &
 
