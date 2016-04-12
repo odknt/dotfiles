@@ -9,9 +9,9 @@ startup_message off
 # Aliases
 ######################################################################
 
-alias titlebar exec sleep 0.1; ratpoison -c "exec conky -c $HOME/.ratpoison/scripts/conky_dzen2_title | dzen2 -e - -h '20' -bg '#101010' -ta l -geometry 800x20+1280+0 -fn 'Rounded M+ 1m:size=10'; true"
-alias bar exec pkill dzen2; pkill conky; ratpoison -c "exec conky -c $HOME/.ratpoison/scripts/conky_dzen2 | dzen2 -e - -h '20' -ta r -geometry 1920x20+1280+0 -fn 'Rounded M+ 1m:size=10'; true" -c "titlebar"
-alias tray exec pkill stalonetray; stalonetray --geometry 6x1+2860+0 --kludges=fix_window_pos -bg '#101010' -i 20 --slot-size 20 --window-type dock
+alias titlebar exec ratpoison -c "exec $HOME/.ratpoison/bin/titlebar"
+alias statusbar exec ratpoison -c "exec $HOME/.ratpoison/bin/statusbar" -c "titlebar"
+alias tray exec pkill stalonetray; sleep 0.6; stalonetray --geometry 6x1+2860+0 --kludges=fix_window_pos -bg '#101010' -i 20 --slot-size 20 --window-type dock
 alias reload exec ratpoison -c "source $HOME/.ratpoisonrc"
 alias runonce exec $HOME/.ratpoison/bin/runonce
 
@@ -91,8 +91,8 @@ runonce xcompmgr -CFa
 
 exec nitrogen --restore
 
-bar
-exec sleep 0.5; ratpoison -c 'tray'
+statusbar
+tray
 
 # Initialize workspace
 # exec rpws init 6 -k
