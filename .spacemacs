@@ -10,7 +10,7 @@ values."
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
-   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-distribution 'spacemacs-base
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
@@ -39,8 +39,8 @@ values."
      php
      go
      javascript
+     java
      lua
-     twittering-mode
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -50,9 +50,13 @@ values."
    '(
      quickrun
      w3m
+     ensime
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(helm-gitignore)
+   dotspacemacs-excluded-packages
+   '(
+     helm-gitignore
+     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -206,49 +210,18 @@ user code."
   )
 
 (defun dotspacemacs/user-config ()
-  "Configuration function for user code.
- This function is called at the very end of Spacemacs initialization after
-layers configuration. You are free to put any user code."
-  (utf-translate-cjk-set-unicode-range
-   '((#x00a2 . #x00a3)                    ; ￠, ￡
-     (#x00a7 . #x00a8)                    ; §, ¨
-     (#x00ac . #x00ac)                    ; ￢
-     (#x00b0 . #x00b1)                    ; °, ±
-     (#x00b4 . #x00b4)                    ; ´
-     (#x00b6 . #x00b6)                    ; ¶
-     (#x00d7 . #x00d7)                    ; ×
-     (#X00f7 . #x00f7)                    ; ÷
-     (#x0370 . #x03ff)                    ; Greek and Coptic
-     (#x0400 . #x04FF)                    ; Cyrillic
-     (#x2000 . #x206F)                    ; General Punctuation
-     (#x2100 . #x214F)                    ; Letterlike Symbols
-     (#x2190 . #x21FF)                    ; Arrows
-     (#x2200 . #x22FF)                    ; Mathematical Operators
-     (#x2300 . #x23FF)                    ; Miscellaneous Technical
-     (#x2500 . #x257F)                    ; Box Drawing
-     (#x25A0 . #x25FF)                    ; Geometric Shapes
-     (#x2600 . #x26FF)                    ; Miscellaneous Symbols
-     (#x2e80 . #xd7a3) (#xff00 . #xffef)))
+  ;; Disable highlight current line
+  (spacemacs/toggle-highlight-current-line-globally-off)
+
+  "Evil Key Mapping"
   (evil-leader/set-key
     "C-r" 'quickrun
     "C-k" 'kill-this-buffer
     "C-w" 'save-buffer
     )
-  "Evil Key Mapping"
   (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
   (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
 
-  (add-hook 'twittering-mode-hook
-            (lambda ()
-              (mapc (lambda (pair)
-                      (let ((key (car pair))
-                            (func (cdr pair)))
-                        (define-key twittering-mode-map
-                          (read-kbd-macro key) func)))
-                    '(("\C-w h" . evil-window-left)
-                      ("\C-w j" . evil-window-down)
-                      ("\C-w k" . evil-window-up)
-                      ("\C-w l" . evil-window-right)))))
   (use-package neotree
     :config
     (progn (setq-default neo-theme 'nerd))
@@ -268,8 +241,10 @@ layers configuration. You are free to put any user code."
             helm-gtags-auto-update t
             helm-gtags-use-input-at-cursor t
             helm-gtags-pulse-at-cursor nil)))
-  ;; Disable highlight current line
-  (spacemacs/toggle-highlight-current-line-globally-off)
+  (use-package ensime
+    :commands ensime ensime-mode)
+  (add-hook 'scala-mode-hook 'ensime-mode)
+  (add-hook 'java-mode-hook 'ensime-mode)
   ;; Markdown Preview Settings
   (defun w3m-browse-url-other-window (url &optional newwin)
     (let ((w3m-pop-up-windows t))
