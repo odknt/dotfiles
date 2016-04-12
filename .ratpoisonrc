@@ -1,59 +1,99 @@
+#!/bin/ratpoison
+#
+# Required: https://github.com/jcs/ratpoison
+#           Create multiple workspaces using vinit instead of rpws.
+
 startup_message off
 
-escape M-w
+######################################################################
+# Aliases
+######################################################################
 
-alias titlebar exec sleep 0.1; ratpoison -c "exec conky -c $HOME/.ratpoison/scripts/conky_dzen2_title | dzen2 -e - -h '20' -bg '#2d2d2d' -ta l -geometry 800x20+1280+0 -fn 'Rounded M+ 1m:size=10'; true"
+alias titlebar exec sleep 0.1; ratpoison -c "exec conky -c $HOME/.ratpoison/scripts/conky_dzen2_title | dzen2 -e - -h '20' -bg '#101010' -ta l -geometry 800x20+1280+0 -fn 'Rounded M+ 1m:size=10'; true"
 alias bar exec pkill dzen2; pkill conky; ratpoison -c "exec conky -c $HOME/.ratpoison/scripts/conky_dzen2 | dzen2 -e - -h '20' -ta r -geometry 1920x20+1280+0 -fn 'Rounded M+ 1m:size=10'; true" -c "titlebar"
 alias tray exec pkill stalonetray; stalonetray --geometry 6x1+2860+0 --kludges=fix_window_pos -bg '#101010' -i 20 --slot-size 20 --window-type dock
 alias reload exec ratpoison -c "source $HOME/.ratpoisonrc"
 alias runonce exec $HOME/.ratpoison/bin/runonce
 
-unmanage tray
-unmanage stalonetray
+######################################################################
+# Set options
+######################################################################
 
 set warp off
 set border 1
 set barborder 0
-set bargravity se
+set bargravity nw
+set inputwidth 0
+
 set fwcolor \#992244
 set fgcolor \#dddddd
 set bgcolor \#8e227d
-defpadding 0 20 0 0
 set barpadding 20 10
+
+######################################################################
+# Bind keys
+######################################################################
+
+escape M-w
 
 bind q exec cyberfox
 bind c exec urxvt
+bind t exec xterm -e 'tty-clock -B -C 7 -c'
 
+######################################################################
+# Top level keys
+######################################################################
+
+# Reload .ratpoisonrc
 definekey top s-C-r reload
 
+# Window juggling
 definekey top M-n next
 definekey top M-p prev
 
+# Screen navigation
 definekey top M-d exec dmenu_run
 definekey top s-k nextscreen
 definekey top s-j prevscreen
 definekey top s-f fselect
 definekey top M-Tab fselect
 
-definekey top M-1 exec rpws 1
-definekey top M-2 exec rpws 2
-definekey top M-3 exec rpws 3
-definekey top M-4 exec rpws 4
-definekey top M-5 exec rpws 5
-definekey top M-6 exec rpws 6
+# Workspace navigation
+definekey top M-1 vselect 1
+definekey top M-2 vselect 2
+definekey top M-3 vselect 3
+definekey top M-4 vselect 4
+definekey top M-5 vselect 5
+definekey top M-6 vselect 6
 
+# Frame navigation
 definekey top M-h focusleft
 definekey top M-j focusdown
 definekey top M-k focusup
 definekey top M-l focusright
 
+######################################################################
+# Layout
+######################################################################
+
+bind G frestore (frame :number 0 :x 5 :y 25 :width 1115 :height 877 :screenw 1920 :screenh 1080 :window 35651593 :last-access 277 :dedicated 0),(frame :number 4 :x 5 :y 902 :width 877 :height 173 :screenw 1920 :screenh 1080 :window 31457289 :last-access 274 :dedicated 0),(frame :number 3 :x 882 :y 902 :width 238 :height 173 :screenw 1920 :screenh 1080 :window 33554466 :last-access 276 :dedicated 0),(frame :number 2 :x 1120 :y 25 :width 795 :height 1050 :screenw 1920 :screenh 1080 :window 41943049 :last-access 269 :dedicated 0),
+
+######################################################################
+# Start programs
+######################################################################
+
+unmanage dzen2
+unmanage stalonetray
+
 runonce twmnd
 runonce gol
 runonce xcompmgr -CFa
 
-# exec nitrogen --restore
+exec nitrogen --restore
 
 bar
 exec sleep 0.5; ratpoison -c 'tray'
 
-compat
+# Initialize workspace
+# exec rpws init 6 -k
+vinit 6
