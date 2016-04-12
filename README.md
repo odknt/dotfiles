@@ -7,14 +7,15 @@
 - less
 - vi
 - vim
+- emacs
 - vncserver
 - xmodmap
 - xsettingsd
 
 ## GUI
 
-- Awesome
-    Current Window Manager.
+- Ratpoison
+    Current Window Manager. Using [jcs/ratpoison](https://github.com/jcs/ratpoison) instead of official binary.
 - [paper-gtk-theme](https://github.com/snwh/paper-gtk-theme)
     Current GTK+ theme for apprication using GTK+2 or GTK+3.
 - xsettingsd
@@ -24,5 +25,5 @@
 #### Arch Linux
 
 ```bash
-yaourt -S awesome xsettingsd-git lxappearance paper-gtk-theme-git
+yaourt -S xsettingsd-git lxappearance paper-gtk-theme-git
 ```
