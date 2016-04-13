@@ -11,7 +11,7 @@ startup_message off
 
 alias titlebar exec ratpoison -c "exec $HOME/.ratpoison/bin/titlebar"
 alias statusbar exec ratpoison -c "exec $HOME/.ratpoison/bin/statusbar" -c "titlebar"
-alias tray exec pkill stalonetray; sleep 0.6; stalonetray --geometry 6x1+2860+0 --kludges=fix_window_pos -bg '#101010' -i 20 --slot-size 20 --window-type dock
+alias systray exec ratpoison -c "exec $HOME/.ratpoison/bin/systray"
 alias reload exec ratpoison -c "source $HOME/.ratpoisonrc"
 alias runonce exec $HOME/.ratpoison/bin/runonce
 
@@ -92,7 +92,7 @@ runonce xcompmgr -CFa
 exec nitrogen --restore
 
 statusbar
-tray
+exec sleep 0.6; ratpoison -c 'systray'
 
 # Initialize workspace
 # exec rpws init 6 -k

@@ -12,5 +12,6 @@ TEXT
 ^fg()^i($HOME/.ratpoison/icons/mem.xbm)^fg()  ${mem} / ${memmax}   \
 ^fg()^i($HOME/.ratpoison/icons/arch.xbm)^fg()  Arch Linux ${exec sh -c 'uname -m'}   \
 ^fg()^i($HOME/.ratpoison/icons/music.xbm)^fg()  ${exec sh $HOME/.ratpoison/scripts/func_mpc.sh}   \
-^fg()^i($HOME/.ratpoison/icons/vol.xbm)^fg()  ${exec sh $HOME/.ratpoison/scripts/func_volume.sh}  |                    \
+^fg()^i($HOME/.ratpoison/icons/vol.xbm)^fg()  ${exec sh $HOME/.ratpoison/scripts/func_volume.sh}  |  \
+^p(+120)\
 ^bg(\#E33C5B)^fg(\#dddddd)   ^i($HOME/.ratpoison/icons/clock.xbm)  ${time %a, %d %b %R %p}   \
