@@ -25,7 +25,7 @@ set barborder 0
 set bargravity nw
 set inputwidth 0
 
-set fwcolor \#992244
+set fwcolor \#991144
 set fgcolor \#dddddd
 set bgcolor \#8e227d
 set barpadding 20 10
@@ -87,7 +87,7 @@ unmanage stalonetray
 
 runonce twmnd
 runonce gol
-runonce xcompmgr -CFa
+# runonce xcompmgr -cCF -r 5 -t -3 -l -3
 
 exec nitrogen --restore
 
