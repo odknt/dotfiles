@@ -96,4 +96,4 @@ exec sleep 0.6; ratpoison -c 'systray'
 
 # Initialize workspace
 # exec rpws init 6 -k
-vinit 6
+vinit
