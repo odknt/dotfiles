@@ -4,7 +4,9 @@ IFS=$'\t\n'
 
 BASEDIR="/var/run/user/$(id -u)/ratpoison"
 PIDFILE="titlebar${DISPLAY%.*}.pid"
+BAR_XY="$(xrandr | grep -o '[0-9][0-9]*x[0-9][0-9]*' | head -n1)"
 BARPOS="$(xrandr | grep -o '+[0-9]*+[0-9]*' | head -n1)"
+WIDTH="$(( ${BAR_XY%x*} / 3 ))"
 
 on_exit() {
   rm -f "$BASEDIR/$PIDFILE"
@@ -27,7 +29,7 @@ trap on_exit 0 1 2 3 15
 
 conky --quiet -c "$HOME/.ratpoison/scripts/conky_dzen2_title" | dzen2 \
   -e - -h '20' -bg '#101010' -ta l \
-  -geometry "800x20+$BARPOS" \
+  -geometry "${WIDTH}x20${BARPOS}" \
   -fn 'Rounded M+ 1m:size=10'
 
 exit 0
