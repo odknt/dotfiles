@@ -329,6 +329,8 @@ class SlackServer(object):
             tags = "no_highlight,notify_none,logger_backlog_end"
         else:
             tags = ""
+        if user == "SYSTEM":
+            user = w.config_string(w.config_get('weechat.look.prefix_network'))
         if self.buffer:
             w.prnt_date_tags(self.buffer, 0, tags, "{}\t{}".format(user, message))
         else:
@@ -612,19 +614,21 @@ class Channel(object):
         """
         set_read_marker = False
         time_float = float(time)
+        tags = "nick_" + user
+        # XXX: we should not set log1 for robots.
         if time_float != 0 and self.last_read >= time_float:
-            tags = "no_highlight,notify_none,logger_backlog_end"
+            tags += ",no_highlight,notify_none,logger_backlog_end"
             set_read_marker = True
         elif message.find(self.server.nick.encode('utf-8')) > -1:
-            tags = "notify_highlight"
+            tags = ",notify_highlight,log1"
         elif user != self.server.nick and self.name in self.server.users:
-            tags = "notify_private,notify_message"
+            tags = ",notify_private,notify_message,log1"
         elif self.muted:
-            tags = "no_highlight,notify_none,logger_backlog_end"
+            tags = ",no_highlight,notify_none,logger_backlog_end"
         elif user in [x.strip() for x in w.prefix("join"), w.prefix("quit")]:
-            tags = "irc_smart_filter"
+            tags = ",irc_smart_filter"
         else:
-            tags = "notify_message"
+            tags = ",notify_message,log1"
         #don't write these to local log files
         #tags += ",no_log"
         time_int = int(time_float)
@@ -1379,7 +1383,7 @@ def process_team_join(message_json):
     server = servers.find(message_json["_server"])
     item = message_json["user"]
     server.add_user(User(server, item["name"], item["id"], item["presence"]))
-    server.buffer_prnt(server.buffer, "New user joined: {}".format(item["name"]))
+    server.buffer_prnt("New user joined: {}".format(item["name"]))
 
 def process_manual_presence_change(message_json):
     process_presence_change(message_json)
@@ -1412,7 +1416,7 @@ def process_channel_created(message_json):
         server.channels.find(message_json["channel"]["name"]).open(False)
     else:
         item = message_json["channel"]
-        server.add_channel(Channel(server, item["name"], item["id"], False))
+        server.add_channel(Channel(server, item["name"], item["id"], False, prepend_name="#"))
     server.buffer_prnt("New channel created: {}".format(item["name"]))
 
 
@@ -1505,7 +1509,7 @@ def process_im_created(message_json):
     else:
         item = message_json["channel"]
         server.add_channel(DmChannel(server, channel_name, item["id"], item["is_open"], item["last_read"]))
-    server.buffer_prnt("New channel created: {}".format(item["name"]))
+    server.buffer_prnt("New direct message channel created: {}".format(item["name"]))
 
 
 def process_user_typing(message_json):
@@ -1696,22 +1700,27 @@ def unwrap_attachments(message_json, text_before):
             # Attachments should be rendered roughly like:
             #
             # $pretext
-            # $title ($title_link) OR $from_url
-            # $text
+            # $author: (if rest of line is non-empty) $title ($title_link) OR $from_url
+            # $author: (if no $author on previous line) $text
             # $fields
             t = []
+            prepend_title_text = ''
+            if 'author_name' in attachment:
+                prepend_title_text = attachment['author_name'] + ": "
             if 'pretext' in attachment:
                 t.append(attachment['pretext'])
             if "title" in attachment:
                 if 'title_link' in attachment:
-                    t.append('%s (%s)' % (attachment["title"], attachment["title_link"],))
+                    t.append('%s%s (%s)' % (prepend_title_text, attachment["title"], attachment["title_link"],))
                 else:
-                    t.append(attachment["title"])
+                    t.append(prepend_title_text + attachment["title"])
+                prepend_title_text = ''
             elif "from_url" in attachment:
                 t.append(attachment["from_url"])
             if "text" in attachment:
                 tx = re.sub(r' *\n[\n ]+', '\n', attachment["text"])
-                t.append(tx)
+                t.append(prepend_title_text + tx)
+                prepend_title_text = ''
             if 'fields' in attachment:
                 for f in attachment['fields']:
                     if f['title'] != '':
@@ -2190,7 +2199,8 @@ if __name__ == "__main__":
             if not w.config_get_plugin('switch_buffer_on_join'):
                 w.config_set_plugin('switch_buffer_on_join', "1")
 
-            w.config_option_unset('channels_not_on_current_server_color')
+            if w.config_get_plugin('channels_not_on_current_server_color'):
+                w.config_option_unset('channels_not_on_current_server_color')
 
             # Global var section
             slack_debug = None
