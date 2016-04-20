@@ -123,7 +123,7 @@ Plug 'glidenote/memolist.vim'
 Plug 'racer-rust/vim-racer'
 
 " {{{1 syntastic
-Plug 'scrooloose/syntastic', { 'for': ['php', 'python', 'sh'] }
+Plug 'scrooloose/syntastic', { 'for': ['php', 'python', 'sh', 'rust', 'c'] }
 
 " {{{1 parenmatch
 Plug 'itchyny/vim-parenmatch'
