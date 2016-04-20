@@ -18,15 +18,13 @@ alias runonce exec $HOME/.ratpoison/bin/runonce
 
 set warp off
 set border 1
-set barborder 0
+set barborder 1
 set bargravity nw
 set inputwidth 0
-set padidng 5 25 5 5
-set gap 5
 
 set fwcolor \#991144
 set fgcolor \#dddddd
-set bgcolor \#8e227d
+set bgcolor \#101010
 set barpadding 20 10
 
 ######################################################################
@@ -35,7 +33,7 @@ set barpadding 20 10
 
 escape M-w
 
-bind q exec cyberfox
+bind q exec firefox
 bind c exec urxvt
 bind t exec urxvt -e tty-clock -B -C 7 -c
 
@@ -70,6 +68,9 @@ definekey top M-h focusleft
 definekey top M-j focusdown
 definekey top M-k focusup
 definekey top M-l focusright
+
+# Screenshot
+definekey top Print exec /opt/bin/gyazo
 
 ######################################################################
 # Layout
