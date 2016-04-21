@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\t\n'
+
+MAX="${1:-100}"
+TITLE="$(ratpoison -c 'windows' | grep -e '[0-9]*\*' | awk 'END{gsub(/[0-9]*\*/,""); print}' | grep -oe "^.\{1,$MAX\}")"
+
+if [ "${#TITLE}" -ge "${MAX}" ]; then
+  echo "${TITLE}…"
+else
+  echo "${TITLE}"
+fi
+
+# vim: sw=2 ts=2
