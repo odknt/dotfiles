@@ -14,13 +14,13 @@
 
 ## GUI
 
-- Ratpoison
+- Ratpoison  
     Current Window Manager. Using [jcs/ratpoison](https://github.com/jcs/ratpoison) instead of official binary.
-- [Flat-Plat](https://github.com/nana-4/flat-plat)
+- [Flat-Plat](https://github.com/nana-4/flat-plat)  
     Current GTK+ theme for apprication using GTK+2 or GTK+3.  
     Google Material design like theme.
 - lxsession
-- LXAppearance
+- LXAppearance  
     Appearance setting tool for GTK+2 & GTK+3.
 
 #### Arch Linux
