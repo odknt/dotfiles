@@ -1,114 +1,99 @@
-" =========================================================================
-" initialize
-"
-
-" init all settings
-set all&
-au!
-
-if $XDG_CONFIG_HOME ==# ''
-    let $XDG_CONFIG_HOME = expand($HOME.'/.config')
-endif
-
-let s:is_windows = has('win16') || has('win32') || has('win64')
-
-if s:is_windows
-	let g:vim_config_home = $VIM
-elseif has('nvim')
-	let g:vim_config_home = expand($XDG_CONFIG_HOME.'/nvim')
-else
-	let g:vim_config_home = expand($HOME.'/.vim')
-endif
-
-" =========================================================================
-" function
-"
-" Load Fragment
-function! s:load_flagments(path)
-    let l:file_path = expand(g:vim_config_home . '/frags/' . a:path)
-    let g:hogehoge = l:file_path
-    if filereadable(l:file_path)
-        execute 'source' fnameescape(l:file_path)
-    endif
-endfunction
-
-" =========================================================================
-" encoding
-"
-call s:load_flagments('encoding.vim')
-
-" =========================================================================
-" finish if vim feature is tiny or small
-"
-if !1 | finish | endif
-
-" =========================================================================
-" plugins
-"
 if has('vim_starting')
-    " vim-plug core
-    let &runtimepath .= expand(',' . g:vim_config_home . '/plugged/vim-plug/')
-    if !isdirectory(expand(g:vim_config_home . '/plugged/vim-plug'))
-        echo 'install vim-plug...'
-        call system('mkdir -p ' . g:vim_config_home . '/plugged/vim-plug')
-        call system('git clone https://github.com/junegunn/vim-plug.git ' . g:vim_config_home . '/plugged/vim-plug/autoload')
-    endif
+    set encoding=utf-8
+endif
+scriptencoding utf-8
+set fileencoding=utf-8 fileencodings=utf-8
+set bomb
+set binary
+set smartindent autoindent
+set ruler nonumber
+set wildmenu
+set lazyredraw ttyfast
+set nostartofline
+set noequalalways splitbelow splitright
+" Disable vi for `-U` option.
+set nocompatible
+set novisualbell t_ut=
+set background=dark
+set display=lastline
+
+hi SpecialKey ctermbg=none ctermfg=12
+if &encoding ==? 'utf-8'
+    exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
+    set list listchars=tab:･\ ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+else
+    exec 'set list fillchars=vert:\|,fold:-,diff:.'
+endif
+hi VertSplit ctermfg=black ctermbg=61
+
+set grepformat=%f:%l:%m
+set grepprg=ag\ --nogroup\ --nocolor\ -iS
+command! -nargs=+ NewGrep execute 'silent grep! <args>' | copen 42
+
+" statusline
+set cmdheight=2 laststatus=2
+set showmode modeline modelines=10
+let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
+    \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
+    \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}\ %m"
+    \ . "\ %=%{len(getloclist(0))?'E:\ '.len(getloclist(0)):''}"
+    \ . "\ %{(winnr('$')==1 || winnr('#')!=winnr()) ? '['.(&filetype!=''?&filetype.',':'')"
+    \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
+    \ . "%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
+
+" word wrap
+set linebreak showbreak=\ breakat=\ \ ;:,!?
+if exists('+breakindent')
+  set wrap breakindent
+else
+  set nowrap
 endif
 
-call g:plug#begin(g:vim_config_home . '/plugged/')
-" Vim plugins
-call s:load_flagments('bundles.vim')
-" Neovim plugins
-if has('nvim')
-    call s:load_flagments('bundles.nvim')
+" search
+set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
+
+" mouse settings
+set mouse=
+
+" clipboard
+if ('unnnamedplus')
+    set clipboard+=unnamedplus
+else
+    set clipboard+=unnamed
 endif
-call g:plug#end()
+
+" completion
+set completeopt=menuone complete=. pumheight=20
+
+" tags
+set tags+=.tags
+set tags+=.TAGS
+
+" dictionaries
+set dictionary=/usr/share/dict/words
+set thesaurus=/usr/share/mythes/th_en_US_v2.dat
+
+" macro
+let @d = ':bp|bw! #'
+
+" keybind
+let g:mapleader="\<Space>"
+nnoremap <leader><C-l> :<C-u>Unite gtags/file<CR>
+nnoremap <leader><C-g> :<C-u>Unite gtags/grep<CR>
+nnoremap <leader><C-]> :<C-u>Unite gtags/def<CR>
+vnoremap <leader><C-]> :<C-u>Unite gtags/def<CR>
+nnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
+vnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
+nnoremap <leader>/ :<C-u>Unite gtags/completion<CR>
+
+" autocmd
+augroup vimrc_gtags
+  au!
+  au FileType java,php,go :packadd gen_tags.vim
+  au FileType java,php,go :packadd unite-gtags
+  au FileType java,php,go :packadd unite-gtags-custom
+  au FileType java,php,go :packadd unite-gtags-custom
+  au FileType markdown    :packadd livemark.vim
+augroup END
 
 filetype plugin indent on
-
-" =========================================================================
-" edit settings
-"
-call s:load_flagments('edit.vim')
-
-" =========================================================================
-" autocmd settings
-"
-call s:load_flagments('autocmds.vim')
-
-" =========================================================================
-" visual setting
-"
-call s:load_flagments('visual.vim')
-
-" =========================================================================
-" gui settings
-"
-if has('gui_running')
-    call s:load_flagments('gui.vim')
-endif
-
-" =========================================================================
-" for windows
-"
-if s:is_windows
-    call s:load_flagments('windows.vim')
-endif
-
-" =========================================================================
-" key mappings
-"
-call s:load_flagments('mappings.vim')
-if has('nvim')
-    call s:load_flagments('mappings.nvim')
-endif
-
-" =========================================================================
-" plugin settings
-"
-call s:load_flagments('plugins.vim')
-
-" =========================================================================
-" local settings
-"
-call s:load_flagments('local.vim')
