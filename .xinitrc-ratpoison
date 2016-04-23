@@ -53,6 +53,9 @@ lxsession &
 autocutsel -fork -selection PRIMARY &
 autocutsel -fork &
 
+# MPD
+mpd
+
 # WM
 xset +fp /usr/share/fonts/TTF
 xset fp rehash

@@ -55,4 +55,4 @@ autocutsel -fork &
 # WM
 xset +fp /usr/share/fonts/TTF
 xset fp rehash
-exec /usr/bin/ratpoison
+exec /usr/bin/awesome

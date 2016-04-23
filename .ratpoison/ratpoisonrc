@@ -21,6 +21,8 @@ set border 1
 set barborder 1
 set bargravity nw
 set inputwidth 0
+set defpadding 5 25 5 5
+set gap 5
 
 set fwcolor \#991144
 set fgcolor \#dddddd
@@ -72,6 +74,9 @@ definekey top M-l focusright
 # Screenshot
 definekey top Print exec /opt/bin/gyazo
 
+# Editor
+definekey top s-s exec gvim
+
 ######################################################################
 # Layout
 ######################################################################
@@ -87,7 +92,7 @@ unmanage stalonetray
 
 runonce twmnd
 runonce gol
-# runonce xcompmgr -cCF -r 5 -t -3 -l -3
+runonce xcompmgr
 
 exec nitrogen --restore
 
