@@ -1,0 +1,36 @@
+[submodule ".vim/pack/default/start/PreserveNoEOL"]
+	path = .vim/pack/default/start/PreserveNoEOL
+	url = https://github.com/vim-scripts/PreserveNoEOL.git
+[submodule ".vim/pack/default/start/YouCompleteMe"]
+	path = .vim/pack/default/start/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule ".vim/pack/default/start/ctrlp.vim"]
+	path = .vim/pack/default/start/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule ".vim/pack/default/start/cpsm"]
+	path = .vim/pack/default/start/cpsm
+	url = https://github.com/nixprime/cpsm.git
+[submodule ".vim/pack/default/start/editorconfig-vim"]
+	path = .vim/pack/default/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
+[submodule ".vim/pack/default/start/unite.vim"]
+	path = .vim/pack/default/start/unite.vim
+	url = https://github.com/Shougo/unite.vim.git
+[submodule ".vim/pack/default/start/vimproc.vim"]
+	path = .vim/pack/default/start/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule ".vim/pack/default/start/vim-surround"]
+	path = .vim/pack/default/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".vim/pack/default/opt/gen_tags.vim"]
+	path = .vim/pack/default/opt/gen_tags.vim
+	url = https://github.com/jsfaint/gen_tags.vim.git
+[submodule ".vim/pack/default/opt/livemark.vim"]
+	path = .vim/pack/default/opt/livemark.vim
+	url = https://github.com/miyakogi/livemark.vim.git
+[submodule ".vim/pack/default/opt/unite-gtags"]
+	path = .vim/pack/default/opt/unite-gtags
+	url = https://github.com/hewes/unite-gtags.git
+[submodule ".vim/pack/default/opt/unite-gtags-custom"]
+	path = .vim/pack/default/opt/unite-gtags-custom
+	url = https://github.com/odknt/unite-gtags-custom.git
