@@ -11,7 +11,6 @@ set wildmenu
 set lazyredraw ttyfast
 set nostartofline
 set noequalalways splitbelow splitright
-" Disable vi for `-U` option.
 set nocompatible
 set novisualbell t_ut=
 set background=dark
@@ -20,7 +19,7 @@ set display=lastline
 hi SpecialKey ctermbg=none ctermfg=12
 if &encoding ==? 'utf-8'
     exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
-    set list listchars=tab:･\ ,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+    set list listchars=tab:･\ ,trail:-,extends:»,precedes:«,nbsp:%
 else
     exec 'set list fillchars=vert:\|,fold:-,diff:.'
 endif
@@ -42,7 +41,7 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
     \ . "%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 " word wrap
-set linebreak showbreak=\ breakat=\ \ ;:,!?
+set linebreak showbreak=\\ breakat=\ \ ;:,!?
 if exists('+breakindent')
   set wrap breakindent
 else
@@ -95,5 +94,7 @@ augroup vimrc_gtags
   au FileType java,php,go :packadd unite-gtags-custom
   au FileType markdown    :packadd livemark.vim
 augroup END
+
+let g:livemark_browser = $BROWSER
 
 filetype plugin indent on
