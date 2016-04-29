@@ -2,19 +2,14 @@ if has('vim_starting')
     set encoding=utf-8
 endif
 scriptencoding utf-8
-set fileencoding=utf-8 fileencodings=utf-8
-set bomb
-set binary
+set fileencoding=utf-8 fileencodings=utf-8 bomb binary
 set smartindent autoindent
 set ruler nonumber
-set wildmenu
-set lazyredraw ttyfast
-set nostartofline
+set nocompatible nostartofline
 set noequalalways splitbelow splitright
-set nocompatible
-set novisualbell t_ut=
-set background=dark
-set display=lastline
+set lazyredraw ttyfast novisualbell t_ut=
+set background=dark display=lastline
+set mouse=
 
 hi SpecialKey ctermbg=none ctermfg=12
 if &encoding ==? 'utf-8'
@@ -28,6 +23,14 @@ hi VertSplit ctermfg=black ctermbg=61
 set grepformat=%f:%l:%m
 set grepprg=ag\ --nogroup\ --nocolor\ -iS
 command! -nargs=+ NewGrep execute 'silent grep! <args>' | copen 42
+
+function! s:mkdir_if_doesnt_exists(dir)
+    if !isdirectory(expand(a:dir))
+       call mkdir(expand(a:dir), 'p')
+    endif
+endfunction
+call s:mkdir_if_doesnt_exists('~/.cache/vim/swap')
+set directory=~/.cache/vim/swap
 
 " statusline
 set cmdheight=2 laststatus=2
@@ -50,9 +53,6 @@ endif
 
 " search
 set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
-
-" mouse settings
-set mouse=
 
 " clipboard
 if ('unnnamedplus')
