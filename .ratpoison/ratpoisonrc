@@ -51,7 +51,7 @@ definekey top M-n next
 definekey top M-p prev
 
 # Screen navigation
-definekey top M-d exec dmenu_run
+definekey top M-d exec dmenu_run -fn "sans-serif" -m 0
 definekey top s-k nextscreen
 definekey top s-j prevscreen
 definekey top s-f fselect
