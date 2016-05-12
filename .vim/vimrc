@@ -10,6 +10,12 @@ set noequalalways splitbelow splitright
 set lazyredraw ttyfast novisualbell t_ut=
 set background=dark display=lastline
 set mouse=
+set completeopt=menuone complete=. pumheight=20
+set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
+set tags+=.tags
+set tags+=.TAGS
+set dictionary=/usr/share/dict/words
+set thesaurus=/usr/share/mythes/th_en_US_v2.dat
 
 hi SpecialKey ctermbg=none ctermfg=12
 if &encoding ==? 'utf-8'
@@ -51,29 +57,12 @@ else
   set nowrap
 endif
 
-" search
-set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
-
 " clipboard
-if ('unnnamedplus')
+if has('unnnamedplus')
     set clipboard+=unnamedplus
 else
     set clipboard+=unnamed
 endif
-
-" completion
-set completeopt=menuone complete=. pumheight=20
-
-" tags
-set tags+=.tags
-set tags+=.TAGS
-
-" dictionaries
-set dictionary=/usr/share/dict/words
-set thesaurus=/usr/share/mythes/th_en_US_v2.dat
-
-" macro
-let @d = ':bp|bw! #'
 
 " keybind
 let g:mapleader="\<Space>"
@@ -95,6 +84,14 @@ augroup vimrc_gtags
   au FileType markdown    :packadd livemark.vim
 augroup END
 
+if has('vim_starting')
+    let s:repo_dir = substitute(system('git rev-parse --show-toplevel'), '\\', '/', 'g')
+    let s:repo_dir = substitute(s:repo_dir, '\n', '', 'g')
+    let s:tag_file = expand('~/.cache/tags_dir/') . substitute(s:repo_dir, '/', '', 'g'). '/prj_tags'
+    let &tags .= ',' . s:tag_file
+endif
+
+let @d = ':bp|bw! #'
 let g:livemark_browser = $BROWSER
 
 filetype plugin indent on
