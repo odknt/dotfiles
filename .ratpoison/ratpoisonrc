@@ -16,6 +16,11 @@ alias runonce exec $HOME/.ratpoison/bin/runonce
 # Set options
 ######################################################################
 
+unmanage Top Expanded Edge Panel
+unmanage Bottom Expanded Edge Panel
+unmanage Netbook Launcher EFL
+unmanage x-nautilus-desktop
+
 set warp off
 set border 1
 set barborder 1
@@ -92,7 +97,7 @@ unmanage stalonetray
 
 runonce twmnd
 runonce gol
-runonce xcompmgr
+# runonce xcompmgr -a
 
 exec nitrogen --restore
 
