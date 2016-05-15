@@ -44,8 +44,13 @@ uim-toolbar-gtk-systray &
 export XMODIFIERS='@im=uim'
 export XMODIFIERS='@im=uim'
 
+# Keyboard
+xset r rate 200 30
+setxkbmap -layout us
+xmodmap ~/.Xmodmap
+
 # Default browser
-export BROWSER='cyberfox'
+export BROWSER='firefox'
 
 lxsession &
 
