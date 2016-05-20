@@ -8,7 +8,7 @@ set ruler nonumber
 set nocompatible nostartofline
 set noequalalways splitbelow splitright
 set lazyredraw ttyfast novisualbell t_ut=
-set background=dark display=lastline
+set background=dark display=lastline textwidth=0
 set mouse=
 set completeopt=menuone complete=. pumheight=20
 set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
@@ -73,6 +73,7 @@ vnoremap <leader><C-]> :<C-u>Unite gtags/def<CR>
 nnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
 vnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
 nnoremap <leader>/ :<C-u>Unite gtags/completion<CR>
+nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
 " autocmd
 augroup vimrc_gtags
@@ -93,5 +94,6 @@ endif
 
 let @d = ':bp|bw! #'
 let g:livemark_browser = $BROWSER
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)', 'file': '\v\.(exe|so|dll|class|a|o)' }
 
 filetype plugin indent on
