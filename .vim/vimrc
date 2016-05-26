@@ -3,6 +3,8 @@ if has('vim_starting')
 endif
 scriptencoding utf-8
 set fileencoding=utf-8 fileencodings=utf-8 bomb binary
+filetype off
+filetype plugin indent off
 set smartindent autoindent
 set ruler nonumber
 set nocompatible nostartofline
@@ -38,7 +40,6 @@ endfunction
 call s:mkdir_if_doesnt_exists('~/.cache/vim/swap')
 set directory=~/.cache/vim/swap
 
-" statusline
 set cmdheight=2 laststatus=2
 set showmode modeline modelines=10
 let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
@@ -49,7 +50,6 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
     \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
     \ . "%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
-" word wrap
 set linebreak showbreak=\\ breakat=\ \ ;:,!?
 if exists('+breakindent')
   set wrap breakindent
@@ -57,14 +57,12 @@ else
   set nowrap
 endif
 
-" clipboard
 if has('unnnamedplus')
     set clipboard+=unnamedplus
 else
     set clipboard+=unnamed
 endif
 
-" keybind
 let g:mapleader="\<Space>"
 nnoremap <leader><C-l> :<C-u>Unite gtags/file<CR>
 nnoremap <leader><C-g> :<C-u>Unite gtags/grep<CR>
@@ -75,7 +73,6 @@ vnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
 nnoremap <leader>/ :<C-u>Unite gtags/completion<CR>
 nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
-" autocmd
 augroup vimrc_gtags
   au!
   au FileType java,php,go :packadd gen_tags.vim
@@ -96,4 +93,4 @@ let @d = ':bp|bw! #'
 let g:livemark_browser = $BROWSER
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)', 'file': '\v\.(exe|so|dll|class|a|o)' }
 
-filetype plugin indent on
+filetype plugin on
