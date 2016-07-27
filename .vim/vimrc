@@ -90,7 +90,8 @@ if has('vim_starting')
 endif
 
 let @d = ':bp|bw! #'
-let g:livemark_browser = $BROWSER
+let g:livemark_browser = $BROWSER !=# '' ? $BROWSER : ''
+let g:livemark_css_files = [ expand('~/.vim/github-markdown.css') ]
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)', 'file': '\v\.(exe|so|dll|class|a|o)' }
 
 filetype plugin on
