@@ -26,7 +26,7 @@ set border 1
 set barborder 1
 set bargravity nw
 set inputwidth 0
-set defpadding 5 25 5 5
+set padding 5 25 5 5
 set gap 5
 
 set fwcolor \#991144
