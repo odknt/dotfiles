@@ -3,6 +3,12 @@
 set -euo pipefail
 IFS=$'\t\n'
 
+APPID="${WEATHER_APPID:-}"
+
+if [ -z "$APPID" ]; then
+  exit 0
+fi
+
 JSONBIN="$(dirname "$0")/JSON.sh"
 
 declare -A ICONS_=(
@@ -25,7 +31,6 @@ fi
 
 CITYID="${WEATHER_CITYID:-1850147}"
 UNITS="${WEATHER_UNITS:-tokyo}"
-APPID="${WEATHER_APPID:?must be set WEATHER_APPID}"
 
 WEATHER_JSON=$(curl -s "http://api.openweathermap.org/data/2.5/weather?id=${CITYID}&units=${UNITS}&lang=en&APPID=${APPID}")
 
