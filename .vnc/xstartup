@@ -45,13 +45,13 @@ export XMODIFIERS='@im=uim'
 export XMODIFIERS='@im=uim'
 
 # Default browser
-export BROWSER='cyberfox'
+export BROWSER='chromium'
 
-lxsession &
+# lxsession &
 
 # Clipboard
-autocutsel -fork -selection PRIMARY &
-autocutsel -fork &
+# autocutsel -fork -selection PRIMARY &
+# autocutsel -fork &
 
 # MPD
 mpd
@@ -64,4 +64,4 @@ if [ -f "$HOME/.env" ]; then
   . "$HOME/.env"
 fi
 
-exec gnome-session
+exec /usr/bin/ratpoison
