@@ -20,7 +20,7 @@ if [ -f "$userresources" ]; then
 fi
 
 if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
+    : xmodmap "$usermodmap"
 fi
 
 # start some nice programs
@@ -36,6 +36,9 @@ fi
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
 
+# Use Wayland
+export GDK_BACKEND=wayland
+
 # IME
 export GTK_IM_MODULE='uim'
 export QT_IM_MODULE='uim'
@@ -47,10 +50,9 @@ export XMODIFIERS='@im=uim'
 # Keyboard
 xset r rate 200 30
 setxkbmap -layout us
-xmodmap ~/.Xmodmap
 
 # Default browser
-export BROWSER='firefox'
+export BROWSER='chromium'
 
 lxsession &
 
