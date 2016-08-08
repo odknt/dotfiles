@@ -15,4 +15,4 @@ TEXT
 ^fg()^ca(1,amixer set Master toggle)^i($HOME/.ratpoison/icons/vol.xbm)^ca()^fg()  ${exec sh $HOME/.ratpoison/scripts/func_volume.sh}  \
 ^p(;-1)^fg(\#555555)|^fg()  \
 ^p(+125)\
-^p()^bg(\#E33C5B)^fg(\#dddddd)   ^i($HOME/.ratpoison/icons/clock.xbm)  ${time %a, %d %b %R %p}   \
+^p()^bg(\#E33C5B)^fg(\#dddddd)   ^i($HOME/.ratpoison/icons/clock.xbm)  ${exec date +'%m月 %d日 (%a) %H:%M'}    \
