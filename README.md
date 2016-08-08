@@ -22,9 +22,27 @@
 - lxsession
 - LXAppearance  
     Appearance setting tool for GTK+2 & GTK+3.
+- vim
+    later then `7.4.1191`
 
 #### Arch Linux
 
-```bash
+```sh
 yaourt -S lxsession lxappearance flatplat-theme
+```
+
+#### Settings
+
+`$HOME/.env` is autoloading by `.xinitrc-ratpoison`.
+
+```sh
+# Create $HOME/.env
+vim ~/.env
+```
+
+```sh
+#!/usr/bin/env bash
+
+# see http://openweathermap.org/appid
+export WEATHER_APPID='API_KEY'
 ```
