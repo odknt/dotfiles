@@ -83,12 +83,6 @@ definekey top Print exec /opt/bin/gyazo
 definekey top s-s exec gvim
 
 ######################################################################
-# Layout
-######################################################################
-
-bind G frestore (frame :number 0 :x 5 :y 25 :width 1115 :height 877 :screenw 1920 :screenh 1080 :last-access 277 :dedicated 0),(frame :number 4 :x 5 :y 902 :width 877 :height 173 :screenw 1920 :screenh 1080 :last-access 274 :dedicated 0),(frame :number 3 :x 882 :y 902 :width 238 :height 173 :screenw 1920 :screenh 1080 :last-access 276 :dedicated 0),(frame :number 2 :x 1120 :y 25 :width 795 :height 1050 :screenw 1920 :screenh 1080 :last-access 269 :dedicated 0),
-
-######################################################################
 # Start programs
 ######################################################################
 
