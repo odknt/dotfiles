@@ -31,3 +31,6 @@
 [submodule ".vim/pack/default/opt/unite-gtags-custom"]
 	path = .vim/pack/default/opt/unite-gtags-custom
 	url = https://github.com/odknt/unite-gtags-custom.git
+[submodule ".vim/pack/default/opt/vim-markdown"]
+	path = .vim/pack/default/opt/vim-markdown
+	url = https://github.com/tpope/vim-markdown.git
