@@ -1,190 +1,44 @@
-URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,xim-onthespot
-URxvt.url-select.launcher:  firefox
-URxvt.url-select.underline: true
-URxvt.keysym.M-u:           perl:url-select:select_next
-URxvt.keysym.M-Escape:      perl:keyboard-select:activate
-URxvt.keysym.M-s:           perl:keyboard-select:search
-! URxvt*termName:                       string
-! URxvt*geometry:                       geometry
-! URxvt*chdir:                          string
-! URxvt*reverseVideo:                   boolean
-! URxvt*loginShell:                     boolean
-! URxvt*multiClickTime:                 number
-! URxvt*jumpScroll:                     boolean
-! URxvt*skipScroll:                     boolean
-! URxvt*pastableTabs:                   boolean
-! URxvt*scrollstyle:                    mode
-URxvt*scrollBar:                      false
-! URxvt*scrollBar_right:                boolean
-! URxvt*scrollBar_floating:             boolean
-! URxvt*scrollBar_align:                mode
-! URxvt*thickness:                      number
-! URxvt*scrollTtyOutput:                boolean
-! URxvt*scrollTtyKeypress:              boolean
-! URxvt*scrollWithBuffer:               boolean
-! URxvt*inheritPixmap:                  boolean
-! URxvt*transparent:                    boolean
-! URxvt*tintColor:                      color
-! URxvt*shading:                        number
-! URxvt*blurRadius:                     HxV
-! URxvt*fading:                         number
-! URxvt*fadeColor:                      color
-! URxvt*utmpInhibit:                    boolean
-! URxvt*urgentOnBell:                   boolean
-! URxvt*visualBell:                     boolean
-! URxvt*mapAlert:                       boolean
-! URxvt*meta8:                          boolean
-! URxvt*mouseWheelScrollPage:           boolean
-! URxvt*tripleclickwords:               boolean
-! URxvt*insecure:                       boolean
-! URxvt*cursorUnderline:                boolean
-! URxvt*cursorBlink:                    boolean
-! URxvt*pointerBlank:                   boolean
-! URxvt*background:                     #000000
-! URxvt*foreground:                     #DDDDDD
-! URxvt*color0:                         color
-! URxvt*color1:                         color
-! URxvt*color2:                         color
-! URxvt*color3:                         color
-! URxvt*color4:                         color
-! URxvt*color5:                         color
-! URxvt*color6:                         color
-! URxvt*color7:                         color
-! URxvt*color8:                         color
-! URxvt*color9:                         color
-! URxvt*color10:                        color
-! URxvt*color11:                        color
-! URxvt*color12:                        color
-! URxvt*color13:                        color
-! URxvt*color14:                        color
-! URxvt*color15:                        color
-! URxvt*colorBD:                        color
-! URxvt*colorIT:                        color
-! URxvt*colorUL:                        color
-! URxvt*colorRV:                        color
-! URxvt*underlineColor:                 color
-! URxvt*scrollColor:                    color
-! URxvt*troughColor:                    color
-! URxvt*highlightColor:                 color
-! URxvt*highlightTextColor:             color
-! URxvt*cursorColor:                    color
-! URxvt*cursorColor2:                   color
-! URxvt*pointerColor:                   color
-! URxvt*pointerColor2:                  color
-! URxvt*borderColor:                    color
-! URxvt*iconFile:                       file
-! URxvt*font:                           xft:Inconsolata for Powerline:bold:pixelsize=13:antialias=true,xft:Rounded M+ 1m:bold:pixelsize=12:antialias=true,xft:symbola:pixelsize=12
-URxvt*font:                           xft:monospace:pixelsize=12:antialias=false:spacing=1,xft:sans-serif:pixelsize=11:antialias=false:spacing=1,xft:symbola:pixelsize=12
-URxvt*boldFont:                       xft:monospace:pixelsize=12:antialias=false:spacing=1,xft:sans-serif:pixelsize=11:antialias=false:spacing=1,xft:symbola:pixelsize=12
-! URxvt*italicFont:                     fontname
-! URxvt*boldItalicFont:                 fontname
-! URxvt*intensityStyles:                boolean
-URxvt*inputMethod:                    uim
-! URxvt*preeditType:                    style
-URxvt*imLocale:                       ja_JP.UTF-8
-URxvt*imFont:                         xtf:Rounded M+ 1m:regular:pixelsize=12:antialias=true
-URxvt*allow_bold:                     false
-URxvt*preeditType:                    OnTheSpot
-URxvt*perl_ext:                       xim-onthespot
-URxvt*skipBuiltinGlyphs:              false
-! URxvt*title:                          string
-! URxvt*iconName:                       string
-! URxvt*saveLines:                      number
-! URxvt*buffered:                       boolean
-! URxvt*depth:                          number
-! URxvt*visual:                         number
-! URxvt*transient-for:                  windowid
-! URxvt*override-redirect:              boolean
-! URxvt*hold:                           boolean
-! URxvt*externalBorder:                 number
-! URxvt*internalBorder:                 number
-! URxvt*borderLess:                     boolean
-URxvt*lineSpace:                      -5
-! URxvt*letterSpace:                    number
-URxvt*letterSpace:                     0
-! URxvt*skipBuiltinGlyphs:              boolean
-! URxvt*pointerBlankDelay:              number
-! URxvt*backspacekey:                   string
-! URxvt*deletekey:                      string
-! URxvt*print-pipe:                     string
-! URxvt*modifier:                       modifier
-! URxvt*cutchars:                       string
-! URxvt*answerbackString:               string
-! URxvt*secondaryScreen:                boolean
-! URxvt*secondaryScroll:                boolean
-! URxvt*perl-lib:                       string
-! URxvt*perl-eval:                      perl-eval
-! URxvt*perl-ext:                       string
-! URxvt*iso14755:                       boolean
-! URxvt*iso14755_52:                    boolean
-! URxvt*xrm:                            string
-! URxvt*keysym.sym:                     keysym
-! URxvt*background.border:              boolean
-! URxvt*background.expr:                string
-! URxvt*background.interval:            seconds
-! URxvt*bell-command:                   string
-! URxvt*kuake.hotkey:                   string
-! URxvt*matcher.button:                 string
-! URxvt*matcher.launcher:               string
-! URxvt*matcher.launcher.*:             string
-! URxvt*matcher.pattern.*:              string
-! URxvt*matcher.rend.*:                 string
-! URxvt*remote-clipboard.fetch:         string
-! URxvt*remote-clipboard.store:         string
-! URxvt*searchable-scrollback:          string
-! URxvt*selection-autotransform.*:      string
-! URxvt*selection-pastebin.cmd:         string
-! URxvt*selection-pastebin.url:         string
-! URxvt*selection.pattern-0:            string
-! URxvt*tab-bg:                         colour
-! URxvt*tab-fg:                         colour
-! URxvt*tabbar-bg:                      colour
-! URxvt*tabbar-fg:                      colour
-! URxvt*url-launcher:                   string
-
-!###########################################################
-! Xterm
-!###########################################################
-XTerm*utf8:                             1
-XTerm*locale:                           true
-XTerm*cjkWidth:                         true
-XTerm*saveLine:                         2000
-XTerm*allowBoldFonts:                   false
-XTerm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
-XTerm*faceName:                         Inconsolata:pixelsize=12:antialias=false
-XTerm*faceNameDoublesize:               sans-serif:pixelsize=11:antialias=false:spacing=0
+!-----------------------------------------------------------
+! Common settings
+!-----------------------------------------------------------
 
 !BLK Cursor
 #define _color0        #232c33
-#define _color8        #70838c
+#define _color8        #585858
+#define _color18       #282828
+#define _color19       #383838
 !RED Tag
-#define _color1        #99736e
-#define _color9        #99736e
+#define _color1        #ab4642
+#define _color9        #ab4642
 !GRN SpecialKey
-#define _color2        #78a090
-#define _color10       #78a090
+#define _color2        #a1b56c
+#define _color10       #a1b56c
 !YEL Keyword
-#define _color3        #bfb7a1
-#define _color11       #bfb7a1
+#define _color3        #f7ca88
+#define _color11       #f7ca88
+#define _color16       #dc9656
+#define _color17       #a16964
 !BLU Number
-#define _color4        #7c9fa6
-#define _color12       #7c9fa6
+#define _color4        #7cafc2
+#define _color12       #7cafc2
 !MAG Precondit
-#define _color5        #bf9c86
-#define _color13       #bf9c86
+#define _color5        #ba8baf
+#define _color13       #ba8baf
 !CYN Float
-#define _color6        #99bfba
-#define _color14       #99bfba
+#define _color6        #86c1b9
+#define _color14       #86c1b9
 !WHT Search
-#define _color7        #f0f0f0
-#define _color15       #f0f0f0
+#define _color7        #d8d8d8
+#define _color15       #d8d8d8
+#define _color20       #b8b8b8
+#define _color21       #e8e8e8
 !FMT Include, StatusLine, ErrorMsg
 #define _colorBD       #ffcfaf
 #define _colorUL       #ccdc90
 #define _colorIT       #80d4aa
 !TXT Normal, Normal, Cursor
-#define _foreground    #f0f0f0
-#define _background    #232c33
+#define _foreground    #d8d8d8
+#define _background    #101010
 #define _cursorColor   #8faf9f
 
 *color0         : _color0
@@ -203,9 +57,57 @@ XTerm*faceNameDoublesize:               sans-serif:pixelsize=11:antialias=false:
 *color13        : _color13
 *color14        : _color14
 *color15        : _color15
+*color16        : _color16
+*color17        : _color17
+*color18        : _color18
+*color19        : _color19
 *colorBD        : _colorBD
 *colorIT        : _colorIT
 *colorUL        : _colorUL
 *foreground     : _foreground
 *background     : _background
 *cursorColor    : _cursorColor
+
+!-----------------------------------------------------------
+! Xterm
+!-----------------------------------------------------------
+
+XTerm*utf8:                             1
+XTerm*locale:                           true
+XTerm*cjkWidth:                         true
+XTerm*saveLine:                         2000
+XTerm*allowBoldFonts:                   false
+XTerm*charClass:                        33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
+XTerm*faceName:                         tamsyn:pixelsize=12:antialias=false
+XTerm*faceNameDoublesize:               pixelmplus10:pixelsize=10:antialias=false:spacing=0
+
+!-----------------------------------------------------------
+! URxvt
+!-----------------------------------------------------------
+
+URxvt*perl-ext-common:                  default,clipboard,url-select,keyboard-select,xim-onthespot
+URxvt*url-select.underline:             true
+URxvt*keysym.M-u:                       perl:url-select:select_next
+URxvt*keysym.M-Escape:                  perl:keyboard-select:activate
+URxvt*keysym.M-s:                       perl:keyboard-select:search
+URxvt.skipBuiltinGlyphs:                false
+URxvt*scrollBar:                        false
+URxvt*font:                             xft:tamsyn:pixelsize=12:antialias=false:spacing=1,xft:pixelmplus10:pixelsize=10:antialias=false:spacing=1,xft:symbola:pixelsize=12
+URxvt*boldFont:                         xft:tamsyn:pixelsize=12:antialias=false:spacing=1,xft:pixelmplus10:pixelsize=10:antialias=false:spacing=1,xft:symbola:pixelsize=12
+URxvt*inputMethod:                      uim
+URxvt*imLocale:                         ja_JP.UTF-8
+URxvt*imFont:                           xtf:sans-serif:regular:pixelsize=12:antialias=true
+URxvt*allow_bold:                       false
+URxvt*preeditType:                      OnTheSpot
+URxvt*perl_ext:                         xim-onthespot
+URxvt*skipBuiltinGlyphs:                false
+URxvt*lineSpace:                        -5
+URxvt*letterSpace:                      0
+
+!------------------------------------------------------------
+! Emacs
+!------------------------------------------------------------
+
+Emacs.FontBackend:                      xft
+Emacs.font:                             tamsyn:bold:pixelsize=12,pixelmplus10:regular:pixelsize=10,symbola:pixelsize=12
+Emacs.useXIM:                           true
