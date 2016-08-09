@@ -21,6 +21,7 @@ unmanage Bottom Expanded Edge Panel
 unmanage Netbook Launcher EFL
 unmanage x-nautilus-desktop
 
+set font pixelmplus12:pixelsize=12:antialias=false
 set warp off
 set border 1
 set barborder 1
