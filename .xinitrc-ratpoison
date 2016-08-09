@@ -56,12 +56,11 @@ export BROWSER='chromium'
 
 lxsession &
 
-# Clipboard
-autocutsel -fork -selection PRIMARY &
-autocutsel -fork &
-
 # MPD
 mpd
+
+xrdb -merge "$HOME/.Xdefaults"
+xrdb -merge "/home/oda/.Xresources"
 
 # WM
 xset +fp /usr/share/fonts/TTF
@@ -70,4 +69,5 @@ if [ -f "$HOME/.env" ]; then
   # shellcheck source=/dev/null
   . "$HOME/.env"
 fi
+
 exec /usr/bin/ratpoison
