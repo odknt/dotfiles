@@ -78,7 +78,7 @@ augroup vimrc_gtags
   au FileType java,php,go :packadd gen_tags.vim
   au FileType java,php,go :packadd unite-gtags
   au FileType java,php,go :packadd unite-gtags-custom
-  au FileType java,php,go :packadd unite-gtags-custom
+  au FileType markdown    :packadd vim-markdown
   au FileType markdown    :packadd livemark.vim
 augroup END
 
@@ -93,5 +93,8 @@ let @d = ':bp|bw! #'
 let g:livemark_browser = $BROWSER !=# '' ? $BROWSER : ''
 let g:livemark_css_files = [ expand('~/.vim/github-markdown.css') ]
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components)', 'file': '\v\.(exe|so|dll|class|a|o)' }
+let g:markdown_fenced_languages = ['vim', 'python', 'ruby', 'javascript', 'php', 'sh']
 
+colorscheme slate
+syntax on
 filetype plugin on
