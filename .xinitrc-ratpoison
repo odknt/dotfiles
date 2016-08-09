@@ -59,7 +59,11 @@ lxsession &
 # MPD
 mpd
 
-alias xrdb-reload="xrdb -merge '$HOME/.Xdefaults' '$HOME/.xresources/themes/base16-default.dark.256.xresources' '$HOME/.Xresources'"
+if [ -f "$HOME/.Xresources" ]; then
+    alias xrdb-reload="xrdb -merge $HOME/.Xdefaults $HOME/.xresources/themes/base16-default.dark.256.xresources $HOME/.Xresources"
+else
+    alias xrdb-reload="xrdb -merge $HOME/.Xdefaults $HOME/.xresources/themes/base16-default.dark.256.xresources"
+fi
 xrdb-reload
 
 # WM
