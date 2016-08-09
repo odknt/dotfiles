@@ -22,8 +22,8 @@ URxvt*keysym.M-Escape:                  perl:keyboard-select:activate
 URxvt*keysym.M-s:                       perl:keyboard-select:search
 URxvt.skipBuiltinGlyphs:                false
 URxvt*scrollBar:                        false
-URxvt*font:                             xft:tamsyn:pixelsize=12:antialias=false:spacing=1,xft:pixelmplus10:pixelsize=10:antialias=false:spacing=1,xft:symbola:pixelsize=12
-URxvt*boldFont:                         xft:tamsyn:pixelsize=12:antialias=false:spacing=1,xft:pixelmplus10:pixelsize=10:antialias=false:spacing=1,xft:symbola:pixelsize=12
+URxvt*font:                             xft:tamsyn:pixelsize=12:antialias=false,xft:pixelmplus10:pixelsize=10:antialias=false,xft:symbola:pixelsize=12
+URxvt*boldFont:                         xft:tamsyn:pixelsize=12:antialias=false,xft:pixelmplus10:pixelsize=10:antialias=false,xft:symbola:pixelsize=12
 URxvt*inputMethod:                      uim
 URxvt*imLocale:                         ja_JP.UTF-8
 URxvt*imFont:                           xtf:sans-serif:regular:pixelsize=12:antialias=true
