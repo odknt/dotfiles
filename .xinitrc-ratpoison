@@ -59,9 +59,8 @@ lxsession &
 # MPD
 mpd
 
-xrdb -merge "$HOME/.Xdefaults"
-xrdb -merge "/home/oda/.xresources/themes/base16-default.dark.256.xresources"
-xrdb -merge "/home/oda/.Xresources"
+alias xrdb-reload="xrdb -merge '$HOME/.Xdefaults' '$HOME/.xresources/themes/base16-default.dark.256.xresources' '$HOME/.Xresources'"
+xrdb-reload
 
 # WM
 xset +fp /usr/share/fonts/TTF
