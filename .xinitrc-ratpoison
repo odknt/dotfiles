@@ -59,13 +59,12 @@ lxsession &
 # MPD
 mpd
 
+xrdb -remove
+xrdb -merge $HOME/.Xdefaults
+xrdb -merge $HOME/.xresources/themes/base16-default.dark.256.xresources
 if [ -f "$HOME/.Xresources" ]; then
-    _reload="xrdb -merge $HOME/.Xdefaults $HOME/.xresources/themes/base16-default.dark.256.xresources $HOME/.Xresources"
-else
-    _reload="xrdb -merge $HOME/.Xdefaults $HOME/.xresources/themes/base16-default.dark.256.xresources"
+    xrdb -merge $HOME/.Xresources
 fi
-alias xrdb-reload="$_reload"
-xrdb-reload
 
 # WM
 xset +fp /usr/share/fonts/TTF
