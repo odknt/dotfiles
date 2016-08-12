@@ -44,6 +44,7 @@ escape M-w
 bind q exec $BROWSER
 bind c exec urxvt
 bind t exec urxvt -e tty-clock -B -C 7 -c
+bind m exec urxvt -e ncmpcpp
 
 ######################################################################
 # Top level keys
