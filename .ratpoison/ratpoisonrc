@@ -41,7 +41,7 @@ set barpadding 20 10
 
 escape M-w
 
-bind q exec firefox
+bind q exec $BROWSER
 bind c exec urxvt
 bind t exec urxvt -e tty-clock -B -C 7 -c
 
