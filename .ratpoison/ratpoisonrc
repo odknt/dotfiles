@@ -42,9 +42,9 @@ set barpadding 20 10
 escape M-w
 
 bind q exec $BROWSER
-bind c exec urxvt
-bind t exec urxvt -e tty-clock -B -C 7 -c
-bind m exec urxvt -e ncmpcpp
+bind c exec urxvtc
+bind t exec urxvtc -e tty-clock -B -C 7 -c
+bind m exec urxvtc -e ncmpcpp
 
 ######################################################################
 # Top level keys
@@ -93,6 +93,7 @@ unmanage stalonetray
 
 runonce twmnd
 runonce gol
+runonce urxvtd -o -q
 # runonce xcompmgr -a
 
 exec nitrogen --restore
