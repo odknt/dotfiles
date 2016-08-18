@@ -47,14 +47,12 @@ export XMODIFIERS='@im=uim'
 # Default browser
 export BROWSER='chromium'
 
-# lxsession &
-
-# Clipboard
-# autocutsel -fork -selection PRIMARY &
-# autocutsel -fork &
-
-# MPD
-mpd
+xrdb -remove
+xrdb -merge $HOME/.Xdefaults
+xrdb -merge $HOME/.xresources/themes/base16-default.dark.256.xresources
+if [ -f "$HOME/.Xresources" ]; then
+    xrdb -merge $HOME/.Xresources
+fi
 
 # WM
 xset +fp /usr/share/fonts/TTF
