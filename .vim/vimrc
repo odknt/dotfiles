@@ -6,7 +6,7 @@ set fileencoding=utf-8 fileencodings=utf-8 bomb binary
 filetype off
 filetype plugin indent off
 set smartindent autoindent
-set ruler nonumber
+set ruler nonumber regexpengine=1
 set nocompatible nostartofline
 set noequalalways splitbelow splitright
 set lazyredraw ttyfast novisualbell t_ut=
