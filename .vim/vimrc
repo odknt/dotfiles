@@ -9,7 +9,7 @@ set smartindent autoindent
 set ruler nonumber regexpengine=1
 set nocompatible nostartofline
 set noequalalways splitbelow splitright
-set lazyredraw ttyfast novisualbell t_ut=
+set lazyredraw ttyfast novisualbell t_ut= belloff=all
 set background=dark display=lastline textwidth=0
 set mouse=
 set completeopt=menuone complete=. pumheight=20
