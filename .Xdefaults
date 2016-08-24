@@ -22,8 +22,8 @@ URxvt*keysym.M-Escape:                  perl:keyboard-select:activate
 URxvt*keysym.M-s:                       perl:keyboard-select:search
 URxvt.skipBuiltinGlyphs:                false
 URxvt*scrollBar:                        false
-URxvt*font:                             xft:tamsyn:pixelsize=14:antialias=false,xft:pixelmplus12:pixelsize=12:antialias=false,xft:symbola:pixelsize=14:antialias=true
-URxvt*boldFont:                         xft:tamsyn:pixelsize=14:antialias=false,xft:pixelmplus12:pixelsize=12:antialias=false,xft:symbola:pixelsize=14:antialias=true
+URxvt*font:                             xft:tamsyn:pixelsize=12:antialias=false,xft:pixelmplus10:pixelsize=10:antialias=false,xft:symbola:pixelsize=14:antialias=true
+URxvt*boldFont:                         xft:tamsyn:pixelsize=12:antialias=false,xft:pixelmplus10:pixelsize=10:antialias=false,xft:symbola:pixelsize=14:antialias=true
 URxvt*inputMethod:                      uim
 URxvt*imLocale:                         ja_JP.UTF-8
 URxvt*imFont:                           xtf:sans-serif:regular:pixelsize=12:antialias=true
@@ -31,7 +31,7 @@ URxvt*allow_bold:                       false
 URxvt*preeditType:                      OnTheSpot
 URxvt*perl_ext:                         xim-onthespot
 URxvt*skipBuiltinGlyphs:                false
-URxvt*lineSpace:                        -5
+URxvt*lineSpace:                        0
 URxvt*letterSpace:                      0
 URxvt*scrollTtyOutput:                  false
 URxvt*scrollWithBuffer:                 true
@@ -42,5 +42,5 @@ URxvt*scrollTtyKeypress:                true
 !------------------------------------------------------------
 
 Emacs.FontBackend:                      xft
-Emacs.font:                             tamsyn:pixelsize=14:antialias=false,pixelmplus12:regular:pixelsize=12:antialias=false,symbola:pixelsize=12:antialias=true
+Emacs.font:                             tamsyn:pixelsize=12:antialias=false,pixelmplus12:regular:pixelsize=12:antialias=false,symbola:pixelsize=12:antialias=true
 Emacs.useXIM:                           true
