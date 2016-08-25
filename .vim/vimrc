@@ -57,10 +57,10 @@ else
   set nowrap
 endif
 
-if has('unnnamedplus')
-    set clipboard+=unnamedplus
+if has('unnamedplus')
+    set clipboard^=unnamedplus
 else
-    set clipboard+=unnamed
+    set clipboard^=unnamed
 endif
 
 let g:mapleader="\<Space>"
