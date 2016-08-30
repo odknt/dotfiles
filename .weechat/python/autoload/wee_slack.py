@@ -769,10 +769,15 @@ class Channel(object):
     def get_history(self):
         if self.active:
             for message in message_cache[self.identifier]:
-                process_message(json.loads(message), True)
+                # process_message(json.loads(message), True)
+                message_json = json.loads(message)
+                self.last_received = message_json['ts']
+
+            w.hook_signal_send("logger_backlog", w.WEECHAT_HOOK_SIGNAL_POINTER, self.channel_buffer)
+
             if self.last_received != None:
                 async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "oldest": self.last_received, "count": BACKLOG_SIZE})
-            else:
+            elif not len(message_cache[self.identifier]):
                 async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "count": BACKLOG_SIZE})
 
 
