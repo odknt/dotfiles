@@ -777,8 +777,8 @@ class Channel(object):
 
             if self.last_received != None:
                 async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "oldest": self.last_received, "count": BACKLOG_SIZE})
-            elif not len(message_cache[self.identifier]):
-                async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "count": BACKLOG_SIZE})
+            # elif not len(message_cache[self.identifier]):
+            #     async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "count": BACKLOG_SIZE})
 
 
 class GroupChannel(Channel):
