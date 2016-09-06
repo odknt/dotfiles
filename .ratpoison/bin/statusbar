@@ -31,7 +31,7 @@ echo "$$" > "$BASEDIR/$PIDFILE"
 trap on_exit 0 1 2 3 15
 
 conky --quiet -c "$HOME/.ratpoison/scripts/conky_dzen2" | dzen2 \
-  -e - -h '20' -ta r \
+  -e - -h '20' -bg '#101010' -ta r \
   -geometry "$BARPOS" \
   -fn 'pixelmplus12:pixelsize=12:antialias=false'
 
