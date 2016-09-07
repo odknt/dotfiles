@@ -58,7 +58,7 @@ else
 endif
 
 if has('unnamedplus')
-    set clipboard^=unnamedplus
+    set clipboard^=unnamed,unnamedplus
 else
     set clipboard^=unnamed
 endif
