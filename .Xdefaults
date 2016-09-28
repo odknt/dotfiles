@@ -42,5 +42,5 @@ URxvt*scrollTtyKeypress:                true
 !------------------------------------------------------------
 
 Emacs.FontBackend:                      xft
-Emacs.font:                             tamsyn:pixelsize=12:antialias=false,pixelmplus12:regular:pixelsize=12:antialias=false,symbola:pixelsize=12:antialias=true
+Emacs.font:                             tamsyn:pixelsize=12:antialias=false,pixelmplus10:regular:pixelsize=10:antialias=false,symbola:pixelsize=12:antialias=true
 Emacs.useXIM:                           true
