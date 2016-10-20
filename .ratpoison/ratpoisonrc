@@ -27,8 +27,6 @@ set border 1
 set barborder 1
 set bargravity nw
 set inputwidth 0
-set padding 5 25 5 5
-set gap 5
 
 set fwcolor \#991144
 set fgcolor \#dddddd
@@ -88,15 +86,9 @@ definekey top s-s exec gvim
 # Start programs
 ######################################################################
 
-unmanage dzen2
-unmanage stalonetray
-
 runonce twmnd
 runonce gol
 runonce urxvtd -o -q
 # runonce xcompmgr -a
 
 exec nitrogen --restore
-
-statusbar
-exec sleep 0.6; ratpoison -c 'systray'
