@@ -89,6 +89,6 @@ definekey top s-s exec gvim
 runonce dunst
 runonce gol
 runonce urxvtd -o -q
-runonce compton --no-fading-openclose
+runonce compton
 
 exec nitrogen --restore
