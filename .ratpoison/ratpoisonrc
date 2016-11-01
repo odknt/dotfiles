@@ -9,6 +9,7 @@ startup_message off
 alias titlebar exec ratpoison -c "exec $HOME/.ratpoison/bin/titlebar"
 alias statusbar exec ratpoison -c "exec $HOME/.ratpoison/bin/statusbar" -c "titlebar"
 alias systray exec ratpoison -c "exec $HOME/.ratpoison/bin/systray"
+alias compton exec ratpoison -c "exec $HOME/.ratpoison/bin/compton"
 alias reload exec ratpoison -c "source $HOME/.ratpoison/ratpoisonrc"
 alias runonce exec $HOME/.ratpoison/bin/runonce
 
@@ -89,6 +90,6 @@ definekey top s-s exec gvim
 runonce dunst
 runonce gol
 runonce urxvtd -o -q
-runonce compton
 
+compton
 exec nitrogen --restore
