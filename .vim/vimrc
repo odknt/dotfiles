@@ -91,6 +91,7 @@ endif
 
 let @d = ':bp|bw! #'
 let g:livemark_browser = $BROWSER !=# '' ? $BROWSER : ''
+let g:livemark_disable_scroll = 1
 let g:livemark_css_files = [ expand('~/.vim/github-markdown.css') ]
 let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|vendors|vendor)', 'file': '\v\.(exe|so|dll|class|a|o)' }
