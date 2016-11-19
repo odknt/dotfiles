@@ -26,13 +26,17 @@ set font pixelmplus12:pixelsize=12:antialias=false
 set warp off
 set border 1
 set barborder 1
-set bargravity nw
+set bargravity c
 set inputwidth 0
 
-set fwcolor \#991144
+set fwcolor \#303030
+set bwcolor \#303030
 set fgcolor \#dddddd
 set bgcolor \#101010
 set barpadding 20 10
+
+set gap 5
+set padding 5 5 5 5
 
 ######################################################################
 # Bind keys
