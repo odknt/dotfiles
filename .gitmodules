@@ -16,9 +16,6 @@
 [submodule ".vim/pack/default/start/vimproc.vim"]
 	path = .vim/pack/default/start/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
-[submodule ".vim/pack/default/start/vim-surround"]
-	path = .vim/pack/default/start/vim-surround
-	url = https://github.com/tpope/vim-surround.git
 [submodule ".vim/pack/default/opt/gen_tags.vim"]
 	path = .vim/pack/default/opt/gen_tags.vim
 	url = https://github.com/jsfaint/gen_tags.vim.git
@@ -28,12 +25,6 @@
 [submodule ".vim/pack/default/opt/unite-gtags"]
 	path = .vim/pack/default/opt/unite-gtags
 	url = https://github.com/hewes/unite-gtags.git
-[submodule ".vim/pack/default/opt/unite-gtags-custom"]
-	path = .vim/pack/default/opt/unite-gtags-custom
-	url = https://github.com/odknt/unite-gtags-custom.git
 [submodule ".vim/pack/default/opt/vim-markdown"]
 	path = .vim/pack/default/opt/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
-[submodule ".vim/pack/default/start/vim-repeat"]
-	path = .vim/pack/default/start/vim-repeat
-	url = https://github.com/tpope/vim-repeat.git
