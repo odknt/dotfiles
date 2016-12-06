@@ -22,8 +22,8 @@ URxvt*keysym.M-Escape:                  perl:keyboard-select:activate
 URxvt*keysym.M-s:                       perl:keyboard-select:search
 URxvt.skipBuiltinGlyphs:                false
 URxvt*scrollBar:                        false
-URxvt*font:                             xft:tamsyn:pixelsize=12:antialias=false,xft:pixelmplus10:pixelsize=10:antialias=false,xft:symbola:pixelsize=14:antialias=true
-URxvt*boldFont:                         xft:tamsyn:pixelsize=12:antialias=false,xft:pixelmplus10:pixelsize=10:antialias=false,xft:symbola:pixelsize=14:antialias=true
+URxvt*font:                             xft:Tamsyn:pixelsize=12:antialias=false,xft:PixelMplus10:pixelsize=10:antialias=false,xft:Symbola:pixelsize=12:antialias=true
+URxvt*boldFont:                         xft:Tamsyn:pixelsize=12:antialias=false,xft:PixelMplus10:pixelsize=10:antialias=false,xft:Symbola:pixelsize=12:antialias=true
 URxvt*inputMethod:                      uim
 URxvt*imLocale:                         ja_JP.UTF-8
 URxvt*imFont:                           xtf:sans-serif:regular:pixelsize=12:antialias=true
@@ -37,10 +37,14 @@ URxvt*scrollTtyOutput:                  false
 URxvt*scrollWithBuffer:                 true
 URxvt*scrollTtyKeypress:                true
 
+! Xterm escapes, word by word movement
+URxvt.keysym.Control-Left:              \033[1;5D
+URxvt.keysym.Control-Right:             \033[1;5C
+
 !------------------------------------------------------------
 ! Emacs
 !------------------------------------------------------------
 
 Emacs.FontBackend:                      xft
-Emacs.font:                             tamsyn:pixelsize=12:antialias=false,pixelmplus10:regular:pixelsize=10:antialias=false,symbola:pixelsize=12:antialias=true
+Emacs.font:                             Tamsyn:pixelsize=12:antialias=false,PixelMplus10:regular:pixelsize=10:antialias=false,Symbola:pixelsize=12:antialias=true
 Emacs.useXIM:                           true
