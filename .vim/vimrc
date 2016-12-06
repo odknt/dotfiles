@@ -77,7 +77,6 @@ augroup vimrc_gtags
   au!
   au FileType java,php,go :packadd gen_tags.vim
   au FileType java,php,go :packadd unite-gtags
-  au FileType java,php,go :packadd unite-gtags-custom
   au FileType markdown    :packadd vim-markdown
   au FileType markdown    :packadd livemark.vim
 augroup END
