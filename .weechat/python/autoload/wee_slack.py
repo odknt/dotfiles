@@ -370,17 +370,25 @@ def buffer_input_cb(b, buffer, data):
     if not channel:
         return w.WEECHAT_RC_OK_EAT
     reaction = re.match("^\s*(\d*)(\+|-):(.*):\s*$", data)
-    if not reaction and not data.startswith('s/'):
-        channel.send_message(data)
-        # channel.buffer_prnt(channel.server.nick, data)
-    elif reaction:
+    if reaction:
         if reaction.group(2) == "+":
             channel.send_add_reaction(int(reaction.group(1) or 1), reaction.group(3))
         elif reaction.group(2) == "-":
             channel.send_remove_reaction(int(reaction.group(1) or 1), reaction.group(3))
-    elif data.count('/') == 3:
-        old, new = data.split('/')[1:3]
-        channel.change_previous_message(old.decode("utf-8"), new.decode("utf-8"))
+    elif data.startswith('s/'):
+        try:
+            old, new, flags = re.split(r'(?<!\\)/', data)[1:]
+        except ValueError:
+            pass
+        else:
+            # Replacement string in re.sub() is a string, not a regex, so get
+            # rid of escapes.
+            new = new.replace(r'\/', '/')
+            old = old.replace(r'\/', '/')
+            channel.change_previous_message(old.decode("utf-8"), new.decode("utf-8"), flags)
+    else:
+        channel.send_message(data)
+        # channel.buffer_prnt(channel.server.nick, data)
     channel.mark_read(True)
     return w.WEECHAT_RC_ERROR
 
@@ -775,13 +783,17 @@ class Channel(object):
             data = {"channel": self.identifier, "timestamp": timestamp, "name": reaction}
             async_slack_api_request(self.server.domain, self.server.token, method, data)
 
-    def change_previous_message(self, old, new):
+    def change_previous_message(self, old, new, flags):
         message = self.my_last_message()
         if new == "" and old == "":
             async_slack_api_request(self.server.domain, self.server.token, 'chat.delete', {"channel": self.identifier, "ts": message['ts']})
         else:
-            new_message = message["text"].replace(old, new)
-            async_slack_api_request(self.server.domain, self.server.token, 'chat.update', {"channel": self.identifier, "ts": message['ts'], "text": new_message.encode("utf-8")})
+            num_replace = 1
+            if 'g' in flags:
+                num_replace = 0
+            new_message = re.sub(old, new, message["text"], num_replace)
+            if new_message != message["text"]:
+                async_slack_api_request(self.server.domain, self.server.token, 'chat.update', {"channel": self.identifier, "ts": message['ts'], "text": new_message.encode("utf-8")})
 
     def my_last_message(self):
         for message in reversed(self.messages):
@@ -2218,7 +2230,7 @@ def async_slack_api_request(domain, token, request, post_data, priority=False):
         context = pickle.dumps({"request": request, "token": token, "post_data": post_data})
         params = {'useragent': 'wee_slack {}'.format(SCRIPT_VERSION)}
         dbg("URL: {} context: {} params: {}".format(url, context, params))
-        w.hook_process_hashtable(url, params, 20000, "url_processor_cb", context)
+        w.hook_process_hashtable(url, params, slack_timeout, "url_processor_cb", context)
 
 
 def async_slack_api_upload_request(token, request, post_data, priority=False):
@@ -2227,7 +2239,7 @@ def async_slack_api_upload_request(token, request, post_data, priority=False):
         file_path = os.path.expanduser(post_data["file"])
         command = 'curl -F file=@{} -F channels={} -F token={} {}'.format(file_path, post_data["channels"], token, url)
         context = pickle.dumps({"request": request, "token": token, "post_data": post_data})
-        w.hook_process(command, 20000, "url_processor_cb", context)
+        w.hook_process(command, slack_timeout, "url_processor_cb", context)
 
 
 # funny, right?
@@ -2365,7 +2377,7 @@ def create_slack_debug_buffer():
 
 def config_changed_cb(data, option, value):
     global slack_api_token, distracting_channels, colorize_nicks, colorize_private_chats, slack_debug, debug_mode, \
-        unfurl_ignore_alt_text, colorize_messages, show_reaction_nicks
+        unfurl_ignore_alt_text, colorize_messages, show_reaction_nicks, slack_timeout
 
     slack_api_token = w.config_get_plugin("slack_api_token")
 
@@ -2384,6 +2396,8 @@ def config_changed_cb(data, option, value):
     unfurl_ignore_alt_text = False
     if w.config_get_plugin('unfurl_ignore_alt_text') != "0":
         unfurl_ignore_alt_text = True
+
+    slack_timeout = int(w.config_get_plugin('slack_timeout'))
 
     return w.WEECHAT_RC_OK
 
@@ -2457,7 +2471,8 @@ if __name__ == "__main__":
                 w.config_set_plugin('switch_buffer_on_join', "1")
             if not w.config_get_plugin('show_reaction_nicks'):
                 w.config_set_plugin('show_reaction_nicks', "0")
-
+            if not w.config_get_plugin('slack_timeout'):
+                w.config_set_plugin('slack_timeout', "20000")
             if w.config_get_plugin('channels_not_on_current_server_color'):
                 w.config_option_unset('channels_not_on_current_server_color')
 
