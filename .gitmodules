@@ -28,3 +28,12 @@
 [submodule ".vim/pack/default/opt/vim-markdown"]
 	path = .vim/pack/default/opt/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
+[submodule ".config/nvim/pack/default/start/denite.nvim"]
+	path = .config/nvim/pack/default/start/denite.nvim
+	url = https://github.com/Shougo/denite.nvim
+[submodule ".config/nvim/pack/default/start/neomake"]
+	path = .config/nvim/pack/default/start/neomake
+	url = https://github.com/neomake/neomake
+[submodule ".config/nvim/pack/default/opt/nvim-go"]
+	path = .config/nvim/pack/default/opt/nvim-go
+	url = https://github.com/zchee/nvim-go

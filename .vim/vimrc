@@ -73,7 +73,7 @@ vnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
 nnoremap <leader>/ :<C-u>Unite gtags/completion<CR>
 nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
-augroup vimrc_gtags
+augroup on_filetype
   au!
   au FileType java,php,go :packadd gen_tags.vim
   au FileType java,php,go :packadd unite-gtags
