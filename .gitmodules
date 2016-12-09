@@ -19,15 +19,9 @@
 [submodule ".vim/pack/default/opt/gen_tags.vim"]
 	path = .vim/pack/default/opt/gen_tags.vim
 	url = https://github.com/jsfaint/gen_tags.vim.git
-[submodule ".vim/pack/default/opt/livemark.vim"]
-	path = .vim/pack/default/opt/livemark.vim
-	url = https://github.com/miyakogi/livemark.vim.git
 [submodule ".vim/pack/default/opt/unite-gtags"]
 	path = .vim/pack/default/opt/unite-gtags
 	url = https://github.com/hewes/unite-gtags.git
-[submodule ".vim/pack/default/opt/vim-markdown"]
-	path = .vim/pack/default/opt/vim-markdown
-	url = https://github.com/tpope/vim-markdown.git
 [submodule ".config/nvim/pack/default/start/denite.nvim"]
 	path = .config/nvim/pack/default/start/denite.nvim
 	url = https://github.com/Shougo/denite.nvim
