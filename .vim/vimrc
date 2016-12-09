@@ -1,5 +1,5 @@
 if has('vim_starting')
-    set encoding=utf-8
+  set encoding=utf-8
 endif
 scriptencoding utf-8
 set fileencoding=utf-8 fileencodings=utf-8,sjis,enc-jp bomb binary
@@ -21,10 +21,10 @@ set thesaurus=/usr/share/mythes/th_en_US_v2.dat
 
 hi SpecialKey ctermbg=none ctermfg=12
 if &encoding ==? 'utf-8'
-    exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
-    set list listchars=tab:･\ ,trail:-,extends:»,precedes:«,nbsp:%
+  exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
+  set list listchars=tab:･\ ,trail:-,extends:»,precedes:«,nbsp:%
 else
-    exec 'set list fillchars=vert:\|,fold:-,diff:.'
+  exec 'set list fillchars=vert:\|,fold:-,diff:.'
 endif
 hi VertSplit ctermfg=black ctermbg=61
 
@@ -33,22 +33,15 @@ set grepprg=ag\ --nogroup\ --nocolor\ -iS
 command! -nargs=+ NewGrep execute 'silent grep! <args>' | copen 42
 
 function! s:mkdir_if_doesnt_exists(dir)
-    if !isdirectory(expand(a:dir))
-       call mkdir(expand(a:dir), 'p')
-    endif
+  if !isdirectory(expand(a:dir))
+    call mkdir(expand(a:dir), 'p')
+  endif
 endfunction
 call s:mkdir_if_doesnt_exists('~/.cache/vim/swap')
 set directory=~/.cache/vim/swap
 
-set cmdheight=2 laststatus=2
+set cmdheight=1 laststatus=0
 set showmode modeline modelines=10
-let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
-    \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
-    \ . "%{(&previewwindow?'[preview] ':'').expand('%:t')}\ %m"
-    \ . "\ %=%{len(getloclist(0))?'E:\ '.len(getloclist(0)):''}"
-    \ . "\ %{(winnr('$')==1 || winnr('#')!=winnr()) ? '['.(&filetype!=''?&filetype.',':'')"
-    \ . ".(&fenc!=''?&fenc:&enc).','.&ff.']' : ''}"
-    \ . "%{printf('%'.(len(line('$'))+2).'d/%d',line('.'),line('$'))}"
 
 set linebreak showbreak=\\ breakat=\ \ ;:,!?
 if exists('+breakindent')
@@ -75,15 +68,15 @@ nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
 augroup on_filetype
   au!
-  au FileType java,php,go :packadd gen_tags.vim
-  au FileType java,php,go :packadd unite-gtags
+  au FileType c,java,php,go :packadd gen_tags.vim
+  au FileType c,java,php,go :packadd unite-gtags
 augroup END
 
 if has('vim_starting')
-    let s:repo_dir = substitute(system('git rev-parse --show-toplevel'), '\\', '/', 'g')
-    let s:repo_dir = substitute(s:repo_dir, '\n', '', 'g')
-    let s:tag_file = expand('~/.cache/tags_dir/') . substitute(s:repo_dir, '/', '', 'g'). '/prj_tags'
-    let &tags .= ',' . s:tag_file
+  let s:repo_dir = substitute(system('git rev-parse --show-toplevel'), '\\', '/', 'g')
+  let s:repo_dir = substitute(s:repo_dir, '\n', '', 'g')
+  let s:tag_file = expand('~/.cache/tags_dir/') . substitute(s:repo_dir, '/', '', 'g'). '/prj_tags'
+  let &tags .= ',' . s:tag_file
 endif
 
 let @d = ':bp|bw! #'
