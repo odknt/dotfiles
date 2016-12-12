@@ -8,8 +8,8 @@ XTerm*cjkWidth:                         true
 XTerm*saveLine:                         2000
 XTerm*allowBoldFonts:                   false
 XTerm*charClass:                        33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
-XTerm*faceName:                         tamsyn:pixelsize=12:antialias=false
-XTerm*faceNameDoublesize:               pixelmplus10:pixelsize=10:antialias=false
+XTerm*faceName:                         Monospace:size=9
+XTerm*faceNameDoublesize:               Monospace:size=9
 
 !-----------------------------------------------------------
 ! URxvt
@@ -22,8 +22,8 @@ URxvt*keysym.M-Escape:                  perl:keyboard-select:activate
 URxvt*keysym.M-s:                       perl:keyboard-select:search
 URxvt.skipBuiltinGlyphs:                false
 URxvt*scrollBar:                        false
-URxvt*font:                             xft:Tamsyn:pixelsize=12:antialias=false,xft:PixelMplus10:pixelsize=10:antialias=false,xft:Symbola:pixelsize=12:antialias=true
-URxvt*boldFont:                         xft:Tamsyn:pixelsize=12:antialias=false,xft:PixelMplus10:pixelsize=10:antialias=false,xft:Symbola:pixelsize=12:antialias=true
+URxvt*font:                             xft:Monospace:size=9,xft:Symbola:size=9
+URxvt*boldFont:                         xft:Monospace:size=9,xft:Symbola:size=9
 URxvt*inputMethod:                      uim
 URxvt*imLocale:                         ja_JP.UTF-8
 URxvt*imFont:                           xtf:sans-serif:regular:pixelsize=12:antialias=true
@@ -46,5 +46,5 @@ URxvt.keysym.Control-Right:             \033[1;5C
 !------------------------------------------------------------
 
 Emacs.FontBackend:                      xft
-Emacs.font:                             Tamsyn:pixelsize=12:antialias=false,PixelMplus10:regular:pixelsize=10:antialias=false,Symbola:pixelsize=12:antialias=true
+Emacs.font:                             xft:Monospace:size=9,xft:Symbola:size=9
 Emacs.useXIM:                           true
