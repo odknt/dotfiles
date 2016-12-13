@@ -23,10 +23,10 @@ URxvt*keysym.M-s:                       perl:keyboard-select:search
 URxvt.skipBuiltinGlyphs:                false
 URxvt*scrollBar:                        false
 URxvt*font:                             xft:Monospace:size=9,xft:Symbola:size=9
-URxvt*boldFont:                         xft:Monospace:size=9,xft:Symbola:size=9
+URxvt*boldFont:                         xft:Monospace:bold:size=9,xft:Symbola:bold:size=9
 URxvt*inputMethod:                      uim
 URxvt*imLocale:                         ja_JP.UTF-8
-URxvt*imFont:                           xtf:sans-serif:regular:pixelsize=12:antialias=true
+URxvt*imFont:                           xtf:Monospace:size=9
 URxvt*allow_bold:                       false
 URxvt*preeditType:                      OnTheSpot
 URxvt*perl_ext:                         xim-onthespot
