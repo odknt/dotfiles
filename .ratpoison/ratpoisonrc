@@ -10,6 +10,7 @@ alias titlebar exec ratpoison -c "exec $HOME/.ratpoison/bin/titlebar"
 alias statusbar exec ratpoison -c "exec $HOME/.ratpoison/bin/statusbar" -c "titlebar"
 alias systray exec ratpoison -c "exec $HOME/.ratpoison/bin/systray"
 alias compton exec ratpoison -c "exec $HOME/.ratpoison/bin/compton"
+alias screenshot exec ratpoison -c "exec $HOME/.ratpoison/bin/screenshot"
 alias reload exec ratpoison -c "source $HOME/.ratpoison/ratpoisonrc"
 alias runonce exec $HOME/.ratpoison/bin/runonce
 
