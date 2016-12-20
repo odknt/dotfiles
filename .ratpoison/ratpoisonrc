@@ -24,7 +24,7 @@ unmanage x-nautilus-desktop
 
 set font Monospace:size=9,Symbola:size=9
 set warp off
-set border 1
+set border 0
 set barborder 1
 set bargravity c
 set inputwidth 0
