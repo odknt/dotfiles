@@ -4,5 +4,3 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-# Kill CapsLock key
-xmodmap ~/.Xmodmap
