@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# vim: sw=2 ts=2 sts=2 tw=0 et
+
+set -euo pipefail
+IFS=$'\n\t'
+
+readonly DISPNUM="$(ratpoison -c 'getenv DISPLAY')"
+readonly SDUMP="$(ratpoison -c 'sdump')"
+readonly NUM_MON="$(xrandr --listmonitors | grep Monitors | awk '{print $2}')"
+
+if [[ $NUM_MON > 1 ]]; then
+  ratpoison -c "exec compton -d ${DISPNUM}"
+else
+  IFS=,
+  readonly SCREENS=($SDUMP)
+  IFS=$'\n\t'
+
+  for s in ${SCREENS[@]}; do
+    screen="$(echo "$s" | awk '{print $1}')"
+    ratpoison -c "exec compton -d ${DISPNUM}.${screen}"
+  done
+fi
