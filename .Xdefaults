@@ -8,8 +8,8 @@ XTerm*cjkWidth:                         true
 XTerm*saveLine:                         2000
 XTerm*allowBoldFonts:                   false
 XTerm*charClass:                        33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
-XTerm*faceName:                         Monospace:size=9
-XTerm*faceNameDoublesize:               Monospace:size=9
+XTerm*faceName:                         sans-serif:size=9
+XTerm*faceNameDoublesize:               sans-serif:size=9
 
 !-----------------------------------------------------------
 ! URxvt
@@ -22,11 +22,11 @@ URxvt*keysym.M-Escape:                  perl:keyboard-select:activate
 URxvt*keysym.M-s:                       perl:keyboard-select:search
 URxvt.skipBuiltinGlyphs:                false
 URxvt*scrollBar:                        false
-URxvt*font:                             xft:Monospace:size=9,xft:Symbola:size=9
-URxvt*boldFont:                         xft:Monospace:bold:size=9,xft:Symbola:bold:size=9
+URxvt*font:                             xft:sans-serif:size=9,xft:Symbola:size=9
+URxvt*boldFont:                         xft:sans-serif:bold:size=9,xft:Symbola:bold:size=9
 URxvt*inputMethod:                      uim
 URxvt*imLocale:                         ja_JP.UTF-8
-URxvt*imFont:                           xtf:Monospace:size=9
+URxvt*imFont:                           xtf:sans-serif:size=9
 URxvt*allow_bold:                       false
 URxvt*preeditType:                      OnTheSpot
 URxvt*perl_ext:                         xim-onthespot
