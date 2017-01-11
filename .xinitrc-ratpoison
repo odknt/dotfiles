@@ -45,7 +45,6 @@ export QT_IM_MODULE='uim'
 uim-xim &
 uim-toolbar-gtk-systray &
 export XMODIFIERS='@im=uim'
-export XMODIFIERS='@im=uim'
 
 # Keyboard
 xset r rate 200 30
