@@ -1,4 +1,5 @@
-style "gvim" {
+style "gvim"
+{
     bg[NORMAL] = "#1b1d1e"
 }
 widget "vim-main-window.*GtkForm" style "gvim"
@@ -9,3 +10,12 @@ style "no-resize-handle"
     GtkWindow::resize-grip-width = 0
 }
 class "GtkWidget" style "no-resize-handle"
+
+style "menu"
+{
+    engine "murrine"
+    {
+        menustyle = 0
+        menuitemstyle = 1
+    }
+}
