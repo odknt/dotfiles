@@ -1,0 +1,8 @@
+[Unit]
+Description=SKK server by using Google IME API
+
+[Service]
+ExecStart=/home/oda/go/bin/go-skkserv-google -p 55100 /usr/share/skk/SKK-JISYO.L
+
+[Install]
+WantedBy=default.target
