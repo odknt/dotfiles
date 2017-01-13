@@ -45,6 +45,15 @@ systemctl --user enable skkserv-google
 uim-pref-gtk
 ```
 
+*unclutter* - Hide mouse pointer when idling.
+
+```sh
+yaourt -S unclutter
+
+systemctl --user start unclutter
+systemctl --user enable unclutter
+```
+
 ##Settings
 
 `$HOME/.env` is autoloading by `.xinitrc-ratpoison`.
