@@ -1,62 +1,38 @@
 #!/bin/bash
 
+set -euo pipefail
+IFS=$'\n\t'
+
 init::usage() {
-    cat <<EOF
+    cat <<EOS
     usage: init.sh <commands>
 
     commands:
-        go      - Install favorite packages.
-        neovim  - Create symbolic link from vim config files.
+        install - Install dependencies.
 
-EOF
+EOS
     return 1
 }
 
-init::go() {
-    if [ -n "$GOPATH" ]; then
-        go get github.com/mattn/gom
-    else
-        echo 'Must be set GOPATH.'
-        return 1
-    fi
-}
+init::install() {
+  which yaourt &>/dev/null || cat <<'EOS'> /dev/stderr
 
-init::neovim() {
-    local neovim_config_home
+\e[37;41m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m
+\e[37;41m!!!!! Please install yaourt. see https://archlinux.fr/yaourt-en/ !!!!!\e[0m
+\e[37;41m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m
 
-    if [ -z "$XDG_CONFIG_HOME" ]; then
-        neovim_config_home="$HOME/.config/nvim"
-    else
-        neovim_config_home="$XDG_CONFIG_HOME/nvim"
-    fi
+EOS
+  yaourt -Sy
+  yaourt -S --needed --noconfirm - < .native.plist
 
-    : Create Neovim config directory.
-    mkdir -p "$neovim_config_home"
-
-    : Create symbolic links.
-    readonly neovim_rc="$neovim_config_home/init.vim"
-    if [ -f "$neovim_rc" ] && [ -L "$neovim_rc" ]; then
-        echo 'init.vim already exists.'
-        return 1
-    fi
-    ln -s "$HOME/.vim/vimrc" "$neovim_rc"
-
-    readonly neovim_frags="$neovim_config_home/frags"
-    if [ -d "$neovim_frags" ] && [ -L "$neovim_frags" ]; then
-        echo 'frags already exists.'
-        return 1
-    fi
-
-    : Install plugins
-    nvim -c PlugInstall -c :qa --headless
-
-    (cd "$neovim_config_home/plugged/cpsm" ; bash install.sh)
+  while read -r p; do
+    yaourt -S --needed "$p"
+  done < .aur.plist
 }
 
 case "$1" in
-    go) init::go;;
-    neovim) init::neovim;;
-    *)  init::usage;;
+  install) init::install;;
+  *)  init::usage;;
 esac
 
 exit $?

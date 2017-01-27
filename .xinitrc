@@ -68,4 +68,4 @@ if [ -f "$HOME/.env" ]; then
   . "$HOME/.env"
 fi
 
-exec /usr/bin/i3
+exec "$WM"
