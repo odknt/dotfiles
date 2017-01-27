@@ -63,6 +63,11 @@ fi
 # WM
 xset +fp /usr/share/fonts/TTF
 xset fp rehash
+if [ -f "$HOME/.xinitrc-local" ]; then
+  # shellcheck source=/dev/null
+  . "$HOME/.xinitrc-local"
+fi
+
 if [ -f "$HOME/.env" ]; then
   # shellcheck source=/dev/null
   . "$HOME/.env"

@@ -73,10 +73,10 @@ systemctl --user enable skkserv-google
 
 ## Local settings
 
-`$HOME/.env` is autoloading by `.xinitrc`.
+`$HOME/.xinitrc-local` is autoloading by `.xinitrc`.
 
 ```sh
-cat <<'EOS'> ~/.env
+cat <<'EOS'> ~/.xinitrc-local
 #!/bin/bash
 
 export WM=i3
