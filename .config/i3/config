@@ -176,6 +176,6 @@ gaps inner 10
 
 # execute on startup
 exec nitrogen --restore
-exec compton
+# exec compton
 exec dunst
 exec gol
