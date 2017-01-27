@@ -165,6 +165,9 @@ bindsym $mod+r mode "resize"
 #         status_command i3status
 # }
 
+for_window [class="(?i)steam"] floating enable
+
+# don't follow cursor
 focus_follows_mouse no
 
 # appearance
