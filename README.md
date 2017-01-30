@@ -10,9 +10,9 @@ My desktop environment on Arch Linux.
     Current Window Manager. Using [i3-gaps](https://github.com/Airblader/i3) instead of official binary.
 - LXAppearance  
     Appearance setting tool for GTK+2 & GTK+3.
-- gvim
+- gvim  
     later then `7.4.1191`.
-- uim
+- uim  
     IME for CJK. Among those, I using SKK.
 
 ## Install
