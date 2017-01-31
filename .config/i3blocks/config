@@ -60,7 +60,7 @@ separator=false
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [cpu_usage]
-label= CPU
+label= 🖾
 interval=5
 border=#98971a
 #separator=false
@@ -87,8 +87,8 @@ interval=30
 #
 [time]
 label= 🕐
-command=date '+%Y-%m-%d %H:%M:%S'
-min_width= 🕐 1900-01-01 00:00:00 
+command=date '+%Y/%m/%d %H:%M'
+min_width= 🕐 1900-01-01 00:00 
 interval=1
 border=#928374
 
