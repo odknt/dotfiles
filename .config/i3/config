@@ -171,9 +171,9 @@ bar {
     i3bar_command       i3bar -t
     separator_symbol    "■"
     strip_workspace_numbers yes
-    font pango:monospace, FontAwesome 9
+    font pango:DejaVu Sans Mono, monospace, FontAwesome 10
     tray_output primary
-    height              24
+    height              25
     colors {
         statusline         $white
         background         $transparent

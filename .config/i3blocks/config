@@ -11,16 +11,27 @@ border_left=0
 border_right=0
 border_bottom=4
 
+[updates]
+command=$HOME/scripts/updates.sh
+interval=60
+signal=3
+urgent=true
+
+[output]
+command=$HOME/scripts/monitor.sh
+interval=60
+signal=4
+
 # Volume indicator
 #
 # The first parameter sets the step (and units to display)
 # The second parameter overrides the mixer selection
 # See the script for details.
 [volume]
-label= 🔊
-#label=♪
+label=  🔊
+command=[[ -z "${BLOCK_BUTTON}" ]] || ( [[ "${BLOCK_BUTTON}" == "1" ]] && ((/usr/bin/pavucontrol -t 3 --name "pavucontrol-bar" || true) && $HOME/scripts/volume_control.py signal) || $HOME/scripts/volume_control.py toggle ); $HOME/scripts/volume_control.py i3blocks
 instance=Master
-#instance=PCM
+markup=pango
 interval=5
 signal=10
 border=#cc241d
@@ -29,7 +40,7 @@ border=#cc241d
 #
 # The type defaults to "mem" if the instance is not specified.
 [memory]
-label= 🆓
+label=  🆓
 separator=false
 interval=10
 border=#d79921
@@ -40,7 +51,7 @@ border=#d79921
 # The script may be called with a optional argument to set the alert
 # (defaults to 10 for 10%).
 [disk]
-label= 💾
+label=  💾
 #instance=/mnt/data
 interval=30
 border=#b16286
@@ -60,14 +71,14 @@ separator=false
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [cpu_usage]
-label= 🖾
+label=  🖾
 interval=5
 border=#98971a
 #separator=false
 
 [temperature]
-label= 🌡
-command=$HOME/scripts/temperature.sh
+label=  🌡
+command=echo "$($HOME/scripts/temperature.sh)  "
 interval=5
 border=#458588
 
@@ -79,18 +90,19 @@ border=#458588
 # The battery instance defaults to 0.
 [battery]
 #label=BAT
-label= ⚡
+label=  ⚡
 #instance=1
 interval=30
 
 # Date Time
 #
 [time]
-label= 🕐
+label=  🕐
 command=date '+%Y/%m/%d %H:%M'
-min_width= 🕐 1900-01-01 00:00 
+command=echo "$(date '+%Y/%m/%d %H:%M')  "
 interval=1
 border=#928374
+separator_block_width=0
 
 # Generic media player support
 #
