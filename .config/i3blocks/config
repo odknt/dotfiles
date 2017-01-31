@@ -35,7 +35,7 @@ command=[[ -z "${BLOCK_BUTTON}" ]] || ( [[ "${BLOCK_BUTTON}" == "1" ]] && ((pavu
 instance=Master
 markup=pango
 interval=5
-signal=10
+signal=4
 border=#cc241d
 
 # Memory usage
