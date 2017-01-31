@@ -35,6 +35,8 @@ pcmanfm
 php
 picocom
 pulseaudio-alsa
+python-gobject
+python-xdg
 rdesktop
 ripgrep
 rsync
