@@ -1,0 +1,11 @@
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+
+[Action]
+Depends=pkill
+When=PostTransaction
+Exec=/usr/bin/pkill -RTMIN+3 i3blocks
