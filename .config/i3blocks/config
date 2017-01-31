@@ -11,8 +11,15 @@ border_left=0
 border_right=0
 border_bottom=4
 
+[title]
+command="$HOME/scripts/title.sh"
+markup=pango
+signal=10
+interval=persist
+border=#bfa898
+
 [updates]
-command=$HOME/scripts/updates.sh
+command="$HOME/scripts/updates.sh"
 interval=60
 signal=3
 urgent=true
@@ -36,7 +43,7 @@ border=#cc241d
 # The type defaults to "mem" if the instance is not specified.
 [memory]
 label=  
-command=echo "$($HOME/scripts/memory.sh) "
+command=echo "$(/usr/lib64/i3blocks/memory | sed -e 's/$/ /')"
 separator=false
 interval=10
 border=#d79921
@@ -48,7 +55,7 @@ border=#d79921
 # (defaults to 10 for 10%).
 [disk]
 label=  
-command=echo "$(df -h | grep -w / | awk '{print $4}') "
+command=echo "$(/usr/lib64/i3blocks/disk | sed -e 's/$/ /')"
 #instance=/mnt/data
 interval=30
 border=#b16286
@@ -69,7 +76,7 @@ separator=false
 # see the script for details.
 [cpu_usage]
 label=  
-command=grep -w cpu /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf "%.1f% ", usage}'
+command=echo "$(/usr/lib64/i3blocks/cpu_usage | sed -e 's/$/ /')"
 interval=5
 border=#98971a
 #separator=false
