@@ -76,21 +76,28 @@ border=#98971a
 
 [temperature]
 label=  
-command=echo "$($HOME/scripts/temperature.sh) "
+command=echo "$("$HOME/scripts/temperature.sh") "
 interval=5
 border=#458588
 
 #[load_average]
 #interval=10
 
-# Battery indicator
+# GPU Temperature
 #
 # The battery instance defaults to 0.
 [battery]
-#label=BAT
 label=  
-#instance=1
 interval=30
+
+# Battery indicator
+#
+# The battery instance defaults to 0.
+[gputemp]
+label=  
+command=echo "$("$HOME/scripts/gputemp.sh") "
+border=#a16946
+interval=5
 
 # Date Time
 #

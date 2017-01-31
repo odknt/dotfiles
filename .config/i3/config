@@ -156,9 +156,10 @@ set_from_resource   $darkmagenta    color5  #000000
 set_from_resource   $magenta        color13 #000000
 set_from_resource   $darkcyan       color6  #000000
 set_from_resource   $cyan           color14 #000000
-set_from_resource   $grey           color7  #000000
+set_from_resource   $darkwhite      color7  #000000
 set_from_resource   $white          color15 #000000
 # cutom colors
+set $grey           #a0a0a0
 set $black          #282828
 set $darkblack      #101010
 set $transparent    #00000000
@@ -175,14 +176,14 @@ bar {
     tray_output primary
     height              25
     colors {
-        statusline         $white
+        statusline         $darkwhite
         background         $darkblack
         separator          $transparent
 
         #                  BORDER       BACKGROUND   TEXT
-        focused_workspace  $darkblack   $darkblack   $darkwhite
-        inactive_workspace $darkblack   $darkblack   $white
-        active_workspace   $darkblack   $darkblack   $white
+        focused_workspace  $darkblack   $darkblack   $red
+        inactive_workspace $darkblack   $darkblack   $grey
+        active_workspace   $darkblack   $darkblack   $grey
         urgent_workspace   $darkred     $darkred     $transparent
         binding_mode       $darkred     $darkred     $transparent
     }
