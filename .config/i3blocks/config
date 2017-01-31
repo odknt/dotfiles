@@ -17,19 +17,14 @@ interval=60
 signal=3
 urgent=true
 
-[output]
-command=$HOME/scripts/monitor.sh
-interval=60
-signal=4
-
 # Volume indicator
 #
 # The first parameter sets the step (and units to display)
 # The second parameter overrides the mixer selection
 # See the script for details.
 [volume]
-label=  🔊
-command=[[ -z "${BLOCK_BUTTON}" ]] || ( [[ "${BLOCK_BUTTON}" == "1" ]] && ((/usr/bin/pavucontrol -t 3 --name "pavucontrol-bar" || true) && $HOME/scripts/volume_control.py signal) || $HOME/scripts/volume_control.py toggle ); $HOME/scripts/volume_control.py i3blocks
+label=  
+command=[[ -z "${BLOCK_BUTTON}" ]] || ( [[ "${BLOCK_BUTTON}" == "1" ]] && ((pavucontrol -t 3 --name "pavucontrol-bar" || true) && $HOME/scripts/volume_control.py signal) || $HOME/scripts/volume_control.py toggle ); $HOME/scripts/volume_control.py i3blocks
 instance=Master
 markup=pango
 interval=5
@@ -40,7 +35,8 @@ border=#cc241d
 #
 # The type defaults to "mem" if the instance is not specified.
 [memory]
-label=  🆓
+label=  
+command=echo "$($HOME/scripts/memory.sh) "
 separator=false
 interval=10
 border=#d79921
@@ -51,7 +47,8 @@ border=#d79921
 # The script may be called with a optional argument to set the alert
 # (defaults to 10 for 10%).
 [disk]
-label=  💾
+label=  
+command=echo "$(df -h | grep -w / | awk '{print $4}') "
 #instance=/mnt/data
 interval=30
 border=#b16286
@@ -71,14 +68,15 @@ separator=false
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [cpu_usage]
-label=  🖾
+label=  
+command=grep -w cpu /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf "%.1f% ", usage}'
 interval=5
 border=#98971a
 #separator=false
 
 [temperature]
-label=  🌡
-command=echo "$($HOME/scripts/temperature.sh)  "
+label=  
+command=echo "$($HOME/scripts/temperature.sh) "
 interval=5
 border=#458588
 
@@ -90,16 +88,16 @@ border=#458588
 # The battery instance defaults to 0.
 [battery]
 #label=BAT
-label=  ⚡
+label=  
 #instance=1
 interval=30
 
 # Date Time
 #
 [time]
-label=  🕐
+label=  
 command=date '+%Y/%m/%d %H:%M'
-command=echo "$(date '+%Y/%m/%d %H:%M')  "
+command=echo "$(date '+%Y/%m/%d %H:%M') "
 interval=1
 border=#928374
 separator_block_width=0

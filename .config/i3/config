@@ -161,7 +161,7 @@ set_from_resource   $white          color15 #000000
 # cutom colors
 set $black          #282828
 set $darkblack      #101010
-set $transparent    #00000060
+set $transparent    #00000000
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -176,13 +176,13 @@ bar {
     height              25
     colors {
         statusline         $white
-        background         $transparent
+        background         $darkblack
         separator          $transparent
 
         #                  BORDER       BACKGROUND   TEXT
-        focused_workspace  $transparent $transparent $darkwhite
-        inactive_workspace $transparent $transparent $white
-        active_workspace   $transparent $transparent $white
+        focused_workspace  $darkblack   $darkblack   $darkwhite
+        inactive_workspace $darkblack   $darkblack   $white
+        active_workspace   $darkblack   $darkblack   $white
         urgent_workspace   $darkred     $darkred     $transparent
         binding_mode       $darkred     $darkred     $transparent
     }

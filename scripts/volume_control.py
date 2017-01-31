@@ -60,7 +60,7 @@ if __name__ == '__main__':
   elif command == 'status':
     write(status())
   elif command == 'i3blocks':
-    output = get_volume() + '%  '
+    output = get_volume() + '% '
     if is_muted():
       output += '\n\n#cc241d'
     write(output)
