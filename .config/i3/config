@@ -61,16 +61,16 @@ bindsym $mod+p focus parent
 #bindsym $mod+d focus child
 
 # workspaces
-set $ws1  "1: 壱"
-set $ws2  "2: 弐"
-set $ws3  "3: 参"
-set $ws4  "4: 肆"
-set $ws5  "5: 伍"
-set $ws6  "6: 陸"
-set $ws7  "7: 漆"
-set $ws8  "8: 捌"
-set $ws9  "9: 玖"
-set $ws10 "10: 什"
+set $ws1  "1:壱"
+set $ws2  "2:弐"
+set $ws3  "3:参"
+set $ws4  "4:肆"
+set $ws5  "5:伍"
+set $ws6  "6:陸"
+set $ws7  "7:漆"
+set $ws8  "8:捌"
+set $ws9  "9:玖"
+set $ws10 "10:拾"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
