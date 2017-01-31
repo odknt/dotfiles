@@ -2,11 +2,13 @@ flatplat-theme
 global
 growl-for-linux
 i3-gaps
+i3blocks-gaps-git
 luv-icon-theme-git
 profile-sync-daemon
 rxvt-unicode-fontspacing-noinc-vteclear-secondarywheel
 totp-cli
 translate-shell
+ttf-font-awesome
 ttf-umeplus
 tty-clock
 urxvt-resize-font-git

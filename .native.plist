@@ -22,6 +22,7 @@ imagemagick
 intel-ucode
 lightdm
 lightdm-gtk-greeter
+lm_sensors
 lua
 lxappearance
 mpv
@@ -41,6 +42,7 @@ ruby
 rustup
 skk-jisyo
 sylpheed
+sysstat
 tig
 tor
 torsocks
