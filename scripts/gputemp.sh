@@ -5,7 +5,7 @@ RADEON="$(grep -wi radeon <<< "$VGAOUT")"
 NVIDIA="$(grep -wi nvidia <<< "$VGAOUT")"
 
 if [[ -n $NVIDIA ]]; then
-  echo "  $(nvidia-settings -q '[gpu:0]/GPUCoreTemp' | \
+  echo "   $(nvidia-settings -q '[gpu:0]/GPUCoreTemp' | \
     grep -Po '(?<=\):\s)\d+(?=.)')℃  "
 else
   exit 1
