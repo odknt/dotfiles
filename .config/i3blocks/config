@@ -93,9 +93,9 @@ border=#458588
 # GPU Temperature
 #
 # The battery instance defaults to 0.
-[battery]
-label=  
-interval=30
+#[battery]
+#label=  
+#interval=30
 
 # Battery indicator
 #
