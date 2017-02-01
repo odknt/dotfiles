@@ -1,6 +1,5 @@
 #!/bin/bash
 
-CORE='Physical'
 OUTPUT="$(sensors -Au)"
 
 IFS=$'\n\t'
