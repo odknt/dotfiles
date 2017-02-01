@@ -110,7 +110,7 @@ interval=5
 [time]
 label=  
 command=date '+%Y/%m/%d %H:%M'
-command=echo "$(date '+%Y/%m/%d %H:%M') "
+command=echo "$([[ -n $BLOCK_BUTTON ]] && gsimplecal; date '+%Y/%m/%d %H:%M') "
 interval=1
 border=#928374
 separator_block_width=0
