@@ -101,8 +101,7 @@ interval=30
 #
 # The battery instance defaults to 0.
 [gputemp]
-label=  
-command=echo "$("$HOME/scripts/gputemp.sh") "
+command="$HOME/scripts/gputemp.sh"
 border=#a16946
 interval=5
 
