@@ -3,9 +3,9 @@ Operation=Install
 Operation=Upgrade
 Operation=Remove
 Type=Package
-Target=nvidia
+Target=*
 
 [Action]
-Depends=pkill
+Depends=procps-ng
 When=PostTransaction
 Exec=/usr/bin/pkill -RTMIN+3 i3blocks
