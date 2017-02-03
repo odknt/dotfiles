@@ -55,7 +55,6 @@ export BROWSER='chromium'
 
 xrdb -remove
 xrdb -merge $HOME/.Xdefaults
-xrdb -merge $HOME/.xresources/themes/base16-default.dark.256.xresources
 if [ -f "$HOME/.Xresources" ]; then
     xrdb -merge $HOME/.Xresources
 fi
