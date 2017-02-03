@@ -184,8 +184,8 @@ bar {
         focused_workspace  $darkblack   $darkblack   $red
         inactive_workspace $darkblack   $darkblack   $grey
         active_workspace   $darkblack   $darkblack   $grey
-        urgent_workspace   $darkred     $darkred     $transparent
-        binding_mode       $darkred     $darkred     $transparent
+        urgent_workspace   $darkred     $darkred     $darkblack
+        binding_mode       $darkred     $darkred     $darkblack
     }
 }
 
