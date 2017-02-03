@@ -198,6 +198,7 @@ for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable, move position mouse
 for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down $height px
+for_window [class="(?i)sylpheed" instance="compose"] floating enable, border normal
 
 # steam
 for_window [class="(?i)steam"] floating enable
