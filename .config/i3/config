@@ -169,7 +169,7 @@ set $transparent    #00000000
 bar {
     position            top
     status_command      i3blocks
-    i3bar_command       i3bar -t
+    i3bar_command       i3bar
     separator_symbol    "■"
     strip_workspace_numbers yes
     font pango:DejaVu Sans Mono, monospace, FontAwesome 10

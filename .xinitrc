@@ -43,7 +43,6 @@ export XDG_CONFIG_HOME=$HOME/.config
 export GTK_IM_MODULE='uim'
 export QT_IM_MODULE='uim'
 uim-xim &
-uim-toolbar-gtk-systray &
 export XMODIFIERS='@im=uim'
 
 # Keyboard
