@@ -5,7 +5,7 @@ font pango:monospace 8
 
 # execute command
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -fn monospace:size=10 -h 25
 
 # kill process
 bindsym $mod+Shift+q kill
@@ -199,6 +199,7 @@ for_window [window_type="menu"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable, move position mouse
 for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down $height px
 for_window [class="(?i)sylpheed" instance="compose"] floating enable, border normal
+for_window [class="(?i)lxappearance"] floating enable, border normal
 
 # steam
 for_window [class="(?i)steam"] floating enable
