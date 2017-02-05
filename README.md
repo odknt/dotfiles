@@ -14,7 +14,7 @@ My desktop environment on Arch Linux.
     later then `7.4.1191`.
 - uim  
     IME for CJK. Among those, I using SKK.
-- dmenu2
+- dmenu2  
     dmenu2 is fork of dmenu. Many useful patches applied and additional options.
 
 ## Screenshot
