@@ -16,12 +16,10 @@ git
 go
 graphviz
 gsimplecal
-gvim
+vim
 haveged
 imagemagick
 intel-ucode
-lightdm
-lightdm-gtk-greeter
 lm_sensors
 lua
 lxappearance
