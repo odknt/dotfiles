@@ -47,6 +47,7 @@ export XMODIFIERS='@im=uim'
 
 # Keyboard
 setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps
+xset r rate 200 30
 numlockx on
 
 # Default browser
