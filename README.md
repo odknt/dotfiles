@@ -59,20 +59,6 @@ systemctl --user start pulseaudio
 systemctl --user enable pulseaudio
 ```
 
-## SKK server
-
-SKK dictionary sever with Google IME.
-
-*[go-skkserv-google](https://github.com/uyorum/go-skkserv-google.git)*
-
-```sh
-GOPATH=~/go go get github.com/uyorum/go-skkserv-google
-
-# Start SKK server
-systemctl --user start skkserv-google
-systemctl --user enable skkserv-google
-```
-
 ## Local settings
 
 `$HOME/.xinitrc-local` is autoloading by `.xinitrc`.
