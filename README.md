@@ -17,6 +17,10 @@ My desktop environment on Arch Linux.
 - dmenu2
     dmenu2 is fork of dmenu. Many useful patches applied and additional options.
 
+## Screenshot
+
+![capture](https://www.tkn.tokyo/capture.png)
+
 ## Install
 
 #### Yaourt
