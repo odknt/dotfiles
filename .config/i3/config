@@ -197,7 +197,7 @@ bar {
 bindsym --release Print exec $HOME/scripts/screenshot
 
 # lock screnn
-bindsym Mod4+l exec i3lock-fancy -- maim --oepngl
+bindsym Mod4+l exec $HOME/scripts/lock
 
 # enable floating for roles
 for_window [window_role="pop-up"] floating enable
