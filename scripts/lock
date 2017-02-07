@@ -8,4 +8,10 @@ PARAM=(--textcolor=ffffff00 --insidecolor=ffffff1c --ringcolor=ffffff3e \
   --separatorcolor=22222260 --insidevercolor=0000001c \
   --ringwrongcolor=00000055 --insidewrongcolor=0000001c)
 
-i3lock -B -n "${PARAM[@]}"
+if cat /proc/cpuinfo | grep -i ssse3 > /dev/null; then
+    i3lock -B -n "${PARAM[@]}"
+else
+    maim --format png /dev/stdout | \
+    convert png:- -blur 0,5 /dev/stdout | \
+    i3lock "${PARAM[@]}" -i /dev/stdin
+fi
