@@ -138,8 +138,8 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-set $Locker $HOME/scripts/lock && sleep 1
-set $mode_system  Lock (L),  Logout (E),  Suspend (S),  Hibernate (H),  Reboot (R),  Shutdown(Shift+S)
+set $Locker $HOME/scripts/lock && xset dpms force off && sleep 1
+set $mode_system  Lock (L),  Logout (E),  Suspend (S),  Hibernate (H),  Reboot (R),  Shutdown(Shift+S)
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
