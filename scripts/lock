@@ -11,7 +11,12 @@ PARAM=(--textcolor=ffffff00 --insidecolor=ffffff1c --ringcolor=ffffff3e \
 if cat /proc/cpuinfo | grep -i ssse3 > /dev/null; then
     i3lock -B -n "${PARAM[@]}"
 else
-    maim --format png /dev/stdout | \
-    convert png:- -blur 0,5 /dev/stdout | \
+    _WIDTH="$(xrandr | grep -Po '(?<=current )\d+(?= x \d+)')"
+    WIDTH="$(("${_WIDTH}" / 2))"
+    _HEIGHT="$(xrandr | grep -Po '\d+(?=, maximum)')"
+    HEIGHT="$(("${_HEIGHT}" / 2))"
+    maim --opengl --format jpeg /dev/stdout | \
+    convert jpeg:- -define "jpeg:size=${WIDTH}x${HEIGHT}" -filter Gaussian -resize "${WIDTH}x${HEIGHT}" \
+      -define filter:sigma=2.5 -resize "${_WIDTH}x${_HEIGHT}" png:/dev/stdout | \
     i3lock "${PARAM[@]}" -i /dev/stdin
 fi
