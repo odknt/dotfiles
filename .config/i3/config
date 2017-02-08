@@ -208,6 +208,10 @@ bar {
     }
 }
 
+# term in scratchpad
+for_window [title="Terminal in scratchpad"] mark "term_in_scratchpad", move scratchpad
+bindsym Mod4+x [con_mark="term_in_scratchpad"] scratchpad show
+
 # screenshot
 bindsym --release Print exec $HOME/scripts/screenshot
 
@@ -234,3 +238,4 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id compton -b
 exec --no-startup-id dunst &
 exec --no-startup-id gol &
+exec --no-startup-id i3-sensible-terminal --title "Terminal in scratchpad" &
