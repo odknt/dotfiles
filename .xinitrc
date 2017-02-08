@@ -72,4 +72,11 @@ if [ -f "$HOME/.env" ]; then
   . "$HOME/.env"
 fi
 
-exec "$WM"
+# Default WM
+session=${1:-i3}
+case $session in
+    i3|i3wm           ) exec i3;;
+    ratpoison         ) exec ratpoison;;
+    # No known session, try to run it as command
+    *) exec $1;;
+esac

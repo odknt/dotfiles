@@ -67,12 +67,13 @@ systemctl --user enable pulseaudio
 
 `$HOME/.xinitrc-local` is autoloading by `.xinitrc`.
 
-```sh
-cat <<'EOS'> ~/.xinitrc-local
-#!/bin/bash
+## Start X
 
-export WM=i3
-EOS
+```sh
+xinit <WM | application>
+
+# start secondary X
+# startx ~/.xinitrc <WM | application>
 ```
 
 ## Optional settings
