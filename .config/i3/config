@@ -5,7 +5,7 @@ font pango:monospace 8
 
 # execute command
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+d exec dmenu_run -fn monospace:size=10 -h 25
+bindsym $mod+d exec dmenu_run -fn monospace:size=10 -h 25 -w 300 -y 25 -o 0.9 -l 10
 
 # kill process
 bindsym $mod+Shift+q kill
