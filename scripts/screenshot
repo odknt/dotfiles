@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+
+unset TMPFILE
+readonly TMPFILE=$(mktemp "/tmp/${0##*/}.tmp.XXXXXX.png")
+
+on_exit() {
+    [[ -n ${TMPFILE-} ]] && rm -f "$TMPFILE"
+}
+
+trap on_exit EXIT
+trap 'trap - EXIT; on_exit; exit -1' INT PIPE TERM
+
+import "$TMPFILE"
+cat "$TMPFILE" | xclip -i -sel clip -t image/png
+
+exit $?
