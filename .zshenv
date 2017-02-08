@@ -17,8 +17,14 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export ZIPINFOOPT='-OCP932'
 export UNZIPOPT='-OCP932'
 
-if [[ $TERM = rxvt*-256color ]]; then
-  export TERM=xterm-256color
+if [ "$TERM" = "xterm" ]; then
+  if [ "$COLORTERM" = "gnome-terminal" ] && infocmp gnome-256color >/dev/null 2>&1; then
+    export TERM=gnome-256color
+  elif infocmp xterm-256color >/dev/null 2>&1; then
+    case "$COLORTERM" in
+      gnome-*|xfce4-*|lilyterm) export TERM=xterm-256color;;
+    esac
+  fi
 fi
 
 [[ -f ~/.env ]] && source ~/.env

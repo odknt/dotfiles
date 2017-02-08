@@ -67,6 +67,11 @@ systemctl --user enable pulseaudio
 
 `$HOME/.xinitrc-local` is autoloading by `.xinitrc`.
 
+```sh
+# Override i3-sensible-terminal
+export TERMINAL=lilyterm
+```
+
 ## Start X
 
 ```sh
