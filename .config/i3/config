@@ -216,11 +216,12 @@ bindsym Mod4+x [con_mark="term_in_scratchpad"] scratchpad show
 bindsym --release Print exec $HOME/scripts/screenshot
 
 # enable floating for roles
-for_window [window_role="pop-up"] floating enable
+for_window [window_role="pop-up"] floating enable, border normal
 for_window [window_role="bubble"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [window_role="Preferences"] floating enable
-for_window [window_type="dialog"] floating enable
+for_window [window_role="task_dialog"] floating enable, border normal
+for_window [window_role="Preferences"] floating enable, border normal
+for_window [window_role="page-info"] floating enable, border normal
+for_window [window_type="dialog"] floating enable, border normal
 for_window [window_type="menu"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable, move position mouse
 for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down $height px
