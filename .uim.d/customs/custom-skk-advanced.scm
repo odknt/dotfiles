@@ -1,4 +1,4 @@
-(define skk-style 'skk-style-ddskk-like)
+(define skk-style 'skk-style-uim)
 (define skk-use-recursive-learning? #t)
 (define skk-use-numeric-conversion? #t)
 (define skk-auto-start-henkan? #t)
