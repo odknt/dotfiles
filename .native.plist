@@ -13,11 +13,12 @@ feh
 fontconfig
 fzf
 git
+gnome-themes-standard
 go
 graphviz
 gsfonts
 gsimplecal
-vim
+gvim
 haveged
 imagemagick
 intel-ucode
