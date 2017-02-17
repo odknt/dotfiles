@@ -95,20 +95,30 @@ class SearchList(list):
         if name in self.hashtable:
             return self.hashtable[name]
         # this is a fallback to __eq__ if the item isn't in the hashtable already
-        if self.count(name) > 0:
+        if name in self:
             self.update_hashtable()
             return self[self.index(name)]
 
     def append(self, item, aliases=[]):
         super(SearchList, self).append(item)
-        self.update_hashtable()
+        self.update_hashtable(item)
 
-    def update_hashtable(self):
-        for child in self:
-            if hasattr(child, "get_aliases"):
-                for alias in child.get_aliases():
+    def update_hashtable(self, item=None):
+        if item is not None:
+            try:
+                for alias in item.get_aliases():
                     if alias is not None:
-                        self.hashtable[alias] = child
+                        self.hashtable[alias] = item
+            except AttributeError:
+                pass
+        else:
+            for child in self:
+                try:
+                    for alias in child.get_aliases():
+                        if alias is not None:
+                            self.hashtable[alias] = child
+                except AttributeError:
+                    pass
 
     def find_by_class(self, class_name):
         items = []
@@ -152,6 +162,7 @@ class SlackServer(object):
         self.message_buffer = {}
         self.ping_hook = None
         self.alias = None
+        self.got_history = False
 
         self.identifier = None
         self.connect_to_slack()
@@ -268,6 +279,12 @@ class SlackServer(object):
                             time.sleep(1)
                         else:
                             self.message_buffer.pop(message_id)
+            for chan in self.channels:
+                # Set channel history back to false because we will miss messages that came
+                # while we were disconnected otherwise.
+                chan.got_history = False
+                if chan.channel_buffer and chan.muted:
+                    w.buffer_set(chan.channel_buffer, "hotlist", "-1")
             return True
         else:
             token_start = self.token[:10]
@@ -283,12 +300,12 @@ class SlackServer(object):
 
     def print_connection_info(self, login_data):
         self.buffer_prnt('Connected to Slack', backlog=True)
-        self.buffer_prnt('{:<20} {}'.format("Websocket URL", login_data["url"]), backlog=True)
-        self.buffer_prnt('{:<20} {}'.format("User name", login_data["self"]["name"]), backlog=True)
-        self.buffer_prnt('{:<20} {}'.format("User ID", login_data["self"]["id"]), backlog=True)
-        self.buffer_prnt('{:<20} {}'.format("Team name", login_data["team"]["name"]), backlog=True)
-        self.buffer_prnt('{:<20} {}'.format("Team domain", login_data["team"]["domain"]), backlog=True)
-        self.buffer_prnt('{:<20} {}'.format("Team id", login_data["team"]["id"]), backlog=True)
+        self.buffer_prnt('{:<20} {}'.format(u"Websocket URL", login_data["url"]), backlog=True)
+        self.buffer_prnt('{:<20} {}'.format(u"User name", login_data["self"]["name"]), backlog=True)
+        self.buffer_prnt('{:<20} {}'.format(u"User ID", login_data["self"]["id"]), backlog=True)
+        self.buffer_prnt('{:<20} {}'.format(u"Team name", login_data["team"]["name"]), backlog=True)
+        self.buffer_prnt('{:<20} {}'.format(u"Team domain", login_data["team"]["domain"]), backlog=True)
+        self.buffer_prnt('{:<20} {}'.format(u"Team id", login_data["team"]["id"]), backlog=True)
 
     def create_local_buffer(self):
         if not w.buffer_search("", self.server_buffer_name):
@@ -317,38 +334,34 @@ class SlackServer(object):
             self.add_bot(Bot(self, item["name"], item["id"], item["deleted"]))
 
         for item in data["channels"]:
-            if "last_read" not in item:
-                item["last_read"] = 0
-            if "members" not in item:
-                item["members"] = []
-            if "topic" not in item:
-                item["topic"] = {}
-                item["topic"]["value"] = ""
+            item["is_open"] = item["is_member"]
+            item["prepend_name"] = "#"
             if not item["is_archived"]:
-                self.add_channel(Channel(self, item["name"], item["id"], item["is_member"], item["last_read"], "#", item["members"], item["topic"]["value"]))
+                self.add_channel(Channel(self, **item))
+
         for item in data["groups"]:
-            if "last_read" not in item:
-                item["last_read"] = 0
+            item["prepend_name"] = "#"
             if not item["is_archived"]:
                 if item["name"].startswith("mpdm-"):
-                    self.add_channel(MpdmChannel(self, item["name"], item["id"], item["is_open"], item["last_read"], "#", item["members"], item["topic"]["value"]))
+                    self.add_channel(MpdmChannel(self, **item))
                 else:
-                    self.add_channel(GroupChannel(self, item["name"], item["id"], item["is_open"], item["last_read"], "#", item["members"], item["topic"]["value"]))
+                    self.add_channel(GroupChannel(self, **item))
+
         for item in data["ims"]:
-            if "last_read" not in item:
-                item["last_read"] = 0
-            if item["unread_count"] > 0:
+            if item["unread_count"] > 0 or item["is_open"]:
                 item["is_open"] = True
-            name = self.users.find(item["user"]).name
-            self.add_channel(DmChannel(self, name, item["id"], item["is_open"], item["last_read"]))
+            item['name'] = self.users.find(item["user"]).name
+            self.add_channel(DmChannel(self, **item))
+
         for item in data['self']['prefs']['muted_channels'].split(','):
             if item == '':
                 continue
-            if self.channels.find(item) is not None:
-                self.channels.find(item).muted = True
+            maybe_muted_chan = self.channels.find(item)
+            if maybe_muted_chan is not None:
+                maybe_muted_chan.muted = True
 
-        for item in self.channels:
-            item.get_history()
+        #for item in self.channels:
+        #    item.get_history()
 
     def buffer_prnt(self, message='no message', user="SYSTEM", backlog=False):
         message = message.encode('ascii', 'ignore')
@@ -363,6 +376,19 @@ class SlackServer(object):
         else:
             pass
             # w.prnt("", "%s\t%s" % (user, message))
+
+    def set_away(self, msg):
+        async_slack_api_request(self.domain, self.token, 'presence.set', {"presence": "away"})
+        for c in self.channels:
+            if c.channel_buffer is not None:
+                w.buffer_set(c.channel_buffer, "localvar_set_away", msg)
+
+    def set_active(self):
+        async_slack_api_request(self.domain, self.token, 'presence.set', {"presence": "active"})
+        for c in self.channels:
+            if c.channel_buffer is not None:
+                w.buffer_set(c.channel_buffer, "localvar_set_away", '')
+                w.buffer_set(c.channel_buffer, "localvar_del_away", '')
 
 
 def buffer_input_cb(b, buffer, data):
@@ -398,14 +424,17 @@ class Channel(object):
     Represents a single channel and is the source of truth
     for channel <> weechat buffer
     """
-    def __init__(self, server, name, identifier, active, last_read=0, prepend_name="", members=[], topic=""):
-        self.name = prepend_name + name
-        self.current_short_name = prepend_name + name
-        self.identifier = identifier
-        self.active = active
-        self.last_read = float(last_read)
-        self.members = set(members)
-        self.topic = topic
+    #def __init__(self, server, name, identifier, active, last_read=0, prepend_name="", members=[], topic="", unread_count=0):
+    def __init__(self, server, **kwargs):
+
+        self.name = kwargs.get('prepend_name', "") + kwargs.get('name')
+        self.current_short_name = kwargs.get('prepend_name', "") + kwargs.get('name')
+        self.identifier = kwargs.get('id', 0)
+        self.active = kwargs.get('is_open', False)
+        self.last_read = float(kwargs.get('last_read', 0))
+        self.members = set(kwargs.get('members', []))
+        self.topic = kwargs.get('topic', {"value": ""})["value"]
+        self.unread_count = kwargs.get('unread_count_display', 0)
 
         self.members_table = {}
         self.channel_buffer = None
@@ -417,7 +446,9 @@ class Channel(object):
         self.scrolling = False
         self.last_active_user = None
         self.muted = False
-        if active:
+        self.got_history = False
+        #w.prnt("", "unread: {}".format(self.unread_count))
+        if self.active:
             self.create_buffer()
             self.attach_buffer()
             self.create_members_table()
@@ -464,6 +495,8 @@ class Channel(object):
             w.buffer_set(self.channel_buffer, "localvar_set_channel", self.name)
             w.buffer_set(self.channel_buffer, "short_name", self.name)
             buffer_list_update_next()
+        if self.unread_count != 0 and not self.muted:
+            w.buffer_set(self.channel_buffer, "hotlist", "1")
 
     def attach_buffer(self):
         channel_buffer = w.buffer_search("", "{}.{}".format(self.server.server_buffer_name, self.name))
@@ -504,10 +537,7 @@ class Channel(object):
             # since this is a change just remove it regardless of where it is
             w.nicklist_remove_nick(self.channel_buffer, nick)
             # now add it back in to whichever..
-            if user.presence == 'away':
-                w.nicklist_add_nick(self.channel_buffer, afk, user.name, user.color_name, "", "", 1)
-            else:
-                w.nicklist_add_nick(self.channel_buffer, here, user.name, user.color_name, "", "", 1)
+            w.nicklist_add_nick(self.channel_buffer, here, user.name, user.color_name, "", "", 1)
 
         # if we didn't get a user, build a complete list. this is expensive.
         else:
@@ -516,10 +546,7 @@ class Channel(object):
                     user = self.members_table[user]
                     if user.deleted:
                         continue
-                    if user.presence == 'away':
-                        w.nicklist_add_nick(self.channel_buffer, afk, user.name, user.color_name, "", "", 1)
-                    else:
-                        w.nicklist_add_nick(self.channel_buffer, here, user.name, user.color_name, "", "", 1)
+                    w.nicklist_add_nick(self.channel_buffer, here, user.name, user.color_name, "", "", 1)
             except Exception as e:
                 dbg("DEBUG: {} {} {}".format(self.identifier, self.name, e))
 
@@ -655,6 +682,7 @@ class Channel(object):
         set_read_marker = False
         time_float = float(time)
         tags = "nick_" + user
+        user_obj = self.server.users.find(user)
         # XXX: we should not set log1 for robots.
         if time_float != 0 and self.last_read >= time_float:
             tags += ",no_highlight,notify_none,logger_backlog_end"
@@ -675,8 +703,8 @@ class Channel(object):
         if self.channel_buffer:
             prefix_same_nick = w.config_string(w.config_get('weechat.look.prefix_same_nick'))
             if user == self.last_active_user and prefix_same_nick != "":
-                if colorize_nicks and self.server.users.find(user):
-                    name = self.server.users.find(user).color + prefix_same_nick
+                if config.colorize_nicks and user_obj:
+                    name = user_obj.color + prefix_same_nick
                 else:
                     name = prefix_same_nick
             else:
@@ -688,8 +716,8 @@ class Channel(object):
                 nick_suffix_color_name = w.config_string(w.config_get('weechat.color.chat_nick_prefix'))
                 nick_suffix_color = w.color(nick_suffix_color_name)
 
-                if self.server.users.find(user):
-                    name = self.server.users.find(user).formatted_name()
+                if user_obj:
+                    name = user_obj.formatted_name()
                     self.last_active_user = user
                     # XXX: handle bots properly here.
                 else:
@@ -702,8 +730,9 @@ class Channel(object):
             if type(message) is not unicode:
                 message = message.decode('UTF-8', 'replace')
             curr_color = w.color(chat_color)
-            if colorize_nicks and colorize_messages and self.server.users.find(user):
-                curr_color = self.server.users.find(user).color
+            if config.colorize_nicks and config.colorize_messages and user_obj:
+                curr_color = user_obj.color
+            message = curr_color + message
             for user in self.server.users:
                 if user.name in message:
                     message = user.name_regex.sub(
@@ -711,10 +740,8 @@ class Channel(object):
                         message)
 
             message = HTMLParser.HTMLParser().unescape(message)
-            for line in message.split("\n"):
-                line = curr_color + line
-                data = u"{}\t{}".format(name, line).encode('utf-8')
-                w.prnt_date_tags(self.channel_buffer, time_int, tags, data)
+            data = u"{}\t{}".format(name, message).encode('utf-8')
+            w.prnt_date_tags(self.channel_buffer, time_int, tags, data)
 
             if set_read_marker:
                 self.mark_read(False)
@@ -818,36 +845,37 @@ class Channel(object):
 
             if self.last_received is not None:
                 async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "oldest": self.last_received, "count": BACKLOG_SIZE})
+        self.got_history = True
 
 
 class GroupChannel(Channel):
 
-    def __init__(self, server, name, identifier, active, last_read=0, prepend_name="", members=[], topic=""):
-        super(GroupChannel, self).__init__(server, name, identifier, active, last_read, prepend_name, members, topic)
+    def __init__(self, server, **kwargs):
+        super(GroupChannel, self).__init__(server, **kwargs)
         self.type = "group"
 
 
 class MpdmChannel(Channel):
 
-    def __init__(self, server, name, identifier, active, last_read=0, prepend_name="", members=[], topic=""):
-        name = "|".join("-".join(name.split("-")[1:-1]).split("--"))
-        super(MpdmChannel, self).__init__(server, name, identifier, active, last_read, prepend_name, members, topic)
+    def __init__(self, server, **kwargs):
+        n = kwargs.get('name')
+        name = "|".join("-".join(n.split("-")[1:-1]).split("--"))
+        kwargs["name"] = name
+        super(MpdmChannel, self).__init__(server, **kwargs)
         self.type = "group"
 
 
 class DmChannel(Channel):
 
-    def __init__(self, server, name, identifier, active, last_read=0, prepend_name=""):
-        super(DmChannel, self).__init__(server, name, identifier, active, last_read, prepend_name)
+    def __init__(self, server, **kwargs):
+        super(DmChannel, self).__init__(server, **kwargs)
         self.type = "im"
 
     def rename(self):
-        global colorize_private_chats
-
         if self.server.users.find(self.name).presence == "active":
-            new_name = self.server.users.find(self.name).formatted_name('+', colorize_private_chats)
+            new_name = self.server.users.find(self.name).formatted_name('+', config.colorize_private_chats)
         else:
-            new_name = self.server.users.find(self.name).formatted_name(' ', colorize_private_chats)
+            new_name = self.server.users.find(self.name).formatted_name(' ', config.colorize_private_chats)
 
         if self.channel_buffer:
             if self.current_short_name != new_name:
@@ -902,33 +930,36 @@ class User(object):
         return [self.name, "@" + self.name, self.identifier]
 
     def set_active(self):
-        if self.deleted:
-            return
+        if not self.deleted:
+            self.presence = "active"
+            dm_channel = self.server.channels.find(self.name)
+            if dm_channel and dm_channel.active:
+                buffer_list_update_next()
 
-        self.presence = "active"
+        return #temporarily noop this
         for channel in self.server.channels:
             if channel.has_user(self.identifier):
                 channel.update_nicklist(self.identifier)
         w.nicklist_nick_set(self.server.buffer, self.nicklist_pointer, "visible", "1")
-        dm_channel = self.server.channels.find(self.name)
-        if dm_channel and dm_channel.active:
-            buffer_list_update_next()
 
     def set_inactive(self):
+        if not self.deleted:
+            self.presence = "away"
+            dm_channel = self.server.channels.find(self.name)
+            if dm_channel and dm_channel.active:
+                buffer_list_update_next()
+
+        return #temporarily noop this
         if self.deleted:
             return
 
-        self.presence = "away"
         for channel in self.server.channels:
             if channel.has_user(self.identifier):
                 channel.update_nicklist(self.identifier)
         w.nicklist_nick_set(self.server.buffer, self.nicklist_pointer, "visible", "0")
-        dm_channel = self.server.channels.find(self.name)
-        if dm_channel and dm_channel.active:
-            buffer_list_update_next()
 
     def update_color(self):
-        if colorize_nicks:
+        if config.colorize_nicks:
             if self.name == self.server.nick:
                 self.color_name = w.config_string(w.config_get('weechat.color.chat_nick_self'))
             else:
@@ -939,7 +970,7 @@ class User(object):
             self.color_name = ""
 
     def formatted_name(self, prepend="", enable_color=True):
-        if colorize_nicks and enable_color:
+        if config.colorize_nicks and enable_color:
             print_color = self.color
         else:
             print_color = ""
@@ -971,7 +1002,7 @@ class Bot(object):
         return "{}".format(self.identifier)
 
     def update_color(self):
-        if colorize_nicks:
+        if config.colorize_nicks:
             self.color_name = w.info_get('irc_nick_color_name', self.name.encode('utf-8'))
             self.color = w.color(self.color_name)
         else:
@@ -979,7 +1010,7 @@ class Bot(object):
             self.color = ""
 
     def formatted_name(self, prepend="", enable_color=True):
-        if colorize_nicks and enable_color:
+        if config.colorize_nicks and enable_color:
             print_color = self.color
         else:
             print_color = ""
@@ -1191,7 +1222,7 @@ def command_talk(current_buffer, args):
                 server.buffer_prnt("User or channel {} not found.".format(args))
         else:
             channel.open()
-            if w.config_get_plugin('switch_buffer_on_join') != '0':
+            if config.switch_buffer_on_join:
                 w.buffer_set(channel.channel_buffer, "display", "1")
         return True
     else:
@@ -1232,35 +1263,32 @@ def command_channels(current_buffer, args):
 def command_nodistractions(current_buffer, args):
     global hide_distractions
     hide_distractions = not hide_distractions
-    if distracting_channels != ['']:
-        for channel in distracting_channels:
+    if config.distracting_channels != ['']:
+        for channel in config.distracting_channels:
             try:
                 channel_buffer = channels.find(channel).channel_buffer
                 if channel_buffer:
                     w.buffer_set(channels.find(channel).channel_buffer, "hidden", str(int(hide_distractions)))
             except:
                 dbg("Can't hide channel {} .. removing..".format(channel), main_buffer=True)
-                distracting_channels.pop(distracting_channels.index(channel))
+                config.distracting_channels.pop(config.distracting_channels.index(channel))
                 save_distracting_channels()
 
 
 def command_distracting(current_buffer, args):
-    global distracting_channels
-    distracting_channels = [x.strip() for x in w.config_get_plugin("distracting_channels").split(',')]
     if channels.find(current_buffer) is None:
         w.prnt(current_buffer, "This command must be used in a channel buffer")
         return
     fullname = channels.find(current_buffer).fullname()
-    if distracting_channels.count(fullname) == 0:
-        distracting_channels.append(fullname)
+    if config.distracting_channels.count(fullname) == 0:
+        config.distracting_channels.append(fullname)
     else:
-        distracting_channels.pop(distracting_channels.index(fullname))
+        config.distracting_channels.pop(config.distracting_channels.index(fullname))
     save_distracting_channels()
 
 
 def save_distracting_channels():
-    new = ','.join(distracting_channels)
-    w.config_set_plugin('distracting_channels', new)
+    w.config_set_plugin('distracting_channels', ','.join(config.distracting_channels))
 
 
 @slack_buffer_required
@@ -1290,6 +1318,25 @@ def command_changetoken(current_buffer, args):
 
 def command_test(current_buffer, args):
     w.prnt(current_buffer, "worked!")
+
+
+def away_command_cb(data, current_buffer, args):
+    (all, message) = re.match("^/away(?:\s+(-all))?(?:\s+(.+))?", args).groups()
+    if all is None:
+        server = servers.find(current_domain_name())
+        if not server:
+            return w.WEECHAT_RC_OK
+        if message is None:
+            server.set_active()
+        else:
+            server.set_away(message)
+        return w.WEECHAT_RC_OK_EAT
+    for server in servers:
+        if message is None:
+            server.set_active()
+        else:
+            server.set_away(message)
+        return w.WEECHAT_RC_OK
 
 
 @slack_buffer_required
@@ -1436,7 +1483,7 @@ def command_help(current_buffer, args):
 
 
 def command_openweb(current_buffer, args):
-    trigger = w.config_get_plugin('trigger_value')
+    trigger = config.trigger_value
     if trigger != "0":
         if args is None:
             channel = channels.find(current_buffer)
@@ -1525,8 +1572,6 @@ def slack_websocket_cb(server, fd):
 
 
 def process_reply(message_json):
-    global unfurl_ignore_alt_text
-
     server = servers.find(message_json["_server"])
     identifier = message_json["reply_to"]
     item = server.message_buffer.pop(identifier)
@@ -1536,7 +1581,7 @@ def process_reply(message_json):
         if item["type"] == "message" and "channel" in item.keys():
             item["ts"] = message_json["ts"]
             channels.find(item["channel"]).cache_message(item, from_me=True)
-            text = unfurl_refs(item["text"], ignore_alt_text=unfurl_ignore_alt_text)
+            text = unfurl_refs(item["text"], ignore_alt_text=config.unfurl_ignore_alt_text)
 
             channels.find(item["channel"]).buffer_prnt(item["user"], text, item["ts"])
     dbg("REPLY {}".format(item))
@@ -1598,7 +1643,8 @@ def process_channel_created(message_json):
         server.channels.find(message_json["channel"]["name"]).open(False)
     else:
         item = message_json["channel"]
-        server.add_channel(Channel(server, item["name"], item["id"], False, prepend_name="#"))
+        item["prepend_name"] = "#"
+        server.add_channel(Channel(server, **item))
     server.buffer_prnt("New channel created: {}".format(item["name"]))
 
 
@@ -1629,7 +1675,8 @@ def process_channel_joined(message_json):
         server.channels.find(message_json["channel"]["name"]).open(False)
     else:
         item = message_json["channel"]
-        server.add_channel(Channel(server, item["name"], item["id"], item["is_open"], item["last_read"], "#", item["members"], item["topic"]["value"]))
+        item["prepend_name"] = "#"
+        server.add_channel(Channel(server, **item))
 
 
 def process_channel_leave(message_json):
@@ -1669,11 +1716,11 @@ def process_group_joined(message_json):
         server.channels.find(message_json["channel"]["name"]).open(False)
     else:
         item = message_json["channel"]
+        item["prepend_name"] = "#"
         if item["name"].startswith("mpdm-"):
-            server.add_channel(MpdmChannel(server, item["name"], item["id"], item["is_open"], item["last_read"], "#", item["members"], item["topic"]["value"]))
+            server.add_channel(MpdmChannel(server, **item))
         else:
-            server.add_channel(GroupChannel(server, item["name"], item["id"], item["is_open"], item["last_read"], "#", item["members"], item["topic"]["value"]))
-
+            server.add_channel(GroupChannel(server, **item))
 
 def process_group_archive(message_json):
     channel = server.channels.find(message_json["channel"])
@@ -1715,7 +1762,8 @@ def process_im_created(message_json):
         server.channels.find(channel_name).open(False)
     else:
         item = message_json["channel"]
-        server.add_channel(DmChannel(server, channel_name, item["id"], item["is_open"], item["last_read"]))
+        item['name'] = server.users.find(item["user"]).name
+        server.add_channel(DmChannel(server, **item))
     server.buffer_prnt("New direct message channel created: {}".format(item["name"]))
 
 
@@ -1777,7 +1825,7 @@ def create_reaction_string(reactions):
         for r in reactions:
             if len(r["users"]) > 0:
                 count += 1
-                if show_reaction_nicks:
+                if config.show_reaction_nicks:
                     nicks = [resolve_ref("@{}".format(user)) for user in r["users"]]
                     users = "({})".format(",".join(nicks))
                 else:
@@ -1819,7 +1867,6 @@ def modify_buffer_line(buffer, new_line, time):
 
 
 def render_message(message_json, force=False):
-    global unfurl_ignore_alt_text
     # If we already have a rendered version in the object, just return that.
     if not force and message_json.get("_rendered_text", ""):
         return message_json["_rendered_text"]
@@ -1836,10 +1883,10 @@ def render_message(message_json, force=False):
         else:
             text = u""
 
-        text = unfurl_refs(text, ignore_alt_text=unfurl_ignore_alt_text)
+        text = unfurl_refs(text, ignore_alt_text=config.unfurl_ignore_alt_text)
 
         text_before = (len(text) > 0)
-        text += unfurl_refs(unwrap_attachments(message_json, text_before), ignore_alt_text=unfurl_ignore_alt_text)
+        text += unfurl_refs(unwrap_attachments(message_json, text_before), ignore_alt_text=config.unfurl_ignore_alt_text)
 
         text = text.lstrip()
         text = text.replace("\t", "    ")
@@ -2116,13 +2163,18 @@ def buffer_switch_cb(signal, sig_type, data):
     if channels.find(previous_buffer):
         channels.find(previous_buffer).mark_read()
 
+    new_channel = channels.find(data)
+    if new_channel:
+        if new_channel.got_history == False:
+            new_channel.get_history()
     # channel_name = current_buffer_name()
     previous_buffer = data
     return w.WEECHAT_RC_OK
 
 
 def typing_notification_cb(signal, sig_type, data):
-    if len(w.buffer_get_string(data, "input")) > 8:
+    msg = w.buffer_get_string(data, "input")
+    if len(msg) > 8 and msg[:1] != "/":
         global typing_timer
         now = time.time()
         if typing_timer + 4 < now:
@@ -2230,16 +2282,18 @@ def async_slack_api_request(domain, token, request, post_data, priority=False):
         context = pickle.dumps({"request": request, "token": token, "post_data": post_data})
         params = {'useragent': 'wee_slack {}'.format(SCRIPT_VERSION)}
         dbg("URL: {} context: {} params: {}".format(url, context, params))
-        w.hook_process_hashtable(url, params, slack_timeout, "url_processor_cb", context)
+        w.hook_process_hashtable(url, params, config.slack_timeout, "url_processor_cb", context)
 
 
 def async_slack_api_upload_request(token, request, post_data, priority=False):
     if not STOP_TALKING_TO_SLACK:
         url = 'https://slack.com/api/{}'.format(request)
         file_path = os.path.expanduser(post_data["file"])
+        if ' ' in file_path:
+            file_path = file_path.replace(' ','\ ')
         command = 'curl -F file=@{} -F channels={} -F token={} {}'.format(file_path, post_data["channels"], token, url)
         context = pickle.dumps({"request": request, "token": token, "post_data": post_data})
-        w.hook_process(command, slack_timeout, "url_processor_cb", context)
+        w.hook_process(command, config.slack_timeout, "url_processor_cb", context)
 
 
 # funny, right?
@@ -2375,33 +2429,6 @@ def create_slack_debug_buffer():
         w.buffer_set(slack_debug, "notify", "0")
 
 
-def config_changed_cb(data, option, value):
-    global slack_api_token, distracting_channels, colorize_nicks, colorize_private_chats, slack_debug, debug_mode, \
-        unfurl_ignore_alt_text, colorize_messages, show_reaction_nicks, slack_timeout
-
-    slack_api_token = w.config_get_plugin("slack_api_token")
-
-    if slack_api_token.startswith('${sec.data'):
-        slack_api_token = w.string_eval_expression(slack_api_token, {}, {}, {})
-
-    distracting_channels = [x.strip() for x in w.config_get_plugin("distracting_channels").split(',')]
-    colorize_nicks = w.config_get_plugin('colorize_nicks') == "1"
-    colorize_messages = w.config_get_plugin("colorize_messages") == "1"
-    debug_mode = w.config_get_plugin("debug_mode").lower()
-    if debug_mode != '' and debug_mode != 'false':
-        create_slack_debug_buffer()
-    colorize_private_chats = w.config_string_to_boolean(w.config_get_plugin("colorize_private_chats"))
-    show_reaction_nicks = w.config_string_to_boolean(w.config_get_plugin("show_reaction_nicks"))
-
-    unfurl_ignore_alt_text = False
-    if w.config_get_plugin('unfurl_ignore_alt_text') != "0":
-        unfurl_ignore_alt_text = True
-
-    slack_timeout = int(w.config_get_plugin('slack_timeout'))
-
-    return w.WEECHAT_RC_OK
-
-
 def quit_notification_cb(signal, sig_type, data):
     stop_talking_to_slack()
 
@@ -2435,6 +2462,74 @@ def scrolled_cb(signal, sig_type, data):
 
 # END Utility Methods
 
+class PluginConfig(object):
+    # Default settings.
+    # These are in the (string) format that weechat expects; at __init__ time
+    # this value will be used to set the default for any settings not already
+    # defined, and then the real (python) values of the settings will be
+    # extracted.
+    # TODO: setting descriptions.
+    settings = {
+        'colorize_messages': 'false',
+        'colorize_nicks': 'true',
+        'colorize_private_chats': 'false',
+        'debug_mode': 'false',
+        'distracting_channels': '',
+        'show_reaction_nicks': 'false',
+        'slack_api_token': 'INSERT VALID KEY HERE!',
+        'slack_timeout': '20000',
+        'switch_buffer_on_join': 'true',
+        'trigger_value': 'false',
+        'unfurl_ignore_alt_text': 'false',
+    }
+
+    # Set missing settings to their defaults. Load non-missing settings from
+    # weechat configs.
+    def __init__(self):
+        for key,default in self.settings.iteritems():
+            if not w.config_get_plugin(key):
+                w.config_set_plugin(key, default)
+        self.config_changed(None, None, None)
+
+    def __str__(self):
+        return "".join([x + "\t" + str(self.settings[x]) + "\n" for x in self.settings.keys()])
+
+    def config_changed(self, data, key, value):
+        for key in self.settings:
+            self.settings[key] = self.fetch_setting(key)
+        if self.debug_mode:
+            create_slack_debug_buffer()
+        return w.WEECHAT_RC_OK
+
+    def fetch_setting(self, key):
+        if hasattr(self, 'get_' + key):
+            try:
+                return getattr(self, 'get_' + key)(key)
+            except:
+                return self.settings[key]
+        else:
+            # Most settings are on/off, so make get_boolean the default
+            return self.get_boolean(key)
+
+    def __getattr__(self, key):
+        return self.settings[key]
+
+    def get_boolean(self, key):
+        return w.config_string_to_boolean(w.config_get_plugin(key))
+
+    def get_distracting_channels(self, key):
+        return [x.strip() for x in w.config_get_plugin(key).split(',')]
+
+    def get_slack_api_token(self, key):
+        token = w.config_get_plugin("slack_api_token")
+        if token.startswith('${sec.data'):
+            return w.string_eval_expression(token, {}, {}, {})
+        else:
+            return token
+
+    def get_slack_timeout(self, key):
+        return int(w.config_get_plugin(key))
+
 
 # Main
 if __name__ == "__main__":
@@ -2451,34 +2546,10 @@ if __name__ == "__main__":
             CACHE_NAME = "slack.cache"
             STOP_TALKING_TO_SLACK = False
 
-            if not w.config_get_plugin('slack_api_token'):
-                w.config_set_plugin('slack_api_token', "INSERT VALID KEY HERE!")
-            if not w.config_get_plugin('distracting_channels'):
-                w.config_set_plugin('distracting_channels', "")
-            if not w.config_get_plugin('debug_mode'):
-                w.config_set_plugin('debug_mode', "")
-            if not w.config_get_plugin('colorize_nicks'):
-                w.config_set_plugin('colorize_nicks', "1")
-            if not w.config_get_plugin('colorize_messages'):
-                w.config_set_plugin('colorize_messages', "0")
-            if not w.config_get_plugin('colorize_private_chats'):
-                w.config_set_plugin('colorize_private_chats', "0")
-            if not w.config_get_plugin('trigger_value'):
-                w.config_set_plugin('trigger_value', "0")
-            if not w.config_get_plugin('unfurl_ignore_alt_text'):
-                w.config_set_plugin('unfurl_ignore_alt_text', "0")
-            if not w.config_get_plugin('switch_buffer_on_join'):
-                w.config_set_plugin('switch_buffer_on_join', "1")
-            if not w.config_get_plugin('show_reaction_nicks'):
-                w.config_set_plugin('show_reaction_nicks', "0")
-            if not w.config_get_plugin('slack_timeout'):
-                w.config_set_plugin('slack_timeout', "20000")
-            if w.config_get_plugin('channels_not_on_current_server_color'):
-                w.config_option_unset('channels_not_on_current_server_color')
-
             # Global var section
             slack_debug = None
-            config_changed_cb("", "", "")
+            config = PluginConfig()
+            config_changed_cb = config.config_changed
 
             cmds = {k[8:]: v for k, v in globals().items() if k.startswith("command_")}
             proc = {k[8:]: v for k, v in globals().items() if k.startswith("process_")}
@@ -2500,7 +2571,7 @@ if __name__ == "__main__":
             cache_load()
 
             servers = SearchList()
-            for token in slack_api_token.split(','):
+            for token in config.slack_api_token.split(','):
                 server = SlackServer(token)
                 servers.append(server)
             channels = SearchList()
@@ -2544,6 +2615,7 @@ if __name__ == "__main__":
             w.hook_command_run('/topic', 'topic_command_cb', '')
             w.hook_command_run('/msg', 'msg_command_cb', '')
             w.hook_command_run("/input complete_next", "complete_next_cb", "")
+            w.hook_command_run('/away', 'away_command_cb', '')
             w.hook_completion("nicks", "complete @-nicks for slack",
                               "nick_completion_cb", "")
             w.bar_item_new('slack_typing_notice', 'typing_bar_item_cb', '')
