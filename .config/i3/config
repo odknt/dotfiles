@@ -232,6 +232,9 @@ for_window [class="(?i)uim-pref-gtk"] floating enable, border normal
 # steam
 for_window [class="(?i)steam"] floating enable
 
+# disable focus grabbing on activate
+no_focus [class="(?i)ninix_main*"]
+
 # don't follow cursor
 focus_follows_mouse no
 
