@@ -77,6 +77,7 @@ session=${1:-i3}
 case $session in
     i3|i3wm           ) exec i3;;
     ratpoison         ) exec ratpoison;;
+    xmonad            ) exec xmonad;;
     # No known session, try to run it as command
     *) exec $1;;
 esac
