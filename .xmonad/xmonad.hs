@@ -59,6 +59,7 @@ myManage = composeAll
 myConfig = ewmh $ gnomeConfig
   { terminal = "lilyterm"
   , focusFollowsMouse = False
+  , normalBorderColor = "#101010"
   , workspaces = myWS
   , layoutHook = avoidStruts (spacing 5 $ gaps [(U,5),(R,5),(L,5),(D,5)] $ myLayouts)
   , manageHook = myManage
