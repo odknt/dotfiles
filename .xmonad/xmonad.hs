@@ -1,10 +1,12 @@
 -- vim: sw=2 ts=2 sts=2 et
 import XMonad
+import XMonad.Operations
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 
 import XMonad.Actions.Navigation2D
+import XMonad.Actions.CopyWindow
 
 import XMonad.Config.Desktop
 import XMonad.Config.Gnome
@@ -19,8 +21,8 @@ import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.IndependentScreens
 
 myLayouts = emptyBSP ||| Tall 1 (3/100) (1/2) ||| Full
--- myWS = withScreens 2 ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-myWS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+myWS = withScreens 2 ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+-- myWS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig { modMask = mask }) = M.fromList $
@@ -49,16 +51,23 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
   ++
   [ (( m .|. mask           , k         ), windows $ onCurrentScreen f i)
     | (i, k) <- zip (workspaces' conf) [ xK_1 .. xK_9 ]
-    , (f, m) <- [ (W.greedyView, 0), (W.shift, shiftMask) ]]
+    , (f, m) <- [ (W.view, 0), (W.shift, shiftMask) ]]
+
+myManage = composeAll
+  [ className =? "Ninix_main.rb" --> doIgnore ]
 
 myConfig = ewmh $ gnomeConfig
   { terminal = "lilyterm"
+  , focusFollowsMouse = False
   , workspaces = myWS
   , layoutHook = avoidStruts (spacing 5 $ gaps [(U,5),(R,5),(L,5),(D,5)] $ myLayouts)
+  , manageHook = myManage
   , keys = \c -> myKeys c `M.union` keys gnomeConfig c
   }
 
 main :: IO ()
 main = do
+  spawn "nitrogen --restore"
+  spawn "compton"
   xmonad . withNavigation2DConfig def $
     myConfig { modMask  = mod1Mask }
