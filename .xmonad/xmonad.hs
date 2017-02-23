@@ -1,36 +1,51 @@
 -- vim: sw=4 ts=4 sts=4 et
 
+import System.IO
 import System.Exit
 import Data.List
 
 import XMonad
-import XMonad.Operations
-
 import XMonad.Actions.Navigation2D
-
+import XMonad.Actions.WorkspaceNames
 import XMonad.Config.Desktop
-
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.DynamicLog
-
 import XMonad.Layout.Gaps
 import XMonad.Layout.Spacing
 import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.IndependentScreens
-
+import XMonad.Operations
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
 
-import System.IO
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
+-- Default terminal
 myTerminal = "lilyterm"
+
+-- Layouts
 myLayouts = emptyBSP ||| Tall 1 (3/100) (1/2) ||| Full
+
+-- Workspaces
 myWS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+-- Color Setting
+colorOrange    = "#daa520"
+colorBlue      = "#77A0D4"
+colorGreen     = "#519CA5"
+colorRed       = "#E15F67"
+colorGray      = "#6E7E93"
+colorWhite     = "#FDFDFE"
+colorNormalbg  = "#181818"
+colorFg        = "#D0CDD9"
+
+-- Syntax sugar
+x ? (y, z) = if x then y else z
+
+-- Keybindings
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig { modMask = mask }) = M.fromList $
     [ (( mask                 , xK_Return    ), spawn "lilyterm")
@@ -65,6 +80,7 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
         | (i, k) <- zip (workspaces' conf) [ xK_1 .. xK_9 ]
         , (f, m) <- [ (W.view, 0), (W.shift, shiftMask) ]]
 
+-- ManageHook
 myManage = composeOne $
     [ isDialog -?> doCenterFloat
     , role =? "pop-up" -?> doCenterFloat
@@ -75,20 +91,37 @@ myManage = composeOne $
     , className =? "Ninix_main.rb" -?> doIgnore
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
+-- Named Scratchpad
 scratchpads =
     [ NS "TiS" (myTerminal ++ " -T 'TiS'") (title =? "TiS") defaultFloating
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
+-- XMobar sttings
 wsPP = xmobarPP
-    { ppOrder = \(ws:l:t:_) -> [ws]
-    , ppWsSep = ""
-    , ppSep = ""
+    { ppOrder           = \(ws:l:t:_) -> [ws,l,t]
+    , ppCurrent         = xmobarColor colorRed     colorNormalbg . \s -> "\xf111"
+    , ppUrgent          = xmobarColor colorOrange  colorNormalbg . \s -> "\xf06a"
+    , ppVisible         = xmobarColor colorRed     colorNormalbg . \s -> "\xf192"
+    , ppHidden          = xmobarColor colorGray    colorNormalbg . \s -> getIcon s "\xf111"
+    , ppLayout          = xmobarColor colorFg      colorNormalbg . \s -> getIcon (last $ words s) s
+    , ppTitle           = xmobarColor colorOrange  colorNormalbg
+    , ppWsSep           = " "
+    , ppSep             = "  \xf0da  "
     }
   where
     currentWsIndex w = case (elemIndex w myWS) of
         Nothing -> "1"
         Just n  -> show (n+1)
 
+getIcon :: String -> String -> String
+getIcon x y = case (x) of
+    "NSP"  -> "\xf24a"
+    "BSP"  -> "\xf009"
+    "Tall" -> "\xf0fe"
+    "Full" -> "\xf065"
+    _      -> y
+
+-- Main
 main :: IO ()
 main = do
     nScreens <- countScreens
@@ -101,10 +134,12 @@ main = do
         , focusFollowsMouse = False
         , normalBorderColor = "#101010"
         , workspaces = withScreens nScreens myWS
-        , layoutHook = avoidStrutsOn [U,L,D,R] (gaps [(U,5),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts)
+        , layoutHook = avoidStruts (gaps [(U,5),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts)
         , manageHook = myManage <+> manageHook def <+> namedScratchpadManageHook scratchpads
         , keys = myKeys <+> keys def
         , startupHook = ewmhDesktopsStartup
         , handleEventHook = handleEventHook def <+> fullscreenEventHook
-        , logHook = dynamicLogWithPP $ wsPP { ppOutput = hPutStrLn h }
+        , logHook = workspaceNamesPP wsPP
+            { ppOutput = hPutStrLn h
+            } >>= dynamicLogWithPP
         }

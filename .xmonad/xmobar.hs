@@ -1,7 +1,7 @@
 -- vim: sw=2 ts=2 sts=2 et
 Config {
     font = "xft:Dejavu Sans:size=10,sans-serif:size=10,FontAwesome:size=10"
-  , bgColor =      "black"
+  , bgColor =      "#181818"
   , fgColor =      "#c0c0c0"
   , position =     Top
   , borderColor =  "#646464"
@@ -9,7 +9,7 @@ Config {
   -- layout
   , sepChar =  "%"   -- delineator between plugin names and straight text
   , alignSep = "}{"  -- separator between left-right alignment
-  , template = " %StdinReader% }{ %battery%   %multicpu%   %disku%   %coretemp%   %memory%   %dynnetwork%   %RJTT%   %date% "
+  , template = "  %StdinReader% }{ %dynnetwork%   %multicpu%   %disku%   %coretemp%   %memory%   %RJTT%   %battery%   %date%   "
 
   -- general behavior
   , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -41,7 +41,7 @@ Config {
                            ] 36000
 
       -- network activity monitor (dynamic interface resolution)
-      , Run DynNetwork     [ "--template" , " <tx> kB/s  <rx> kB/s (<fc=#4682B4><dev></fc>)"
+      , Run DynNetwork     [ "--template" , " <tx> kB/s  <rx> kB/s (<fc=#4682B4><dev></fc>)"
                            , "--Low"      , "1000"       -- units: kB/s
                            , "--High"     , "5000"       -- units: kB/s
                            , "--low"      , "#00a000"
