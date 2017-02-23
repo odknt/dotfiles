@@ -32,7 +32,8 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
   [ (( mask                 , xK_Return    ), spawn "lilyterm")
   , (( mask                 , xK_comma     ), sendMessage (IncMasterN ( 1)))
   , (( mask                 , xK_period    ), sendMessage (IncMasterN (-1)))
-  , (( mask                 , xK_b         ), sendMessage $ ToggleStruts)
+  , (( mask                 , xK_b         ), sendMessage ToggleStruts)
+  , (( mask                 , xK_q         ), spawn "pkill xmobar; xmonad --restart")
   , (( mod4Mask             , xK_l         ), spawn "i3lock -B 3 && xset dpms force off")
   , (( mask                 , xK_d         ), spawn "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 25 -o 0.9 -l 10") ]
   ++ -- Navigation2D
@@ -76,13 +77,13 @@ main = do
   spawn "nitrogen --restore"
   spawn "compton"
   h <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
-  xmonad . withNavigation2DConfig def $ ewmh def
+  xmonad . withNavigation2DConfig def $ docks def
     { modMask  = mod1Mask
     , terminal = "lilyterm"
     , focusFollowsMouse = False
     , normalBorderColor = "#101010"
     , workspaces = withScreens nScreens myWS
-    , layoutHook = gaps [(U,30),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts
+    , layoutHook = avoidStrutsOn [U,L,D,R] (gaps [(U,5),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts)
     , manageHook = myManage
     , keys = myKeys <+> keys def
     , startupHook = ewmhDesktopsStartup
