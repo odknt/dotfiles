@@ -21,11 +21,13 @@ import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.IndependentScreens
 
 import XMonad.Util.Run
+import XMonad.Util.NamedScratchpad
 
 import System.IO
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
+myTerminal = "lilyterm"
 myLayouts = emptyBSP ||| Tall 1 (3/100) (1/2) ||| Full
 myWS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
@@ -37,6 +39,7 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
   , (( mask                 , xK_b         ), sendMessage ToggleStruts)
   , (( mask                 , xK_q         ), spawn "pkill xmobar; xmonad --restart")
   , (( mod4Mask             , xK_l         ), spawn "i3lock -B 3 && xset dpms force off")
+  , (( mod4Mask             , xK_x         ), namedScratchpadAction scratchpads "TiS")
   , (( mask                 , xK_d         ), spawn "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 25 -o 0.9 -l 10") ]
   ++ -- Navigation2D
   [ (( mask                 , xK_h         ), windowGo L True)
@@ -62,8 +65,6 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
     | (i, k) <- zip (workspaces' conf) [ xK_1 .. xK_9 ]
     , (f, m) <- [ (W.view, 0), (W.shift, shiftMask) ]]
 
-role = stringProperty "WM_WINDOW_ROLE"
-
 myManage = composeOne
   [ isDialog -?> doCenterFloat
   , role =? "pop-up" -?> doCenterFloat
@@ -71,7 +72,12 @@ myManage = composeOne
   , role =? "task_dialog" -?> doCenterFloat
   , role =? "Preferences" -?> doCenterFloat
   , role =? "page-info" -?> doCenterFloat
-  , className =? "Ninix_main.rb" -?> doIgnore ]
+  , className =? "Ninix_main.rb" -?> doIgnore
+  ] where role = stringProperty "WM_WINDOW_ROLE"
+
+scratchpads = [
+  NS "TiS" (myTerminal ++ " -T 'TiS'") (title =? "TiS") defaultFloating
+  ] where role = stringProperty "WM_WINDOW_ROLE"
 
 wsPP = xmobarPP { ppOrder = \(ws:l:t:_) -> [ws]
     , ppWsSep = ""
@@ -89,12 +95,12 @@ main = do
   h <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
   xmonad . withNavigation2DConfig def $ docks def
     { modMask  = mod1Mask
-    , terminal = "lilyterm"
+    , terminal = myTerminal
     , focusFollowsMouse = False
     , normalBorderColor = "#101010"
     , workspaces = withScreens nScreens myWS
     , layoutHook = avoidStrutsOn [U,L,D,R] (gaps [(U,5),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts)
-    , manageHook = myManage
+    , manageHook = myManage <+> manageHook def <+> namedScratchpadManageHook scratchpads
     , keys = myKeys <+> keys def
     , startupHook = ewmhDesktopsStartup
     , handleEventHook = handleEventHook def <+> fullscreenEventHook
