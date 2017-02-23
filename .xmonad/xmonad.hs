@@ -1,6 +1,8 @@
 -- vim: sw=2 ts=2 sts=2 et
 
 import System.Exit
+import Data.List
+
 import XMonad
 import XMonad.Operations
 
