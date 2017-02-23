@@ -1,15 +1,15 @@
 -- vim: sw=2 ts=2 sts=2 et
 Config {
-    font = "xft:Dejavu Sans:size=9,sans-serif:size=9,FontAwesome:size=9"
+    font = "xft:Dejavu Sans:size=10,sans-serif:size=10,FontAwesome:size=10"
   , bgColor =      "black"
-  , fgColor =      "#646464"
+  , fgColor =      "#c0c0c0"
   , position =     Top
   , borderColor =  "#646464"
 
   -- layout
   , sepChar =  "%"   -- delineator between plugin names and straight text
   , alignSep = "}{"  -- separator between left-right alignment
-  , template = " %battery%   %multicpu%   %disku%   %coretemp%   %memory%   %dynnetwork% }{ %RJTT% | %date% || %kbd% "
+  , template = " %StdinReader% }{ %battery%   %multicpu%   %disku%   %coretemp%   %memory%   %dynnetwork%   %RJTT%   %date% "
 
   -- general behavior
   , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -34,59 +34,62 @@ Config {
   --   color can be set by enclosing in <fc></fc> tags. For more details
   --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
   , commands = 
+      [ Run StdinReader
+
       -- weather monitor
-      [ Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
+      , Run Weather "RJTT" [ "--template", "<fc=#4682B4><tempC></fc>°C <fc=#4682B4><rh></fc>%"
                            ] 36000
 
       -- network activity monitor (dynamic interface resolution)
-      , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
+      , Run DynNetwork     [ "--template" , " <tx> kB/s  <rx> kB/s (<fc=#4682B4><dev></fc>)"
                            , "--Low"      , "1000"       -- units: kB/s
                            , "--High"     , "5000"       -- units: kB/s
-                           , "--low"      , "darkgreen"
-                           , "--normal"   , "darkorange"
-                           , "--high"     , "darkred"
+                           , "--low"      , "#00a000"
+                           , "--normal"   , "orange"
+                           , "--high"     , "red"
                            ] 10
 
       -- cpu activity monitor
       , Run MultiCpu       [ "--template" , " <total0>% <total1>%"
                            , "--Low"      , "50"         -- units: %
                            , "--High"     , "85"         -- units: %
-                           , "--low"      , "darkgreen"
-                           , "--normal"   , "darkorange"
-                           , "--high"     , "darkred"
+                           , "--low"      , "#00a000"
+                           , "--normal"   , "orange"
+                           , "--high"     , "red"
                            ] 10
 
+      -- disk usage monitor
       , Run DiskU          [("/", " <used>"),  ("/mnt/iomega", " <used>")]
                            [ "-L", "20", "-H", "50", "-m", "1", "-p", "3"
-                           , "--normal", "grey50", "--high", "#a0522d"
-                           , "--low", "#2f4f4f"
+                           , "--normal", "#a0a0a0", "--high", "#a0522d"
+                           , "--low", "#4f8f9f"
                            ] 20
 
       -- cpu core temperature monitor
       , Run CoreTemp       [ "--template" , " <core0>°C <core1>°C"
                            , "--Low"      , "70"        -- units: °C
                            , "--High"     , "80"        -- units: °C
-                           , "--low"      , "darkgreen"
-                           , "--normal"   , "darkorange"
-                           , "--high"     , "darkred"
+                           , "--low"      , "#00a000"
+                           , "--normal"   , "orange"
+                           , "--high"     , "red"
                            ] 50
 
       -- memory usage monitor
       , Run Memory         [ "--template" ," <usedratio>%"
                            , "--Low"      , "20"        -- units: %
                            , "--High"     , "90"        -- units: %
-                           , "--low"      , "darkgreen"
-                           , "--normal"   , "darkorange"
-                           , "--high"     , "darkred"
+                           , "--low"      , "#00a000"
+                           , "--normal"   , "orange"
+                           , "--high"     , "red"
                            ] 10
 
       -- battery monitor
       , Run Battery        [ "--template" , " <acstatus>"
                            , "--Low"      , "10"        -- units: %
                            , "--High"     , "80"        -- units: %
-                           , "--low"      , "darkred"
-                           , "--normal"   , "darkorange"
-                           , "--high"     , "darkgreen"
+                           , "--low"      , "red"
+                           , "--normal"   , "orange"
+                           , "--high"     , "#00a000"
 
                            , "--" -- battery specific options
                                      -- discharging status
@@ -94,7 +97,7 @@ Config {
                                      -- AC "on" status
                                      , "-O"	, "<fc=#dAA520>Charging</fc>"
                                      -- charged status
-                                     , "-i"	, "<fc=#006000>Charged</fc>"
+                                     , "-i"	, "<fc=#00a000>Charged</fc>"
                            ] 50
 
       -- time and date indicator 

@@ -71,6 +71,14 @@ myManage = composeOne
   , role =? "page-info" -?> doCenterFloat
   , className =? "Ninix_main.rb" -?> doIgnore ]
 
+wsPP = xmobarPP { ppOrder = \(ws:l:t:_) -> [ws]
+    , ppWsSep = ""
+    , ppSep = ""}
+  where
+    currentWsIndex w = case (elemIndex w myWS) of
+      Nothing -> "1"
+      Just n  -> show (n+1)
+
 main :: IO ()
 main = do
   nScreens <- countScreens
@@ -87,5 +95,6 @@ main = do
     , manageHook = myManage
     , keys = myKeys <+> keys def
     , startupHook = ewmhDesktopsStartup
-    , logHook = dynamicLogWithPP $ def { ppOutput = hPutStrLn h }
+    , handleEventHook = handleEventHook def <+> fullscreenEventHook
+    , logHook = dynamicLogWithPP $ wsPP { ppOutput = hPutStrLn h }
     }
