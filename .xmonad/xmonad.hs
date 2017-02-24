@@ -132,6 +132,7 @@ main = do
         { modMask  = mod1Mask
         , terminal = myTerminal
         , focusFollowsMouse = False
+        , clickJustFocuses = False
         , normalBorderColor = "#101010"
         , workspaces = withScreens nScreens myWS
         , layoutHook = avoidStruts (gaps [(U,5),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts)
