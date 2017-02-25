@@ -45,9 +45,9 @@ set barpadding 20 10
 escape M-w
 
 bind q exec $BROWSER
-bind c exec urxvtc
-bind t exec urxvtc -e tty-clock -B -C 7 -c
-bind m exec urxvtc -e ncmpcpp
+bind c exec lilyterm
+bind t exec lilyterm -e tty-clock -B -C 7 -c
+bind m exec lilyterm -e ncmpcpp
 
 ######################################################################
 # Top level keys
@@ -93,7 +93,6 @@ definekey top s-s exec gvim
 
 runonce dunst
 runonce gol
-runonce urxvtd -o -q
 
 compton
 exec nitrogen --restore
