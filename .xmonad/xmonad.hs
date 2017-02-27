@@ -125,9 +125,10 @@ getIcon x y = case (x) of
 main :: IO ()
 main = do
     nScreens <- countScreens
+    h <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
     spawn "nitrogen --restore"
     spawn "compton"
-    h <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
+    spawn "dunst"
     xmonad . withNavigation2DConfig def $ docks def
         { modMask  = mod1Mask
         , terminal = myTerminal
