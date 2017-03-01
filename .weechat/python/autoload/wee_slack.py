@@ -484,6 +484,9 @@ class Channel(object):
             self.channel_buffer = channel_buffer
         else:
             self.channel_buffer = w.buffer_new("{}.{}".format(self.server.server_buffer_name, self.name), "buffer_input_cb", self.name, "", "")
+
+            w.hook_signal_send("logger_backlog", w.WEECHAT_HOOK_SIGNAL_POINTER, self.channel_buffer)
+
             if self.type == "im":
                 w.buffer_set(self.channel_buffer, "localvar_set_type", 'private')
             else:
@@ -840,8 +843,6 @@ class Channel(object):
                 # process_message(json.loads(message), True)
                 message_json = json.loads(message)
                 self.last_received = message_json['ts']
-
-            w.hook_signal_send("logger_backlog", w.WEECHAT_HOOK_SIGNAL_POINTER, self.channel_buffer)
 
             if self.last_received is not None:
                 async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "oldest": self.last_received, "count": BACKLOG_SIZE})
