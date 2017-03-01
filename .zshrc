@@ -19,7 +19,6 @@ setopt nohup
 setopt nocheckjobs
 setopt PROMPT_SUBST
 setopt inc_append_history hist_ignore_dups
-setopt extended_history
 
 bindkey -e
 bindkey "^[[1;5C" forward-word
