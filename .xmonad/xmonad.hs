@@ -12,10 +12,10 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.DynamicLog
-import XMonad.Layout.Gaps
-import XMonad.Layout.Spacing
 import XMonad.Layout.BinarySpacePartition
+import XMonad.Layout.Gaps
 import XMonad.Layout.IndependentScreens
+import XMonad.Layout.Spacing
 import XMonad.Operations
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
@@ -88,6 +88,10 @@ myManage = composeOne $
     , role =? "task_dialog" -?> doCenterFloat
     , role =? "Preferences" -?> doCenterFloat
     , role =? "page-info" -?> doCenterFloat
+    , className =? "Sylpheed" <&&> appName =? "compose" -?> doCenterFloat
+    , className =? "Pavucontrol" -?> doCenterFloat
+    , className =? "Lxappearance" -?> doCenterFloat
+    , className =? "Uim-pref-gtk" -?> doCenterFloat
     , className =? "Ninix_main.rb" -?> doIgnore
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
