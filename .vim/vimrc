@@ -14,8 +14,6 @@ set background=dark display=lastline textwidth=0
 set mouse=
 set completeopt=menuone complete=. pumheight=20
 set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
-set tags+=.tags
-set tags+=.TAGS
 set dictionary=/usr/share/dict/words
 set thesaurus=/usr/share/mythes/th_en_US_v2.dat
 set emoji ambiwidth=double
@@ -61,14 +59,14 @@ else
 endif
 
 let g:mapleader="\<Space>"
-nnoremap <leader><C-l> :<C-u>Unite gtags/file<CR>
-nnoremap <leader><C-g> :<C-u>Unite gtags/grep<CR>
-nnoremap <leader><C-]> :<C-u>Unite gtags/def<CR>
-vnoremap <leader><C-]> :<C-u>Unite gtags/def<CR>
-nnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
-vnoremap <leader><C-k> :<C-u>Unite gtags/ref<CR>
-nnoremap <leader>/ :<C-u>Unite gtags/completion<CR>
-nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+nnoremap <silent> <leader><C-l> :<C-u>Unite gtags/file<CR>
+nnoremap <silent> <leader><C-g> :<C-u>Unite gtags/grep<CR>
+nnoremap <silent> <leader><C-]> :<C-u>Unite gtags/def<CR>
+vnoremap <silent> <leader><C-]> :<C-u>Unite gtags/def<CR>
+nnoremap <silent> <leader><C-k> :<C-u>Unite gtags/ref<CR>
+vnoremap <silent> <leader><C-k> :<C-u>Unite gtags/ref<CR>
+nnoremap <silent> <leader>/ :<C-u>Unite gtags/completion<CR>
+nnoremap <silent> <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
 augroup on_filetype
   au!
