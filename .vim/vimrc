@@ -45,9 +45,9 @@ set directory=~/.cache/vim/swap
 set cmdheight=1 laststatus=0
 set showmode modeline modelines=10
 
-set linebreak showbreak=> breakindentopt=shift:4,sbr breakat=\ \ ;:,!?
+set linebreak showbreak=> breakat=\ \ ;:,!?
 if exists('+breakindent')
-  set wrap breakindent
+  set wrap breakindent breakindentopt=shift:4,sbr
 else
   set nowrap
 endif
