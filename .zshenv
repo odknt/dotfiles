@@ -1,5 +1,5 @@
 typeset -U path
-path=(~/bin ~/go/bin ~/.cabal/bin /opt/bin $path[@])
+path=(~/bin ~/go/bin ~/.local/bin /opt/bin $path[@])
 
 export HISTFILE=~/.zhistory
 export HISTSIZE=1000
