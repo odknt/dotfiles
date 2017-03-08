@@ -844,8 +844,6 @@ class Channel(object):
                 message_json = json.loads(message)
                 self.last_received = message_json['ts']
 
-            if self.last_received is not None:
-                async_slack_api_request(self.server.domain, self.server.token, SLACK_API_TRANSLATOR[self.type]["history"], {"channel": self.identifier, "oldest": self.last_received, "count": BACKLOG_SIZE})
         self.got_history = True
 
 
