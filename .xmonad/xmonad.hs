@@ -89,6 +89,7 @@ myManage = composeOne $
     , role =? "Preferences" -?> doCenterFloat
     , role =? "page-info" -?> doCenterFloat
     , className =? "Sylpheed" <&&> appName =? "compose" -?> doCenterFloat
+    , className =? "Pcmanfm" -?> doCenterFloat
     , className =? "Pavucontrol" -?> doCenterFloat
     , className =? "Lxappearance" -?> doCenterFloat
     , className =? "Uim-pref-gtk" -?> doCenterFloat
@@ -133,7 +134,7 @@ main = do
     spawn "nitrogen --restore"
     spawn "compton"
     spawn "dunst"
-    xmonad . withNavigation2DConfig def $ docks def
+    xmonad . withNavigation2DConfig def $ def
         { modMask  = mod1Mask
         , terminal = myTerminal
         , focusFollowsMouse = False
@@ -141,10 +142,10 @@ main = do
         , normalBorderColor = "#101010"
         , workspaces = withScreens nScreens myWS
         , layoutHook = avoidStruts (gaps [(U,5),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts)
-        , manageHook = myManage <+> manageHook def <+> namedScratchpadManageHook scratchpads
+        , manageHook = myManage <+> manageHook def <+> namedScratchpadManageHook scratchpads <+> manageDocks
         , keys = myKeys <+> keys def
         , startupHook = ewmhDesktopsStartup
-        , handleEventHook = handleEventHook def <+> fullscreenEventHook
+        , handleEventHook = handleEventHook def <+> fullscreenEventHook <+> docksEventHook
         , logHook = workspaceNamesPP wsPP
             { ppOutput = hPutStrLn h
             } >>= dynamicLogWithPP
