@@ -114,23 +114,18 @@ wsPP = xmobarPP
     , ppSep             = "  \xf0da  "
     }
   where
-    currentWsIndex w = case (elemIndex w myWS) of
-        Nothing -> "1"
-        Just n  -> show (n+1)
-
-getIcon :: String -> String -> String
-getIcon x y = case (x) of
-    "NSP"  -> "\xf24a"
-    "BSP"  -> "\xf009"
-    "Tall" -> "\xf0fe"
-    "Full" -> "\xf065"
-    _      -> y
+    getIcon x y = case (x) of
+        "NSP"  -> "\xf24a"
+        "BSP"  -> "\xf009"
+        "Tall" -> "\xf0fe"
+        "Full" -> "\xf065"
+        _      -> y
 
 -- Main
 main :: IO ()
 main = do
     nScreens <- countScreens
-    h <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
+    h <- spawnPipe "xmobar"
     spawn "nitrogen --restore"
     spawn "compton"
     spawn "dunst"
