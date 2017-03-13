@@ -4,10 +4,6 @@ My desktop environment on Arch Linux.
 
 ## GUI
 
-- Ratpoison  
-    Previous Window Manager. Using [odknt/ratpoison](https://github.com/odknt/ratpoison) (forked from [jcs/ratpoison](https://github.com/jcs/ratpoison)) instead of official binary.
-- i3  
-    Current Window Manager. Using [i3-gaps](https://github.com/Airblader/i3) instead of official binary.
 - LXAppearance  
     Appearance setting tool for GTK+2 & GTK+3.
 - gvim  
@@ -81,13 +77,17 @@ xinit <WM | application>
 # startx ~/.xinitrc <WM | application>
 ```
 
-## Optional settings
 
-*unclutter* - Hide mouse pointer when idling.
+## Performance settings
+
+#### yaourt
+
+edit below options in `/etc/makepkg.conf`.
 
 ```sh
-yaourt -S unclutter
+MAKEFLAGS="-j8" # set number of CPU cores at least
 
-systemctl --user start unclutter
-systemctl --user enable unclutter
+COMPRESSGZ=(pigz -c -f -n)
+COMPRESSBZ2=(pbzip2 -c -f)
+COMPRESSXZ=(xz -T O -c -z -)
 ```
