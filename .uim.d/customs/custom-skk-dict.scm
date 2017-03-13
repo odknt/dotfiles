@@ -1,4 +1,4 @@
-(define skk-use-skkserv? #t)
+(define skk-use-skkserv? #f)
 (define skk-skkserv-enable-completion? #t)
 (define skk-skkserv-completion-timeout 2000)
 (define skk-skkserv-use-env? #f)

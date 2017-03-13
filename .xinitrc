@@ -42,8 +42,8 @@ export XDG_CONFIG_HOME=$HOME/.config
 # IME
 export GTK_IM_MODULE='uim'
 export QT_IM_MODULE='uim'
-uim-xim &
 export XMODIFIERS='@im=uim'
+uim-xim &
 
 # Keyboard
 setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps
