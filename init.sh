@@ -1,20 +1,21 @@
-#!/bin/bash
+#!/bin/sh
 
 set -euo pipefail
-IFS=$'\n\t'
+IFS="$(printf '\n\t')"
 
-init::usage() {
+__usage() {
     cat <<EOS
     usage: init.sh <commands>
 
     commands:
-        install - Install dependencies.
+        install  - Install dependencies.
+        gen_unit - Generate unit files.
 
 EOS
     return 1
 }
 
-init::install() {
+__install() {
   which yaourt &>/dev/null || cat <<'EOS'> /dev/stderr
 
 \e[37;41m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m
@@ -23,21 +24,18 @@ init::install() {
 
 EOS
   yaourt -Sy
-  yaourt -S --needed --noconfirm - < .native.plist
+  yaourt -S --needed --noconfirm .native.plist
+  yaourt -S --needed --noconfirm .aur.plist
 
-  while read -r p; do
-    yaourt -S --needed "${p}"
-  done < .aur.plist
-
-  if [[ -z ${GOPATH:-} ]]; then
+  if [ -z "${GOPATH:-}" ]; then
     GOPATH="${HOME}/go"
   fi
 
   go get github.com/odknt/go-skkserv-google
-  init::gen_unit
+  __gen_unit
 }
 
-init::gen_unit() {
+__gen_unit() {
   cat <<EOF> .config/systemd/user/skkserv-google.service
 [Unit]
 Description=SKK server by using Google IME API
@@ -54,9 +52,9 @@ EOF
 }
 
 case "$1" in
-  install) init::install;;
-  gen_unit) init::gen_unit;;
-  *)  init::usage;;
+  install  ) __install;;
+  gen_unit ) __gen_unit;;
+  *        ) __usage;;
 esac
 
 exit ${?}
