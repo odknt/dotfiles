@@ -53,7 +53,7 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
     , (( mask                 , xK_period    ), sendMessage (IncMasterN (-1)))
     , (( mask                 , xK_b         ), sendMessage ToggleStruts)
     , (( mask                 , xK_q         ), spawn "pkill xmobar; xmonad --restart")
-    , (( mod4Mask             , xK_l         ), spawn "i3lock -B 3 && xset dpms force off")
+    , (( mod4Mask             , xK_l         ), spawn "physlock")
     , (( mod4Mask             , xK_x         ), namedScratchpadAction scratchpads "TiS")
     , (( mask                 , xK_d         ), spawn "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 25 -o 0.9 -l 10") ]
     ++ -- Navigation2D
