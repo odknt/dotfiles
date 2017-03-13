@@ -129,7 +129,7 @@ main = do
     spawn "nitrogen --restore"
     spawn "compton"
     spawn "dunst"
-    xmonad . withNavigation2DConfig def $ def
+    xmonad . withNavigation2DConfig def $ ewmh def
         { modMask  = mod1Mask
         , terminal = myTerminal
         , focusFollowsMouse = False
