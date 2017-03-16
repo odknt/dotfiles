@@ -48,7 +48,7 @@ x ? (y, z) = if x then y else z
 -- Keybindings
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig { modMask = mask }) = M.fromList $
-    [ (( mask                 , xK_Return    ), spawn "lilyterm")
+    [ (( mask .|. shiftMask   , xK_Return    ), spawn "lilyterm")
     , (( mask                 , xK_comma     ), sendMessage (IncMasterN ( 1)))
     , (( mask                 , xK_period    ), sendMessage (IncMasterN (-1)))
     , (( mask                 , xK_b         ), sendMessage ToggleStruts)
