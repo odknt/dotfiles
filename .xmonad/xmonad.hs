@@ -121,14 +121,16 @@ wsPP = xmobarPP
         "Full" -> "\xf065"
         _      -> y
 
+myStartupHook = do
+    spawn "nitrogen --restore"
+    spawn "compton"
+    spawn "dunst"
+
 -- Main
 main :: IO ()
 main = do
     nScreens <- countScreens
     h <- spawnPipe "xmobar"
-    spawn "nitrogen --restore"
-    spawn "compton"
-    spawn "dunst"
     xmonad . withNavigation2DConfig def $ ewmh def
         { modMask  = mod1Mask
         , terminal = myTerminal
@@ -139,7 +141,7 @@ main = do
         , layoutHook = avoidStruts (gaps [(U,5),(R,5),(L,5),(D,5)] $ spacing 5 $ myLayouts)
         , manageHook = myManage <+> manageHook def <+> namedScratchpadManageHook scratchpads <+> manageDocks
         , keys = myKeys <+> keys def
-        , startupHook = ewmhDesktopsStartup
+        , startupHook = ewmhDesktopsStartup <+> myStartupHook
         , handleEventHook = handleEventHook def <+> fullscreenEventHook <+> docksEventHook
         , logHook = workspaceNamesPP wsPP
             { ppOutput = hPutStrLn h
