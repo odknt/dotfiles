@@ -4,7 +4,6 @@ alsa-tools
 alsa-utils
 ansible
 archlinux-keyring
-arm
 boost
 chromium
 cmake
@@ -26,7 +25,6 @@ jack2
 lm_sensors
 lua
 lxappearance
-maim
 mpv
 nitrogen
 numlockx
