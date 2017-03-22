@@ -98,7 +98,7 @@ myManage = composeOne $
 
 -- Named Scratchpad
 scratchpads =
-    [ NS "TiS" (myTerminal ++ " -T 'TiS'") (title =? "TiS") doCenterFloat
+    [ NS "TiS" (myTerminal ++ " -N 'TiS'") (appName =? "TiS") doCenterFloat
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
 -- XMobar sttings
