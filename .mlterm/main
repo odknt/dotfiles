@@ -22,4 +22,5 @@ use_combining = false
 input_method = uim
 type_engine = xft
 use_clipboard = true
-daemon_mode = blend
+daemon_type = genuine
+regard_uri_as_word = true

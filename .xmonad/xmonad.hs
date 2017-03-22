@@ -122,7 +122,7 @@ wsPP = xmobarPP
         _      -> y
 
 myStartupHook = do
-    spawn "mlterm -j blend"
+    spawn "mlterm -j=genuine"
     spawn "nitrogen --restore"
     spawn "compton"
     spawn "dunst"
