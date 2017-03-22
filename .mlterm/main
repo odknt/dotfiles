@@ -5,6 +5,7 @@ use_anti_alias = true
 use_scrollbar = false
 fg_color = #d8d8d8
 bg_color = #181818
+cursor_bg_color = #ba8baf
 mod_meta_key = alt
 mod_meta_mode = esc
 #iso88591_font_for_usascii=true
