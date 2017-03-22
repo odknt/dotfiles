@@ -24,7 +24,7 @@ import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
 -- Default terminal
-myTerminal = "lilyterm"
+myTerminal = "mlclient"
 
 -- Layouts
 myLayouts = emptyBSP ||| Tall 1 (3/100) (1/2) ||| Full
@@ -48,7 +48,7 @@ x ? (y, z) = if x then y else z
 -- Keybindings
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig { modMask = mask }) = M.fromList $
-    [ (( mask .|. shiftMask   , xK_Return    ), spawn "lilyterm")
+    [ (( mask .|. shiftMask   , xK_Return    ), spawn myTerminal)
     , (( mask                 , xK_comma     ), sendMessage (IncMasterN ( 1)))
     , (( mask                 , xK_period    ), sendMessage (IncMasterN (-1)))
     , (( mask                 , xK_b         ), sendMessage ToggleStruts)
@@ -122,6 +122,7 @@ wsPP = xmobarPP
         _      -> y
 
 myStartupHook = do
+    spawn "mlterm -j blend"
     spawn "nitrogen --restore"
     spawn "compton"
     spawn "dunst"
