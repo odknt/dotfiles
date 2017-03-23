@@ -22,7 +22,7 @@ set switchbuf=usetab,newtab
 hi SpecialKey ctermbg=none ctermfg=12
 if &encoding ==? 'utf-8'
   exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
-  set list listchars=tab:･\ ,trail:-,extends:»,precedes:«,nbsp:%
+  set list listchars=tab:˫\ ,trail:-,extends:»,precedes:«,nbsp:%
 else
   exec 'set list fillchars=vert:\|,fold:-,diff:.'
 endif
