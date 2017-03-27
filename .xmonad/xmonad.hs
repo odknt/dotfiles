@@ -93,6 +93,7 @@ myManage = composeOne $
     , className =? "Pavucontrol" -?> doCenterFloat
     , className =? "Lxappearance" -?> doCenterFloat
     , className =? "Uim-pref-gtk" -?> doCenterFloat
+    , className =? "feh" -?> doCenterFloat
     , className =? "Ninix_main.rb" -?> doIgnore
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
