@@ -18,7 +18,8 @@ prompt walters
 setopt nohup
 setopt nocheckjobs
 setopt PROMPT_SUBST
-setopt inc_append_history hist_ignore_dups
+setopt inc_append_history
+setopt hist_ignore_dups
 
 bindkey -e
 bindkey "^[[1;5C" forward-word

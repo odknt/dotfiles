@@ -1,8 +1,3 @@
-setopt no_global_rcs
-
-typeset -U path
-path=(~/bin ~/go/bin ~/.local/bin /opt/bin /usr/lib/ccache/bin $path[@])
-
 export HISTFILE=~/.zhistory
 export HISTSIZE=1000
 export SAVEHIST=100000
