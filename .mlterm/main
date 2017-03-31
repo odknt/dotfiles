@@ -1,6 +1,6 @@
 termtype = xterm-256color
 tabsize = 4
-unicode_full_width_areas = U+1f106-1f64f,U+24c2-24ff,U+1f680-1f6c0,U+1f681-1f6c5,U+2590-1f251
+unicode_full_width_areas = U+1f106-1f64f,U+24c2-24ff,U+1f680-1f6c0,U+1f681-1f6c5,U+2590-1f251,U+2025-2027,U+2500-257F
 fontsize = 12
 use_anti_alias = true
 use_scrollbar = false
