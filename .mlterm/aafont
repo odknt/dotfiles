@@ -1,4 +1,5 @@
 DEFAULT=sans-serif
+DEC_SPECIAL=Symbola
 ISO10646_UCS4_1 = sans-serif
 ISO10646_UCS4_1_BIWIDTH = sans-serif
 ISO10646_UCS4_1_FULLWIDTH = sans-serif
