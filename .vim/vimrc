@@ -18,6 +18,7 @@ set dictionary=/usr/share/dict/words
 set thesaurus=/usr/share/mythes/th_en_US_v2.dat
 set emoji ambiwidth=double
 set switchbuf=usetab,newtab
+set formatoptions=q
 
 hi SpecialKey ctermbg=none ctermfg=12
 if &encoding ==? 'utf-8'
