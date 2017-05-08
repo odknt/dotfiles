@@ -25,12 +25,12 @@
 [submodule ".config/nvim/pack/default/start/denite.nvim"]
 	path = .config/nvim/pack/default/start/denite.nvim
 	url = https://github.com/Shougo/denite.nvim
-[submodule ".config/nvim/pack/default/start/neomake"]
-	path = .config/nvim/pack/default/start/neomake
-	url = https://github.com/neomake/neomake
 [submodule ".config/nvim/pack/default/opt/nvim-go"]
 	path = .config/nvim/pack/default/opt/nvim-go
 	url = https://github.com/zchee/nvim-go
 [submodule ".vim/pack/default/start/vim-grepper"]
 	path = .vim/pack/default/start/vim-grepper
 	url = https://github.com/mhinz/vim-grepper.git
+[submodule ".config/nvim/pack/default/start/ale"]
+	path = .config/nvim/pack/default/start/ale
+	url = https://github.com/w0rp/ale.git
