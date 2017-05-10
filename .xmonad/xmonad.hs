@@ -94,6 +94,7 @@ myManage = composeOne $
     , className =? "Lxappearance" -?> doCenterFloat
     , className =? "Uim-pref-gtk" -?> doCenterFloat
     , className =? "Sxiv" -?> doCenterFloat
+    , className =? "qjackctl" -?> doCenterFloat
     , className =? "Ninix_main.rb" -?> doIgnore
     ] where role = stringProperty "WM_WINDOW_ROLE"
 
