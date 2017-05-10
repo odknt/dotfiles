@@ -41,6 +41,7 @@ python-dbus
 python-gobject
 python-xdg
 python2-dbus
+qjackctl
 rdesktop
 ripgrep
 rsync
