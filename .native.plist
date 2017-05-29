@@ -1,4 +1,3 @@
-a2jmidid
 accountsservice
 alsa-tools
 alsa-utils
@@ -20,7 +19,6 @@ gvim
 haveged
 imagemagick
 intel-ucode
-jack2
 lm_sensors
 lua
 lxappearance
@@ -36,12 +34,10 @@ php
 picocom
 pigz
 pulseaudio-alsa
-pulseaudio-jack
 python-dbus
 python-gobject
 python-xdg
 python2-dbus
-qjackctl
 rdesktop
 ripgrep
 rsync
