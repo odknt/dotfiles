@@ -18,8 +18,8 @@ import XMonad.Layout.Gaps
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.Spacing
 import XMonad.Operations
-import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run
 
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
@@ -133,6 +133,10 @@ myStartupHook = do
     spawn "compton"
     spawn "dunst"
 
+myLogHook h = workspaceNamesPP wsPP
+    { ppOutput = hPutStrLn h
+    } >>= dynamicLogWithPP
+
 -- Main
 main :: IO ()
 main = do
@@ -150,7 +154,5 @@ main = do
         , keys = myKeys <+> keys def
         , startupHook = ewmhDesktopsStartup <+> myStartupHook <+> docksStartupHook
         , handleEventHook = handleEventHook def <+> fullscreenEventHook <+> docksEventHook
-        , logHook = workspaceNamesPP wsPP
-            { ppOutput = hPutStrLn h
-            } >>= dynamicLogWithPP
+        , logHook = myLogHook h
         }
