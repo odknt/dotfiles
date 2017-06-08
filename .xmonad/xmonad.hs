@@ -34,7 +34,7 @@ myLayouts = emptyBSP ||| Tall 1 (3/100) (1/2) ||| Full
 myWS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 -- Color Setting
-colorOrange    = "#daa520"
+colorOrange    = "#DAA520"
 colorBlue      = "#77A0D4"
 colorGreen     = "#519CA5"
 colorRed       = "#E15F67"
@@ -56,7 +56,7 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
     , (( mask                 , xK_q         ), spawn "pkill xmobar; xmonad --restart")
     , (( mod4Mask             , xK_l         ), spawn "physlock")
     , (( mod4Mask             , xK_x         ), namedScratchpadAction scratchpads "TiS")
-    , (( mask                 , xK_d         ), spawn "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 25 -o 0.9 -l 10") ]
+    , (( mask                 , xK_d         ), spawn "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 15 -o 0.9 -l 10") ]
     ++ -- Special keys
     [ (( 0                    , xF86XK_AudioMute        ), spawn "pactl set-sink-mute 0 toggle")
     , (( 0                    , xF86XK_AudioRaiseVolume ), spawn "pactl set-sink-volume 0 +5%")
