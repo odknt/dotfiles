@@ -58,9 +58,9 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
     , (( mod4Mask             , xK_x         ), namedScratchpadAction scratchpads "TiS")
     , (( mask                 , xK_d         ), spawn "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 15 -o 0.9 -l 10") ]
     ++ -- Special keys
-    [ (( 0                    , xF86XK_AudioMute        ), spawn "pactl set-sink-mute 0 toggle")
-    , (( 0                    , xF86XK_AudioRaiseVolume ), spawn "pactl set-sink-volume 0 +5%")
-    , (( 0                    , xF86XK_AudioLowerVolume ), spawn "pactl set-sink-volume 0 -5%") ]
+    [ (( 0                    , xF86XK_AudioMute        ), spawn "amixer set Master toggle")
+    , (( 0                    , xF86XK_AudioRaiseVolume ), spawn "amixer set Master 5%+")
+    , (( 0                    , xF86XK_AudioLowerVolume ), spawn "amixer set Master 5%-") ]
     ++ -- Navigation2D
     [ (( mask                 , xK_h         ), windowGo L True)
     , (( mask                 , xK_j         ), windowGo D True)
