@@ -1,11 +1,13 @@
 -- vim: sw=4 ts=4 sts=4 et
 
-import System.IO
-import System.Exit
 import Data.List
 import Graphics.X11.ExtraTypes.XF86
+import System.IO
+import System.Environment (getEnv)
+import System.Exit
 
 import XMonad
+import XMonad.Actions.CycleWS (nextWS, prevWS)
 import XMonad.Actions.Navigation2D
 import XMonad.Actions.WorkspaceNames
 import XMonad.Config.Desktop
@@ -24,8 +26,11 @@ import XMonad.Util.Run
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
--- Default terminal
+-- My settings
 myTerminal = "mlclient"
+myMenu     = "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 15 -o 0.9 -l 10"
+myMailer   = "sylpheed"
+myBrowser  = "$BROWSER"
 
 -- Layouts
 myLayouts = emptyBSP ||| Tall 1 (3/100) (1/2) ||| Full
@@ -56,11 +61,18 @@ myKeys conf@(XConfig { modMask = mask }) = M.fromList $
     , (( mask                 , xK_q         ), spawn "pkill xmobar; xmonad --restart")
     , (( mod4Mask             , xK_l         ), spawn "physlock")
     , (( mod4Mask             , xK_x         ), namedScratchpadAction scratchpads "TiS")
-    , (( mask                 , xK_d         ), spawn "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 15 -o 0.9 -l 10") ]
-    ++ -- Special keys
+    , (( mask                 , xK_d         ), spawn myMenu) ]
+    ++ -- Workspace
+    [ (( mod4Mask             , xK_Left      ), prevWS)
+    , (( mod4Mask             , xK_Right     ), nextWS) ]
+    ++ -- Special keys (Audio)
     [ (( 0                    , xF86XK_AudioMute        ), spawn "amixer set Master toggle")
     , (( 0                    , xF86XK_AudioRaiseVolume ), spawn "amixer set Master 5%+")
     , (( 0                    , xF86XK_AudioLowerVolume ), spawn "amixer set Master 5%-") ]
+    ++ -- Special keys (Utility)
+    [ (( 0                    , xF86XK_Search           ), spawn myMenu)
+    , (( 0                    , xF86XK_HomePage         ), spawn myBrowser)
+    , (( 0                    , xF86XK_Mail             ), spawn myMailer) ]
     ++ -- Navigation2D
     [ (( mask                 , xK_h         ), windowGo L True)
     , (( mask                 , xK_j         ), windowGo D True)
