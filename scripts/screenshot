@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -eu
-
-import png:/dev/stdout | xclip -i -sel clip -t image/png
