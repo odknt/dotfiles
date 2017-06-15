@@ -1,0 +1,66 @@
+[global]
+    font     = Monospace 8
+
+    markup   = full
+    sort     = yes
+
+    indicate_hidden = yes
+
+    alignment          = left
+    bounce_freq        = 0
+    show_age_threshold = 120
+    follow             = mouse
+
+    word_wrap      = yes
+    ignore_newline = no
+    shrink         = no
+
+    geometry            = "350x5-20+30"
+    line_height         = 0
+    notification_height = 0
+    padding             = 6
+    horizontal_padding  = 6
+    separator_color     = frame
+
+    startup_notification = false
+
+    dmenu = /usr/bin/dmenu_run -fn 'monospace:size=10' -h 25 -w 500 -y 24 -o 0.9 -l 10 -p dunst:
+
+    browser = "${BROWSER}"
+
+    max_icon_size = 32
+    icon_position = left
+    icon_folders  = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+
+    always_run_script = true
+
+[frame]
+    width = 3
+    color = "#99524A"
+
+[shortcuts]
+    close = ctrl+space
+    close_all = ctrl+shift+space
+    history = ctrl+grave
+    context = ctrl+shift+period
+
+[urgency_low]
+    # IMPORTANT: colors have to be defined in quotation marks.
+    # Otherwise the "#" and following would be interpreted as a comment.
+    background = "#757A80"
+    foreground = "#DDD5C6"
+    timeout = 10
+
+[urgency_normal]
+    background = "#D8CEBE"
+    foreground = "#332F2C"
+    timeout = 10
+
+[urgency_critical]
+    background = "#A73E28"
+    foreground = "#EDDEC9"
+    timeout = 0
+
+[jtalk]
+    summary = "*"
+    script  = "jtalk"
