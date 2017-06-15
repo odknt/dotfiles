@@ -1,0 +1,23 @@
+#!/bin/sh
+# vim: sw=2 ts=2 sts=2 et
+
+readonly MONITORS="$(bspc query -M)"
+readonly DESKTOPS="$(bspc query -D -m)"
+
+focus_desktop() {
+  [ -z "${1}" ] && return
+  id="$(echo "${DESKTOPS}" | sed -n "${1}p")"
+
+  [ -z "${id}" ] && return
+  bspc desktop -f "${id}"
+}
+
+focus_monitor() {
+  [ -z "${1}" ] && return
+  bspc monitor -f "^${1}"
+}
+
+case "${1:-}" in
+  D) focus_desktop "${2:-}" ;;
+  M) focus_monitor "${2:-}" ;;
+esac

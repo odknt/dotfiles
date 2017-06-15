@@ -1,0 +1,132 @@
+#
+# GLOBAL
+#_________
+
+PANEL_FIFO="/tmp/panel-fifo-${DISPLAY:-:0}"
+PANEL_WM_NAME=bspwm_panel
+
+### Panel fonts
+FONT_GLOBAL="monospace:size=10"
+
+### Panel height
+PANEL_HEIGHT="24"
+
+### Colors
+BG_GLOBAL="#ff101010"
+FG_GLOBAL="#ffded0b4"
+
+### Squares
+fg_squares="#ff5C5541"
+
+# Where to look for the screen brightness value
+brightness_path="/sys/devices/virtual/backlight/apple_backlight/brightness"
+maxbrightness_path="/sys/devices/virtual/backlight/apple_backlight/max_brightness"
+# And for the keyboard brightness value
+keyboard_path="/sys/class/leds/smc::kbd_backlight/brightness"
+
+### Where to save process ID and other necessary things
+DZEN_POPUP_PATH="/tmp/dslider-${DISPLAY:-:0}"
+
+
+#
+# START MENU
+#_____________
+# You will need mygtkmenu
+startmenu_cmd="mygtkmenu ~/.config/GTKmenu/AppleMenu > /dev/null"
+
+### Icon
+start_icon=" "
+#start_icon="  "
+#start_icon=" Menu "
+
+### Colors
+bg_startmenu="#ffA73E28"
+fg_startmenu="#ffeddec9"
+
+
+#
+# WORKSPACES
+#______________
+### Icons
+occupied_focus="  "
+occupied="  "
+empty_focus="  "
+empty="  "
+
+### Colors
+bg_tags="#ffA73E28"
+fg_tags="#ffeddec9"
+bg_urgenttags="#ff402929"
+fg_urgenttags="#ffeddec9"
+
+
+#
+# not-stat
+#__________
+### NOTIFICATION ICONS
+bg_icons="#ff3D444E"
+fg_icons="#ffded0b4"
+
+### NOTIFICATIONS
+bg_notifications="#ff201f1d"
+fg_notifications="#ffded0b4"
+bg_exclamation="#ffA73E28"
+
+
+#
+# panel-monitor and panel-music
+#______________________________
+### Colors
+BG_MONITOR="#ff201F1D"
+FG_MONITOR="#ffded0b4"
+BG_BUTTON="#ff9D534A"
+FG_BUTTON="#ffeddec9"
+BG_BUTTON_SELECTED="#ffBA6258"
+FG_BUTTON_SELECTED="#ffeddec9"
+FG_CLOSE="#ffABA08B"
+INACTIVE="#ff383428"
+
+
+#
+# DZEN POPUPS
+#____________
+
+### Slider
+EMPTY_SLIDER="━"
+FULL_SLIDER="━"
+INDICATOR_SLIDER="●"
+
+### Colors
+DZEN_BG="#201F1D"
+DZEN_BG2="#1A1917"
+DZEN_FG="#DED0B4"
+DZEN_SEL="#A73E28"
+DZEN_EMPTY="#403A2E"
+DZEN_CLOSE="#ABA08B"
+DZEN_SIDELINE="#9D534A"
+
+
+#
+# LAYOUTS
+#_________
+
+### Colors
+bg_monocle="#ff201F1D"
+fg_monocle="#ff5C5541"
+
+
+#
+# MAILS
+#________
+### Colors
+bg_mails="#ffA73E28"
+fg_mails="#ffeddec9"
+
+
+#
+# DATE AND CLOCK
+#______________
+### Colors
+bg_clock="#ff201f1d"
+fg_clock="#ffded0b4"
+fg_clockemph="#ff878438"

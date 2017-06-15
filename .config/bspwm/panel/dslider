@@ -1,0 +1,85 @@
+#!/bin/bash
+# vim: sw=2 ts=2 sts=2 et
+
+# Load settings (color, etc)
+. "${0%/*}/profile"
+
+# Close and clean if a dzen popup is ALREADY opened
+previouspid="$(cat "${DZEN_POPUP_PATH}")"
+previouspid="${previouspid:2}"
+
+if [[ -n "${previouspid}" && "$(ps -p "${previouspid}" -o comm=)" = "dzen2" ]]; then
+    pkill "${previouspid}"
+    pkill -f 'tail -f /tmp/dzen-fifo'
+    echo "" > "${DZEN_POPUP_PATH}"
+    exit
+fi
+
+# Stop here, with everything closed and cleaned, if it was called with `dslider close`
+[ "$1" == "close" ] && exit
+
+# Clean when dzen closes
+# Executed when dzen is closed by right clicking on the popup.
+closing="pkill -f 'tail -f /tmp/dzen-fifo' & echo '' > ${DZEN_POPUP_PATH}"
+
+
+##################################################################
+
+#
+# Calculate where to draw the popup
+#
+Current="${1//[i]/}"
+Current="${Current: -2}"
+Opened="${1:0:2}"
+
+xpos="${2}"
+
+if [ "${Opened}" = "${Current}" ]; then
+    Opened="NA"
+fi
+
+case "$1" in
+    *i) # When you make the popup by clicking on the button
+        xpos="$(( xpos + 24 ))" #width of the pink button
+        case "${Opened}" in
+            Sc) xpos=$(( xpos - 42 )) ;; #
+            Vl) xpos=$(( xpos - 54 )) ;; # width of the already opened button label
+            Kb) xpos=$(( xpos - 36 )) ;; #
+            Wm) xpos=$(( xpos - 90 )) ;;
+            NA) ;;
+            *) exit ;;
+        esac
+        ;;
+    *) # When you make the popup by clicking on the arrow
+        case "${Current}" in
+            Vl) xpos=$(( xpos - 42 )) ;; # Distance between the arrow
+            Sc) xpos=$(( xpos - 30 )) ;; # and the start of the label
+            Mu) xpos=$(( xpos - 60 )) ;; #
+            *)  exit ;;
+        esac
+        ;;
+esac
+
+
+
+# Create the fifo
+[ -e "/tmp/dzen-fifo" ] && rm "/tmp/dzen-fifo"
+mkfifo "/tmp/dzen-fifo"
+
+# Create the dzen popup
+exec tail -f /tmp/dzen-fifo | dzen2 -p -w 156 -h 24 -y 18 -x "${xpos}" -fn "sans-serif:size=8" -e "button3=exit,exec:$closing" & dzenpid=${!}
+
+
+#
+#  Save the PID of the dzen popup along with the nature of the opened popup (music,
+# volume, screen...) so that not-stat can update it depending on its nature.
+#
+#  eg: if the "screen backlight" popup is opened, changing the backlight with
+# keybinds should update the slider, but changing the volume should not.
+#
+echo "${Current}${dzenpid}" > "${DZEN_POPUP_PATH}"
+
+#
+# Create content for the popup
+#
+"${0%/*}/dslider-content" "${Current}"

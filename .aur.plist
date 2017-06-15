@@ -1,6 +1,7 @@
 dmenu2
 global
 growl-for-linux
+lemonbar-xft-git
 luv-icon-theme-git
 mlterm
 physlock
@@ -13,3 +14,4 @@ tty-clock
 unzip-iconv
 v4l2loopback-dkms
 vim-jp-ctags
+xtitle

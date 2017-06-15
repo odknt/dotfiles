@@ -1,0 +1,65 @@
+#! /bin/sh
+# vim: sw=2 ts=2 sts=2 et
+
+sxhkd &
+
+bspc query -M | while read -r id; do
+  bspc monitor "${id}" -d I II III IV V VI VII VIII IX X
+done
+
+#
+# Configs
+#
+
+bspc config border_width          3
+bspc config window_gap            10
+
+bspc config split_ratio           0.50
+bspc config borderless_monocle    true
+bspc config gapless_monocle       true
+bspc config click_to_focus        true
+bspc config history_aware_focus   false
+bspc config ignore_ewmh_focus     true
+bspc config auto_cancel           true
+bspc config auto_alternate        true
+
+#
+# Colors
+#
+
+bspc config focused_border_color '#A73E28'
+bspc config normal_border_color  '#292825'
+
+#
+# Rules
+#
+
+bspc rule -a Sylpheed:compose state=floating
+bspc rule -a Lxappearance state=floating
+bspc rule -a Pcmanfm state=floating
+bspc rule -a Pavucontrol state=floating
+bspc rule -a Uim-pref-gtk state=floating
+bspc rule -a Sxiv state=floating
+bspc rule -a nitrogen state=floating
+bspc rule -a xfreerdp border=off
+bspc rule -a Ninix_main.rb manage=off
+
+# scratchpad
+bspc rule -a scratchpad sticky=on state=floating hidden=on
+
+# background image
+nitrogen --restore
+
+# mlterm daemon
+killall mlterm
+mlterm -j=genuine -@=0 &
+
+# panel
+~/.config/bspwm/panel/panel &
+
+# compositor
+compton &
+
+# terminal emulator for scratchpad
+mlclient -N scratchpad
+bspc query -N -n .hidden > "/tmp/scratchid"

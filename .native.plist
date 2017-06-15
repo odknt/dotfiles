@@ -4,10 +4,12 @@ alsa-utils
 ansible
 archlinux-keyring
 boost
+bspwm
 chromium
 cmake
 compton
 dunst
+dzen2
 fontconfig
 fzf
 git
@@ -44,6 +46,7 @@ rsync
 ruby
 rustup
 skk-jisyo
+sxhkd
 sxiv
 sylpheed
 sysstat
@@ -56,6 +59,7 @@ uim
 unclutter
 weechat
 xclip
+xdo
 xdotool
 xorg-server
 xorg-server-xephyr
