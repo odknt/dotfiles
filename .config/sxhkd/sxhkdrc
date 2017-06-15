@@ -84,19 +84,19 @@ super + {o,i}
 
 # focus or send to the given desktop
 alt + {1-9,0}
-    scripts/focus D '{1-9,10}'
+    ~/.config/sxhkd/scripts/focus D '{1-9,10}'
 
 # focus or send to the given monitor
 super + {1-9,0}
-    scripts/focus M '{1-9,10}'
+    ~/.config/sxhkd/scripts/focus M '{1-9,10}'
 
 # move to desktop
 alt + shift + {1-9,0}
-    scripts/move D '{1-9,10}'
+    ~/.config/sxhkd/scripts/move D '{1-9,10}'
 
 # move to monitor
 super + shift + {1-9,0}
-    scripts/move M '{1-9,10}'
+    ~/.config/sxhkd/scripts/move M '{1-9,10}'
 
 #
 # preselect
