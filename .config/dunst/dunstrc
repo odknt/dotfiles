@@ -61,6 +61,6 @@
     foreground = "#EDDEC9"
     timeout = 0
 
-[jtalk]
-    summary = "*"
-    script  = "jtalk"
+# [jtalk]
+#     summary = "*"
+#     script  = "jtalk"
