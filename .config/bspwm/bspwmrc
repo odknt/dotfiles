@@ -45,14 +45,13 @@ bspc rule -a xfreerdp border=off
 bspc rule -a Ninix_main.rb manage=off
 
 # scratchpad
-bspc rule -a scratchpad sticky=on state=floating hidden=on
+bspc rule -a URxvt:scratchpad sticky=on state=floating hidden=on
 
 # background image
 nitrogen --restore
 
-# mlterm daemon
-killall mlterm
-mlterm -j=genuine -@=0 &
+# urxvtd
+urxvtd
 
 # panel
 ~/.config/bspwm/panel/panel &
@@ -61,5 +60,5 @@ mlterm -j=genuine -@=0 &
 compton &
 
 # terminal emulator for scratchpad
-mlclient -N scratchpad
+urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd
 bspc query -N -n .hidden > "/tmp/scratchid"

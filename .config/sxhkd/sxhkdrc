@@ -6,7 +6,7 @@ sylpheed
 
 # terminal emulator
 alt + shift + Return
-    mlclient
+    urxvtc
 
 # program launcher
 alt + d

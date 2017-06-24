@@ -27,7 +27,7 @@ import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
 -- My settings
-myTerminal = "mlclient"
+myTerminal = "urxvtc"
 myMenu     = "dmenu_run -fn 'monospace:size=10' -h 25 -w 300 -y 15 -o 0.9 -l 10"
 myMailer   = "sylpheed"
 myBrowser  = "$BROWSER"
@@ -153,6 +153,7 @@ myLogHook h = workspaceNamesPP wsPP
 main :: IO ()
 main = do
     nScreens <- countScreens
+    spawn "urxvtd"
     h <- spawnPipe "xmobar"
     xmonad . withNavigation2DConfig def $ ewmh def
         { modMask  = mod1Mask
