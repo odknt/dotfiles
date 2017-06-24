@@ -32,7 +32,7 @@ URxvt*preeditType:                      OnTheSpot
 URxvt*perl_ext:                         xim-onthespot
 URxvt*skipBuiltinGlyphs:                false
 URxvt*lineSpace:                        0
-URxvt*letterSpace:                      0
+URxvt*letterSpace:                      -1
 URxvt*scrollTtyOutput:                  false
 URxvt*scrollWithBuffer:                 true
 URxvt*scrollTtyKeypress:                true
