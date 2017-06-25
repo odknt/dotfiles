@@ -22,7 +22,7 @@ alt + q
 
 # quit bspwm normally
 alt + shift + q
-    bspc quit
+    pkill -kill panel; bspc quit
 
 # close and kill
 super + {_,shift + }w

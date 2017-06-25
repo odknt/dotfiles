@@ -51,7 +51,7 @@ bspc rule -a URxvt:scratchpad sticky=on state=floating hidden=on
 nitrogen --restore
 
 # urxvtd
-urxvtd
+urxvtd &
 
 # panel
 ~/.config/bspwm/panel/panel &
