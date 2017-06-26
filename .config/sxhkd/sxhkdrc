@@ -144,7 +144,7 @@ super + x
 #
 # screen lock
 #
-mod5 + l
+super + mod5 + l
     physlock
 
 #
