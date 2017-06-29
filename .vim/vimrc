@@ -91,7 +91,7 @@ endif
 
 let @d = ':bp|bw! #'
 let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|vendors|vendor|target)', 'file': '\v\.(exe|so|dll|class|a|o)' }
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/](\.git|\.hg|\.svn|node_modules|bower_components|vendors|vendor|target)', 'file': '\v\.(exe|so|dll|class|a|o)$' }
 
 if filereadable(expand('~/.vim/vimrc-local'))
   source ~/.vim/vimrc-local
