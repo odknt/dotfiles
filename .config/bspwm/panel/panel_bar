@@ -23,6 +23,7 @@ while read -r line ; do
             # bspwm's state
             wm=""
             snum=0
+            dnum=1
             IFS=':'
             set -- ${line#?}
             while [ $# -gt 0 ] ; do
@@ -31,6 +32,7 @@ while read -r line ; do
                 case $item in
                     [mM]*)
                         [ $num_mon -lt 2 ] && shift && continue
+                        [ $dnum -gt 1 ] && snum="$((snum + 1))"
                         case $item in
                             m*)
                                 # monitor
@@ -44,6 +46,7 @@ while read -r line ; do
                                 ;;
                         esac
                         wm="${wm}%{S${snum}}%{F${FG}}%{B${BG}}%{A:bspc monitor -m $((snum + 1)) -f ${name}:} ${name} %{A}%{B-}%{F-}"
+                        dnum=1
                         ;;
                     [fFoOuU]*)
                         case $item in
@@ -78,7 +81,8 @@ while read -r line ; do
                                 BG=$COLOR_FOCUSED_URGENT_BG
                                 ;;
                         esac
-                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:} ${name} %{A}%{B-}%{F-}"
+                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f "$(bspc query -D -m "^$((snum + 1))" | awk "NR==${dnum}")":} ${name} %{A}%{B-}%{F-}"
+                        dnum="$((dnum + 1))"
                         ;;
                     [LTG]*)
                         # layout, state and flags
@@ -86,7 +90,6 @@ while read -r line ; do
                         ;;
                 esac
                 shift
-                snum="$((snum + 1))"
             done
             ;;
     esac
