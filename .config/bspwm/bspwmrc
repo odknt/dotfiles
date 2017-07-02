@@ -43,6 +43,7 @@ bspc rule -a Sxiv state=floating
 bspc rule -a Nitrogen state=floating
 bspc rule -a xfreerdp border=off
 bspc rule -a Ninix_main.rb manage=off
+bspc rule -a Wine:Steam.exe border=off
 
 # scratchpad
 bspc rule -a URxvt:scratchpad sticky=on state=floating hidden=on
