@@ -54,12 +54,12 @@ nitrogen --restore
 # urxvtd
 urxvtd &
 
-# panel
-~/.config/bspwm/panel/panel &
-
 # compositor
 compton &
 
 # terminal emulator for scratchpad
 urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd
 bspc query -N -n .hidden > "/tmp/scratchid"
+
+# panel
+~/.config/bspwm/panel/panel &
