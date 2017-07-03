@@ -54,34 +54,40 @@ while read -r line ; do
                                 # free desktop
                                 FG=$COLOR_FREE_FG
                                 BG=$COLOR_FREE_BG
+                                NAME=$STRING_FREE
                                 ;;
                             F*)
                                 # focused free desktop
                                 FG=$COLOR_FOCUSED_FREE_FG
                                 BG=$COLOR_FOCUSED_FREE_BG
+                                NAME=$STRING_FOCUSED_FREE
                                 ;;
                             o*)
                                 # occupied desktop
                                 FG=$COLOR_OCCUPIED_FG
                                 BG=$COLOR_OCCUPIED_BG
+                                NAME=$STRING_OCCUPIED
                                 ;;
                             O*)
                                 # focused occupied desktop
                                 FG=$COLOR_FOCUSED_OCCUPIED_FG
                                 BG=$COLOR_FOCUSED_OCCUPIED_BG
+                                NAME=$STRING_FORCUSED_OCCUPIED
                                 ;;
                             u*)
                                 # urgent desktop
                                 FG=$COLOR_URGENT_FG
                                 BG=$COLOR_URGENT_BG
+                                NAME=$STRING_URGENT
                                 ;;
                             U*)
                                 # focused urgent desktop
                                 FG=$COLOR_FOCUSED_URGENT_FG
                                 BG=$COLOR_FOCUSED_URGENT_BG
+                                NAME=$STRING_FOCUSED_URGENT
                                 ;;
                         esac
-                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f "$(bspc query -D -m "^$((snum + 1))" | awk "NR==${dnum}")":} ${name} %{A}%{B-}%{F-}"
+                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f "$(bspc query -D -m "^$((snum + 1))" | awk "NR==${dnum}")":} ${NAME} %{A}%{B-}%{F-}"
                         dnum="$((dnum + 1))"
                         ;;
                     [LTG]*)
