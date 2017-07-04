@@ -1,25 +1,21 @@
-# dotfiles
+= dotfiles
 
 My desktop environment on Arch Linux.
 
-## GUI
+== GUI
 
-- LXAppearance  
-    Appearance setting tool for GTK+2 & GTK+3.
-- gvim  
-    later then `7.4.1191`.
-- uim  
-    IME for CJK. Among those, I using SKK.
-- dmenu2  
-    dmenu2 is fork of dmenu. Many useful patches applied and additional options.
+|===
+| Window Manager | bspwm, xmonad
+| Editor         | vim
+| Input Method   | uim-skk
+| Terminal       | urxvt
+| GTK Theme      | Adwaita with Lúv icons
+|===
 
-## Screenshot
 
-![capture](https://www.tkn.tokyo/capture.png)
+== Install
 
-## Install
-
-#### Yaourt
+=== Yaourt
 
 execute as `root` user.
 
@@ -34,13 +30,13 @@ EOS
 pacman -Sy --noconfirm yaourt
 ```
 
-#### Install dependencies
+=== Install dependencies
 
 ```sh
 ./init.sh install
 ```
 
-## vim
+== vim
 
 Install and initialize submodules.
 
@@ -52,26 +48,23 @@ pushd ~/.vim/pack/default/start/cpsm
 popd
 ```
 
-## Pulseaudio with ALSA
+== Pulseaudio with ALSA
 
 ```sh
 systemctl --user start pulseaudio
 systemctl --user enable pulseaudio
 ```
 
-## Start X
+== Start X
 
 ```sh
-xinit <WM | application>
-
-# start secondary X
-# startx ~/.xinitrc <WM | application>
+startx ~/.xinitrc <WM | application>
 ```
 
 
-## Performance settings
+== Performance settings
 
-#### yaourt
+=== yaourt
 
 edit below options in `/etc/makepkg.conf`.
 
