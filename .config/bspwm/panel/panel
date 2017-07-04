@@ -23,8 +23,6 @@ while true; do
     sleep 1
 done > "${PANEL_FIFO}" &
 
-. "${0%/*}/panel_colors"
-
 "${0%/*}/panel_bar" < "${PANEL_FIFO}" | lemonbar -a 32 -n "${PANEL_WM_NAME}" -g x${PANEL_HEIGHT} -f "${FONT_GLOBAL}" -F "${FG_GLOBAL}" -B "${BG_GLOBAL}" | sh &
 
 wid=$(xdo id -a "$PANEL_WM_NAME")
