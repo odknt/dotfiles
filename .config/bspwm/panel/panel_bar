@@ -53,45 +53,45 @@ while read -r line ; do
                                 # free desktop
                                 FG=$COLOR_FREE_FG
                                 BG=$COLOR_FREE_BG
-                                NAME=$(env printf "\u${STRING_FREE}")
+                                NAME=" ${name} "
                                 ;;
                             F*)
                                 # focused free desktop
                                 FG=$COLOR_FOCUSED_FREE_FG
                                 BG=$COLOR_FOCUSED_FREE_BG
-                                NAME=$(env printf "\u${STRING_FOCUSED_FREE}")
+                                NAME=" ${name} "
                                 ;;
                             o*)
                                 # occupied desktop
                                 FG=$COLOR_OCCUPIED_FG
                                 BG=$COLOR_OCCUPIED_BG
-                                NAME=$(env printf "\u${STRING_OCCUPIED}")
+                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
                                 ;;
                             O*)
                                 # focused occupied desktop
                                 FG=$COLOR_FOCUSED_OCCUPIED_FG
                                 BG=$COLOR_FOCUSED_OCCUPIED_BG
-                                NAME=$(env printf "\u${STRING_FORCUSED_OCCUPIED}")
+                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
                                 ;;
                             u*)
                                 # urgent desktop
                                 FG=$COLOR_URGENT_FG
                                 BG=$COLOR_URGENT_BG
-                                NAME=$(env printf "\u${STRING_URGENT}")
+                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
                                 ;;
                             U*)
                                 # focused urgent desktop
                                 FG=$COLOR_FOCUSED_URGENT_FG
                                 BG=$COLOR_FOCUSED_URGENT_BG
-                                NAME=$(env printf "\u${STRING_FOCUSED_URGENT}")
+                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
                                 ;;
                         esac
-                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f "$(bspc query -D -m "^$((snum + 1))" | awk "NR==${dnum}")":} ${NAME} %{A}%{B-}%{F-}"
+                        wm="${wm}%{O3}%{A:bspc desktop -f "$(bspc query -D -m "^$((snum + 1))" | awk "NR==${dnum}")":}${NAME}%{A}%{O3}"
                         dnum="$((dnum + 1))"
                         ;;
                     [LTG]*)
                         # layout, state and flags
-                        wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
+                        # wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
                         ;;
                 esac
                 shift

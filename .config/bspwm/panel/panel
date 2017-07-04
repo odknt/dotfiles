@@ -23,7 +23,7 @@ while true; do
     sleep 1
 done > "${PANEL_FIFO}" &
 
-"${0%/*}/panel_bar" < "${PANEL_FIFO}" | lemonbar -a 32 -n "${PANEL_WM_NAME}" -g x${PANEL_HEIGHT} -f "${FONT_GLOBAL}" -F "${FG_GLOBAL}" -B "${BG_GLOBAL}" | sh &
+"${0%/*}/panel_bar" < "${PANEL_FIFO}" | lemonbar -u 3 -a 32 -n "${PANEL_WM_NAME}" -g x${PANEL_HEIGHT} -f "${FONT_GLOBAL}" -F "${FG_GLOBAL}" -B "${BG_GLOBAL}" | sh &
 
 wid=$(xdo id -a "$PANEL_WM_NAME")
 tries_left=20
