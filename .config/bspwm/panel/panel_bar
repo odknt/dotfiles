@@ -16,10 +16,12 @@ while read -r line ; do
         C*)
             # date output
             cal="  ${line#?}  "
+            right="%{S0}${cal}${sys}%{S1}${cal}${sys}"
             ;;
         S*)
             # clock output
             sys="%{B$COLOR_SYS_BG}  ${line#?}  %{B-}"
+            right="%{S0}${cal}${sys}%{S1}${cal}${sys}"
             ;;
         T*)
             # xtitle output
@@ -106,6 +108,5 @@ while read -r line ; do
             done
             ;;
     esac
-    sys="%{S0}${cal}${sys}%{S1}${cal}${sys}"
-    printf "%s\n" "%{l}${wm}%{c}${title}%{r}${cal}${sys}"
+    printf "%s\n" "%{l}${wm}%{c}${title}%{r}${right}"
 done
