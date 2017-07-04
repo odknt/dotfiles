@@ -1,10 +1,16 @@
 #! /bin/sh
 
-. "${0%/*}/profile"
+load_profile() {
+    . "${0%/*}/profile"
+}
+
+trap load_profile USR1
+
+load_profile
 
 if xdo id -a "$PANEL_WM_NAME" > /dev/null ; then
-	printf "%s\n" "The panel is already running." >&2
-	exit 1
+    printf "%s\n" "The panel is already running." >&2
+    exit 1
 fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
@@ -19,11 +25,13 @@ xtitle -sf "T%s\n" > "${PANEL_FIFO}" &
 # hwclock -sf 'S%a %H:%M' > "${PANEL_FIFO}" &
 
 while true; do
-    echo "S$(date +'%Y-%m-%d (%a) %H:%M:%S')"
+    echo "C$(date +' %x (%a)')"
+    echo "S$(date +' %R')"
     sleep 1
 done > "${PANEL_FIFO}" &
 
-"${0%/*}/panel_bar" < "${PANEL_FIFO}" | lemonbar -u 3 -a 32 -n "${PANEL_WM_NAME}" -g x${PANEL_HEIGHT} -f "${FONT_GLOBAL}" -F "${FG_GLOBAL}" -B "${BG_GLOBAL}" | sh &
+"${0%/*}/panel_bar" < "${PANEL_FIFO}" | lemonbar -u 3 -a 32 -n "${PANEL_WM_NAME}" -g x${PANEL_HEIGHT} \
+    -f "${FONT_GLOBAL}" -f "${FONT_ICONS}" -F "${FG_GLOBAL}" -B "${BG_GLOBAL}" | sh &
 
 wid=$(xdo id -a "$PANEL_WM_NAME")
 tries_left=20

@@ -2,16 +2,24 @@
 #
 # Example panel for lemonbar
 
-. "${0%/*}/profile"
+load_profile() {
+    . "${0%/*}/profile"
+}
+trap load_profile USR1
+
+load_profile
 
 num_mon=$(bspc query -M | wc -l)
 
 while read -r line ; do
     case $line in
+        C*)
+            # date output
+            cal="  ${line#?}  "
+            ;;
         S*)
             # clock output
-            sys="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#?} %{B-}%{F-}"
-            sys="%{S0}${sys}%{S1}${sys}"
+            sys="%{B$COLOR_SYS_BG}  ${line#?}  %{B-}"
             ;;
         T*)
             # xtitle output
@@ -44,7 +52,7 @@ while read -r line ; do
                                 BG=$COLOR_FOCUSED_MONITOR_BG
                                 ;;
                         esac
-                        wm="${wm}%{S${snum}}%{F${FG}}%{B${BG}}%{A:bspc monitor -m $((snum + 1)) -f ${name}:} ${name} %{A}%{B-}%{F-}"
+                        wm="${wm}%{S${snum}}%{F${FG}}%{B${BG}}%{A:bspc monitor -m $((snum + 1)) -f ${name}:}   ${name}  %{A}%{B-}%{F-}"
                         dnum=1
                         ;;
                     [fFoOuU]*)
@@ -65,25 +73,25 @@ while read -r line ; do
                                 # occupied desktop
                                 FG=$COLOR_OCCUPIED_FG
                                 BG=$COLOR_OCCUPIED_BG
-                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
+                                NAME="%{B${BG}}%{U${FG}}%{+u} ${name} %{-u}%{U-}%{B-}"
                                 ;;
                             O*)
                                 # focused occupied desktop
                                 FG=$COLOR_FOCUSED_OCCUPIED_FG
                                 BG=$COLOR_FOCUSED_OCCUPIED_BG
-                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
+                                NAME="%{B${BG}}%{U${FG}}%{+u} ${name} %{-u}%{U-}%{B-}"
                                 ;;
                             u*)
                                 # urgent desktop
                                 FG=$COLOR_URGENT_FG
                                 BG=$COLOR_URGENT_BG
-                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
+                                NAME="%{B${BG}}%{U${FG}}%{+u} ${name} %{-u}%{U-}%{B-}"
                                 ;;
                             U*)
                                 # focused urgent desktop
                                 FG=$COLOR_FOCUSED_URGENT_FG
                                 BG=$COLOR_FOCUSED_URGENT_BG
-                                NAME="%{U${FG}}%{+u} ${name} %{-u}%{U-}"
+                                NAME="%{B${BG}}%{U${FG}}%{+u} ${name} %{-u}%{U-}%{B-}"
                                 ;;
                         esac
                         wm="${wm}%{O3}%{A:bspc desktop -f "$(bspc query -D -m "^$((snum + 1))" | awk "NR==${dnum}")":}${NAME}%{A}%{O3}"
@@ -98,5 +106,6 @@ while read -r line ; do
             done
             ;;
     esac
-    printf "%s\n" "%{l}${wm}%{c}${title}%{r}${sys}"
+    sys="%{S0}${cal}${sys}%{S1}${cal}${sys}"
+    printf "%s\n" "%{l}${wm}%{c}${title}%{r}${cal}${sys}"
 done
