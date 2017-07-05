@@ -19,12 +19,12 @@ panel_cmd      = '/bin/lemonbar -u 3 -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s'
 pipe_r, pipe_w = os.pipe()
 panel          = None
 shell          = None
+config         = os.path.dirname(os.path.realpath(__file__))+'/config.ini'
 
 
-def load_config():
+def load_config(sig = None, stack = None):
     conf.optionxform = str
-    path = os.path.realpath(__file__)
-    conf.read(os.path.dirname(path)+'/config.ini')
+    conf.read(config)
     if 'general' not in conf:
         sys.exit(1)
 
@@ -42,26 +42,24 @@ def start_panel():
     shell = subprocess.Popen('/bin/sh', stdin=panel.stdout)
 
 
-def exit_panel(sig, stack):
-    global panel, shell
-    if shell is not None:
-        shell.kill()
-
-    if panel is not None:
-        panel.kill()
+def exit(sig, stack):
+    exit_panel()
     sys.exit()
 
 
-def restart_panel(sig, stack):
+def exit_panel():
     global panel, shell
+    if shell is not None:
+        shell.kill()
+        shell = None
 
-    if panel is None:
-        return
+    if panel is not None:
+        panel.kill()
+        panel = None
 
-    shell.kill()
-    shell = None
-    panel.kill()
-    panel = None
+
+def restart_panel(sig, stack):
+    exit_panel()
 
     load_config()
     start_panel()
@@ -92,10 +90,7 @@ def parse_monitor(line):
         elif s[0] in 'fFoOuU':
             fg = conf['color'][s[0]+'_fg']
             bg = conf['color'][s[0]+'_bg']
-            if s[0] in 'oOuU':
-                name = '%{{B{0}}}%{{U{1}}}%{{+u}} {2} %{{-u}}%{{U-}}%{{B-}}'.format(bg, fg, s[1:])
-            else:
-                name = ' %s ' % s[1:]
+            name = '%{{B{0}}}%{{U{1}}}%{{+u}} {2} %{{-u}}%{{U-}}%{{B-}}'.format(bg, fg, s[1:])
             target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
             wm += '%{{O3}}%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
             dnum += 1
@@ -154,9 +149,9 @@ def handler():
 
 
 if __name__ == '__main__':
-    signal(SIGINT,   exit_panel)
-    signal(SIGTERM,  exit_panel)
-    signal(SIGQUIT,  exit_panel)
+    signal(SIGINT,   exit)
+    signal(SIGTERM,  exit)
+    signal(SIGQUIT,  exit)
 
     # for reload config
     signal(SIGUSR1, load_config)
