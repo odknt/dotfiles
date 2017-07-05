@@ -18,6 +18,7 @@ streams        = []
 panel_cmd      = '/bin/lemonbar -u 3 -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s'
 pipe_r, pipe_w = os.pipe()
 panel          = None
+shell          = None
 
 
 def load_config():
@@ -29,7 +30,7 @@ def load_config():
 
 
 def start_panel():
-    global panel
+    global panel, shell
     if 'panel_cmd' in conf['general']:
         sys.exit(-1)
 
@@ -37,11 +38,14 @@ def start_panel():
                        conf['font']['global'], conf['font']['icons'],
                        conf['color']['default_fg'], conf['color']['default_bg'])
 
-    panel = subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r)
+    panel = subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r, stdout=subprocess.PIPE)
+    shell = subprocess.Popen('/bin/sh', stdin=panel.stdout)
 
 
 def exit_panel(sig, stack):
-    global panel
+    global panel, shell
+    if shell is not None:
+        shell.kill()
 
     if panel is not None:
         panel.kill()
@@ -49,13 +53,16 @@ def exit_panel(sig, stack):
 
 
 def restart_panel(sig, stack):
-    global panel
+    global panel, shell
 
     if panel is None:
         return
 
+    shell.kill()
+    shell = None
     panel.kill()
     panel = None
+
     load_config()
     start_panel()
 
