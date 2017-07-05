@@ -63,4 +63,4 @@ urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd
 bspc query -N -n .hidden > "/tmp/scratchid"
 
 # panel
-~/.config/bspwm/panel/panel &
+~/.config/bspwm/panel &

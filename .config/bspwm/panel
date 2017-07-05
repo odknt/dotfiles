@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+# coding: utf-8
+
+import configparser
+import os
+import select
+import sys
+import subprocess
+import threading
+
+from datetime import datetime
+from signal import signal, SIGINT, SIGTERM, SIGUSR1, SIGQUIT
+
+
+conf           = configparser.SafeConfigParser()
+streams        = []
+panel_cmd      = '/bin/lemonbar -u 3 -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s'
+pipe_r, pipe_w = os.pipe()
+
+
+def load_config():
+    conf.optionxform = str
+    conf.read(os.path.abspath(os.path.dirname(__file__)+'/config.ini'))
+    if 'general' not in conf:
+        sys.exit(1)
+
+
+def start_panel():
+    if 'panel_cmd' in conf['general']:
+        sys.exit(-1)
+
+    cmd = panel_cmd % (conf['general']['wm_name'], conf['general']['height'],
+                       conf['font']['global'], conf['font']['icons'],
+                       conf['color']['default_fg'], conf['color']['default_bg'])
+
+    return subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r)
+
+
+def exit_panel(sig, stack):
+    if panel is not None:
+        panel.kill()
+    sys.exit()
+
+
+def send(panel, info):
+    if 'fifo' not in conf['general'] or panel is None:
+        sys.exit(1)
+
+    os.write(pipe_w, info.encode('utf-8'))
+
+
+def parse_monitor(line):
+    wm = ''
+    snum = 0
+    dnum = 1
+    for s in line.strip().split(':'):
+        if s[0] in 'mM':
+            if dnum > 1:
+                snum += 1
+            fg = conf['color'][s[0]+'_fg']
+            bg = conf['color'][s[0]+'_bg']
+            wm += '%{{S{0}}}%{{F{1}}}%{{B{2}}}%{{A:bspc monitor -m {3} -f {4}:}}   {4}  %{{A}}%{{B-}}%{{F-}}'.format(snum, fg, bg, snum+1, s[1:])
+            # reset
+            dnum = 1
+
+        elif s[0] in 'fFoOuU':
+            fg = conf['color'][s[0]+'_fg']
+            bg = conf['color'][s[0]+'_bg']
+            if s[0] in 'oOuU':
+                name = '%{{B{0}}}%{{U{1}}}%{{+u}} {2} %{{-u}}%{{U-}}%{{B-}}'.format(bg, fg, s[1:])
+            else:
+                name = ' %s ' % s[1:]
+            target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)])
+            wm += '%{{O3}}%{{A:bspc desktop -f {0}:}}{1}%{{A}}%{{O3}}'.format(target[dnum], name)
+            dnum += 1
+
+        elif s[0] in 'LTG':
+            wm += ''
+    return wm
+
+
+def get_output_per_monitor(str):
+    lines = subprocess.check_output(['bspc', 'query', '-M'])
+
+    output = ''
+    for i in range(len(lines.splitlines())):
+        output += '%{{S{0}}}{1}'.format(i, str)
+
+    return output
+
+
+def handler(panel):
+    if len(streams) is 0 or panel is None:
+        return
+
+    date  = ''
+    time  = ''
+    title = ''
+    wm    = ''
+
+    while True:
+        rstreams, _, _ = select.select(streams, [], [], 1.0)
+        for stream in rstreams:
+            line = stream.readline().decode('utf-8')
+            if line.startswith('T'):
+                title  = "%s" % line[1:-1]
+            elif line.startswith('W'):
+                wm = parse_monitor(line[1:-1])
+
+        sys_prefix = '%{{B{0}}}%{{F{1}}}'.format(conf['color']['sys_bg'], conf['color']['sys_fg'])
+        sys_suffix = '%{F-}%{B-}'
+        date = datetime.now().strftime('   %x (%a)  ')
+        time = datetime.now().strftime(sys_prefix+'   %R  '+sys_suffix)
+
+        left   = wm
+        center = get_output_per_monitor(title)
+        right  = get_output_per_monitor(date + time)
+
+        output = '%{{l}}{l}%{{c}}{c}%{{r}}{r}\n'.format(l=left, c=center, r=right)
+
+        send(panel, output)
+
+
+if __name__ == '__main__':
+    signal(SIGINT,   exit_panel)
+    signal(SIGTERM,  exit_panel)
+    signal(SIGQUIT,  exit_panel)
+
+    # for reload config
+    signal(SIGUSR1, load_config)
+
+    load_config()
+    panel = start_panel()
+
+    streams.append(subprocess.Popen(['xtitle', '-sf', 'T%s\n'], stdout=subprocess.PIPE).stdout)
+    streams.append(subprocess.Popen(['bspc', 'subscribe', 'report'], stdout=subprocess.PIPE).stdout)
+
+    handler(panel)
