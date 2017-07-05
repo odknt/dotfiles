@@ -22,7 +22,8 @@ panel          = None
 
 def load_config():
     conf.optionxform = str
-    conf.read(os.path.abspath(os.path.dirname(__file__)+'/config.ini'))
+    path = os.readlink(__file__)
+    conf.read(os.path.dirname(path)+'/config.ini')
     if 'general' not in conf:
         sys.exit(1)
 
