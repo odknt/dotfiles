@@ -10,13 +10,14 @@ import subprocess
 import threading
 
 from datetime import datetime
-from signal import signal, SIGINT, SIGTERM, SIGUSR1, SIGQUIT
+from signal import signal, SIGINT, SIGTERM, SIGUSR1, SIGQUIT, SIGHUP
 
 
 conf           = configparser.SafeConfigParser()
 streams        = []
 panel_cmd      = '/bin/lemonbar -u 3 -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s'
 pipe_r, pipe_w = os.pipe()
+panel          = None
 
 
 def load_config():
@@ -27,6 +28,7 @@ def load_config():
 
 
 def start_panel():
+    global panel
     if 'panel_cmd' in conf['general']:
         sys.exit(-1)
 
@@ -34,18 +36,33 @@ def start_panel():
                        conf['font']['global'], conf['font']['icons'],
                        conf['color']['default_fg'], conf['color']['default_bg'])
 
-    return subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r)
+    panel = subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r)
 
 
 def exit_panel(sig, stack):
+    global panel
+
     if panel is not None:
         panel.kill()
     sys.exit()
 
 
-def send(panel, info):
-    if 'fifo' not in conf['general'] or panel is None:
-        sys.exit(1)
+def restart_panel(sig, stack):
+    global panel
+
+    if panel is None:
+        return
+
+    panel.kill()
+    panel = None
+    load_config()
+    start_panel()
+
+
+def send(info):
+    global panel
+    if panel is None:
+        return
 
     os.write(pipe_w, info.encode('utf-8'))
 
@@ -90,14 +107,11 @@ def get_output_per_monitor(str):
     return output
 
 
-def handler(panel):
-    if len(streams) is 0 or panel is None:
+def handler():
+    if panel is None:
         return
 
-    date  = ''
-    time  = ''
-    title = ''
-    wm    = ''
+    date, time, title, wm  = ('', '', '', '')
 
     while True:
         rstreams, _, _ = select.select(streams, [], [], 1.0)
@@ -128,7 +142,7 @@ def handler(panel):
 
         output = '%{{l}}{l}%{{c}}{c}%{{r}}{r}\n'.format(l=left, c=center, r=right)
 
-        send(panel, output)
+        send(output)
 
 
 if __name__ == '__main__':
@@ -138,11 +152,12 @@ if __name__ == '__main__':
 
     # for reload config
     signal(SIGUSR1, load_config)
+    signal(SIGHUP,  restart_panel)
 
     load_config()
-    panel = start_panel()
+    start_panel()
 
     streams.append(subprocess.Popen(['xtitle', '-sf', 'T%s\n'], stdout=subprocess.PIPE).stdout)
     streams.append(subprocess.Popen(['bspc', 'subscribe', 'report'], stdout=subprocess.PIPE).stdout)
 
-    handler(panel)
+    handler()

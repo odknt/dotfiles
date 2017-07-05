@@ -1,5 +1,4 @@
 [general]
-fifo=/tmp/panel-fifo-${DISPLAY:-:0}
 wm_name=bspwm_panel
 height=30
 
