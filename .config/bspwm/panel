@@ -71,7 +71,7 @@ def parse_monitor(line):
             else:
                 name = ' %s ' % s[1:]
             target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)])
-            wm += '%{{O3}}%{{A:bspc desktop -f {0}:}}{1}%{{A}}%{{O3}}'.format(target[dnum], name)
+            wm += '%{{O3}}%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
             dnum += 1
 
         elif s[0] in 'LTG':
