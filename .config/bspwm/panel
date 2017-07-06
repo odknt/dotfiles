@@ -20,6 +20,7 @@ pipe_r, pipe_w = os.pipe()
 panel          = None
 shell          = None
 config         = os.path.dirname(os.path.realpath(__file__))+'/config.ini'
+defpadding     = 0
 
 
 def load_config(sig = None, stack = None):
@@ -41,9 +42,12 @@ def start_panel():
     panel = subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r, stdout=subprocess.PIPE)
     shell = subprocess.Popen('/bin/sh', stdin=panel.stdout)
 
+    subprocess.Popen(['bspc', 'config', 'top_padding', conf['general']['height']])
+
 
 def exit(sig, stack):
     exit_panel()
+    subprocess.Popen(['bspc', 'config', 'top_padding', defpadding])
     sys.exit()
 
 
@@ -148,7 +152,9 @@ def handler():
         send(output)
 
 
-if __name__ == '__main__':
+def init():
+    global defpadding
+
     signal(SIGINT,   exit)
     signal(SIGTERM,  exit)
     signal(SIGQUIT,  exit)
@@ -157,6 +163,11 @@ if __name__ == '__main__':
     signal(SIGUSR1, load_config)
     signal(SIGHUP,  restart_panel)
 
+    defpadding = subprocess.check_output(['bspc', 'config', 'top_padding']).decode('utf-8')
+
+
+if __name__ == '__main__':
+    init()
     load_config()
     start_panel()
 
