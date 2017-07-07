@@ -5,15 +5,15 @@
 sylpheed
 
 # terminal emulator
-alt + shift + Return
+super + Return
     urxvtc
 
 # program launcher
-alt + d
+super + space
     dmenu_run -fn 'monospace:size=10' -h 25 -w 500 -y 30 -o 0.9 -l 10
 
 # make sxhkd reload its configuration files:
-alt + q
+super + Escape
     pkill -USR1 -x sxhkd
 
 #
@@ -21,8 +21,8 @@ alt + q
 #
 
 # quit bspwm normally
-alt + shift + q
-    pkill -kill panel; bspc quit
+super + shift + q
+    bspc quit
 
 # close and kill
 super + {_,shift + }w
@@ -57,15 +57,15 @@ super + ctrl + {x,y,z}
 #
 
 # focus the node in the given direction
-alt + {_,shift + }{h,j,k,l}
+super + {_,shift + }{h,j,k,l}
     bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-alt + {p,b,comma,period}
+super + {p,b,comma,period}
     bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node
-alt + {_,shift + }c
+super + {_,shift + }c
     bspc node -f {next,prev}
 
 # focus the next/previous desktop
@@ -83,20 +83,12 @@ super + {o,i}
     bspc wm -h on
 
 # focus or send to the given desktop
-alt + {1-9,0}
-    ~/.config/sxhkd/scripts/focus D '{1-9,10}'
+super + {_,shift} + {1-9,0}
+    bspc {desktop -f,node -d} focused:^{1-9,10}
 
 # focus or send to the given monitor
-super + {1-9,0}
-    ~/.config/sxhkd/scripts/focus M '{1-9,10}'
-
-# move to desktop
-alt + shift + {1-9,0}
-    ~/.config/sxhkd/scripts/move D '{1-9,10}'
-
-# move to monitor
-super + shift + {1-9,0}
-    ~/.config/sxhkd/scripts/move M '{1-9,10}'
+alt + {_,shift} + {1-9,0}
+    bspc {monitor -f,node -m} ^{1-9,10}
 
 #
 # preselect
@@ -123,15 +115,15 @@ super + ctrl + shift + space
 #
 
 # expand a window by moving one of its side outward
-ctrl + alt + {h,j,k,l}
+super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
-ctrl + alt + shift + {h,j,k,l}
+super + alt + shift + {h,j,k,l}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
-super + {h,j,k,l}
+super + shift + {h,j,k,l}
     bspc node -v {-20 0,0 20,0 -20,20 0}
 
 #
