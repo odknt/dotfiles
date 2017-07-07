@@ -23,6 +23,7 @@ bspc config ignore_ewmh_focus       true
 bspc config auto_cancel             true
 bspc config auto_alternate          true
 bspc config pointer_follows_monitor true
+bspc config pointer_modifier        mod4
 
 #
 # Colors
