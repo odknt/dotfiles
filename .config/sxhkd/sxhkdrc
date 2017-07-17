@@ -140,6 +140,18 @@ super + mod5 + l
     physlock
 
 #
+# mouse emulation
+#
+mod5 + {Up,Down}
+    xdotool mousemove_relative -- 0 {-10,10}
+
+mod5 + {Left,Right}
+    xdotool mousemove_relative -- {-10,10} 0
+
+mod5 + Return
+    xdotool mousedown -- 1 && xdotool mouseup -- 1
+
+#
 # special keys
 #
 @XF86AudioMute
