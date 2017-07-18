@@ -30,7 +30,7 @@
 
     max_icon_size = 32
     icon_position = left
-    icon_folders  = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_folders  = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/:/usr/share/icons/Adwaita/16x16/status/
 
     always_run_script = true
 
