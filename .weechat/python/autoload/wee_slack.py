@@ -1245,6 +1245,7 @@ class SlackChannel(object):
                 pass
 
         self.update_nicklist()
+        w.hook_signal_send("logger_backlog", w.WEECHAT_HOOK_SIGNAL_POINTER, self.channel_buffer)
         # dbg("exception no unread count")
         # if self.unread_count != 0 and not self.muted:
         #    w.buffer_set(self.channel_buffer, "hotlist", "1")
@@ -1370,7 +1371,6 @@ class SlackChannel(object):
             # else:
             #     self.eventrouter.receive_slow(s)
 
-            w.hook_signal_send("logger_backlog", w.WEECHAT_HOOK_SIGNAL_POINTER, self.channel_buffer)
             self.got_history = True
 
     def send_add_reaction(self, msg_number, reaction):
