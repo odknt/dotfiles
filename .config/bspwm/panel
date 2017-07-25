@@ -15,7 +15,7 @@ from signal import signal, SIGINT, SIGTERM, SIGUSR1, SIGQUIT, SIGHUP
 
 conf           = configparser.SafeConfigParser()
 streams        = []
-panel_cmd      = '/bin/lemonbar -u 3 -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s'
+panel_cmd      = '/bin/lemonbar -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s -o %s'
 pipe_r, pipe_w = os.pipe()
 panel          = None
 shell          = None
@@ -37,7 +37,7 @@ def start_panel():
 
     cmd = panel_cmd % (conf['general']['wm_name'], conf['general']['height'],
                        conf['font']['global'], conf['font']['icons'],
-                       conf['color']['default_fg'], conf['color']['default_bg'])
+                       conf['color']['default_fg'], conf['color']['default_bg'], conf['general']['vertical_offset'])
 
     panel = subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r, stdout=subprocess.PIPE)
     shell = subprocess.Popen('/bin/sh', stdin=panel.stdout)
@@ -94,7 +94,7 @@ def parse_monitor(line):
         elif s[0] in 'fFoOuU':
             fg = conf['color'][s[0]+'_fg']
             bg = conf['color'][s[0]+'_bg']
-            name = '%{{B{0}}}%{{U{1}}}%{{+u}} {2} %{{-u}}%{{U-}}%{{B-}}'.format(bg, fg, s[1:])
+            name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, s[1:])
             target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
             wm += '%{{O3}}%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
             dnum += 1
@@ -130,11 +130,11 @@ def handler():
                 wm = parse_monitor(line[1:-1])
 
         # date
-        date = datetime.now().strftime('   %x (%a)  ')
+        date = datetime.now().strftime('  %a %h %d')
         # time
         sys_prefix = '%{{B{0}}}%{{F{1}}}'.format(conf['color']['sys_bg'], conf['color']['sys_fg'])
         sys_suffix = '%{F-}%{B-}'
-        time = datetime.now().strftime(sys_prefix+'   %R  '+sys_suffix)
+        time = datetime.now().strftime(sys_prefix+' %R  '+sys_suffix)
         # volume
         mix = alsaaudio.Mixer('Master')
         volume = mix.getvolume()[0]

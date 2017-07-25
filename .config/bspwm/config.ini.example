@@ -1,45 +1,46 @@
 [general]
 wm_name=bspwm_panel
-height=30
+height=25
+vertical_offset=1
 
 [font]
-global=monospace:size=10
-icons=FontAwesome:size=11
+global=sans-serif:size=10:bold
+icons=FontAwesome:size=12:bold
 
 [color]
-default_bg=#ff101010
-default_fg=#ffded0b4
+default_fg=#ffd8d2e0
+default_bg=#cc101010
 
 m_fg=#dddcdf
-m_bg=#101010
+m_bg=#cc101010
 
 M_fg=#d1d0d8
-M_bg=#8c143b
+M_bg=#cc90143b
 
-f_fg=#101010
-f_bg=#101010
+f_fg=#505050
+f_bg=#cc101010
 
-F_fg=#101010
-F_bg=#303030
+F_fg=#505050
+F_bg=#cc101010
 
 o_fg=#836936
-o_bg=#101010
+o_bg=#cc101010
 
 O_fg=#d77c42
-O_bg=#303030
+O_bg=#cc101010
 
 u_fg=#f15d66
-u_bg=#101010
+u_bg=#cc101010
 
 U_fg=#501d1f
-U_bg=#d5443e
+U_bg=#ccd5443e
 
-state_fg=#89b09c
-state_bg=#303030
+state_fg=#d8d2e0
+state_bg=#cc101010
 
 title_fg=#d8d2e0
-title_bg=#101010
+title_bg=#cc101010
 
 sys_fg=#d8d2e0
-sys_bg=#4c444b
+sys_bg=#cc101010
 
