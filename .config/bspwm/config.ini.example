@@ -2,6 +2,7 @@
 wm_name=bspwm_panel
 height=25
 vertical_offset=1
+line_width=2
 
 [font]
 global=sans-serif:size=10:bold
@@ -23,10 +24,10 @@ f_bg=#cc101010
 F_fg=#505050
 F_bg=#cc101010
 
-o_fg=#836936
+o_fg=#939996
 o_bg=#cc101010
 
-O_fg=#d77c42
+O_fg=#ffd8d2e0
 O_bg=#cc101010
 
 u_fg=#f15d66

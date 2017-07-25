@@ -15,7 +15,7 @@ from signal import signal, SIGINT, SIGTERM, SIGUSR1, SIGQUIT, SIGHUP
 
 conf           = configparser.SafeConfigParser()
 streams        = []
-panel_cmd      = '/bin/lemonbar -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s -o %s'
+panel_cmd      = '/bin/lemonbar -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s -o %s -u %s'
 pipe_r, pipe_w = os.pipe()
 panel          = None
 shell          = None
@@ -37,7 +37,8 @@ def start_panel():
 
     cmd = panel_cmd % (conf['general']['wm_name'], conf['general']['height'],
                        conf['font']['global'], conf['font']['icons'],
-                       conf['color']['default_fg'], conf['color']['default_bg'], conf['general']['vertical_offset'])
+                       conf['color']['default_fg'], conf['color']['default_bg'],
+                       conf['general']['vertical_offset'], conf['general']['line_width'])
 
     panel = subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r, stdout=subprocess.PIPE)
     shell = subprocess.Popen('/bin/sh', stdin=panel.stdout)
@@ -84,19 +85,28 @@ def parse_monitor(line):
     for s in line.strip().split(':'):
         if s[0] in 'mM':
             if dnum > 1:
-                snum += 1
-            fg = conf['color'][s[0]+'_fg']
-            bg = conf['color'][s[0]+'_bg']
-            wm += '%{{S{0}}}%{{F{1}}}%{{B{2}}}%{{A:bspc monitor -m {3} -f {4}:}}   {4}  %{{A}}%{{B-}}%{{F-}}'.format(snum, fg, bg, snum+1, s[1:])
+              snum += 1
+            # fg = conf['color'][s[0]+'_fg']
+            # bg = conf['color'][s[0]+'_bg']
+            # wm += '%{{S{0}}}%{{F{1}}}%{{B{2}}}%{{A:bspc monitor -m {3} -f {4}:}}  {4}  %{{A}}%{{B-}}%{{F-}}'.format(snum, fg, bg, snum+1, s[1:])
+            wm += '%{{S{0}}} '.format(snum)
             # reset
             dnum = 0
 
-        elif s[0] in 'fFoOuU':
+        elif s[0] in 'fF':
             fg = conf['color'][s[0]+'_fg']
             bg = conf['color'][s[0]+'_bg']
-            name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, s[1:])
+            name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
             target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
-            wm += '%{{O3}}%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
+            wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
+            dnum += 1
+
+        elif s[0] in 'oOuU':
+            fg = conf['color'][s[0]+'_fg']
+            bg = conf['color'][s[0]+'_bg']
+            name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
+            target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
+            wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name, fg)
             dnum += 1
 
         elif s[0] in 'LTG':
