@@ -135,7 +135,7 @@ def handler():
         for stream in rstreams:
             line = stream.readline().decode('utf-8')
             if line.startswith('T'):
-                title  = "%s" % line[1:-1]
+                title = ("%s" % line[1:-1]).replace('%', '%%')
             elif line.startswith('W'):
                 wm = parse_monitor(line[1:-1])
 
