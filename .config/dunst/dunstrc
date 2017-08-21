@@ -61,6 +61,6 @@
     foreground = "#EDDEC9"
     timeout = 0
 
-[say]
-    summary = "*"
-    script  = "say"
+# [say]
+#     summary = "*"
+#     script  = "say"
