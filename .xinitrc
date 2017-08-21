@@ -42,8 +42,8 @@ export XDG_CONFIG_HOME=$HOME/.config
 # IME
 export GTK_IM_MODULE='uim'
 export QT_IM_MODULE='uim'
-export XMODIFIERS='@im=uim'
 uim-xim &
+export XMODIFIERS='@im=uim'
 
 # Keyboard
 setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps
@@ -51,7 +51,7 @@ xset r rate 200 30
 numlockx on
 
 # Default browser
-export BROWSER='chromium'
+export BROWSER='firefox'
 
 xrdb -remove
 xrdb -merge $HOME/.Xdefaults
