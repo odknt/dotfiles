@@ -152,10 +152,13 @@ def handler():
             volume = '   off'
         else:
             volume = '   {0}%'.format(volume)
+        # music
+        music, _ = subprocess.Popen(['mpc', 'current'],
+                                    stdout=subprocess.PIPE).communicate()
 
         left   = wm
         center = get_output_per_monitor(title)
-        right  = get_output_per_monitor(volume + date + time)
+        right  = get_output_per_monitor(music.decode('utf-8').strip() + volume + date + time)
 
         output = '%{{l}}{l}%{{c}}{c}%{{r}}{r}\n'.format(l=left, c=center, r=right)
 

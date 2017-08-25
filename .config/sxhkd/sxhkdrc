@@ -154,6 +154,8 @@ mod5 + Return
 #
 # special keys
 #
+{@XF86AudioPlay,@XF86AudioStop,@XF86AudioPrev,@XF86AudioNext}
+    mpc {toggle,stop,prev,next}
 @XF86AudioMute
     amixer set Master toggle
 @XF86AudioRaiseVolume
