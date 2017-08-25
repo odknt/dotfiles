@@ -64,6 +64,7 @@ compton &
 
 # terminal emulator for scratchpad
 urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd
+sleep 0.1
 bspc query -N -n .hidden > "/tmp/scratchid"
 
 # panel
