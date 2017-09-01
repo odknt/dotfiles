@@ -8,8 +8,8 @@ XTerm*cjkWidth:                         true
 XTerm*saveLine:                         2000
 XTerm*allowBoldFonts:                   false
 XTerm*charClass:                        33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
-XTerm*faceName:                         sans-serif:size=9
-XTerm*faceNameDoublesize:               sans-serif:size=9
+XTerm*faceName:                         monospace:size=9
+XTerm*faceNameDoublesize:               monospace:size=9
 
 !-----------------------------------------------------------
 ! URxvt
