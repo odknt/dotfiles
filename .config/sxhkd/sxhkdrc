@@ -130,8 +130,8 @@ super + {Left,Down,Up,Right}
 # scratchpad
 #
 super + x
-    id=$(cat "/tmp/scratchid"); \
-    bspc node $id --flag hidden;bspc node -f $id
+    id=$(cat "/tmp/scratchid$DISPLAY"); \
+    bspc node $id -g hidden; bspc node -f $id
 
 #
 # screen lock
