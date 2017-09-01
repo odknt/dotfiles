@@ -63,9 +63,7 @@ urxvtd &
 compton &
 
 # terminal emulator for scratchpad
-urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd
-sleep 0.1
-bspc query -N -n .hidden > "/tmp/scratchid"
+urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd -e sh -c "bspc query -N -n > /tmp/scratchid${DISPLAY:-} && zsh"
 
 # panel
 ~/.config/bspwm/panel &
