@@ -45,6 +45,8 @@ bspc rule -a Sxiv state=floating
 bspc rule -a Nitrogen state=floating
 bspc rule -a 'Firefox:*' state=floating
 bspc rule -a Firefox:Navigator state=tiled
+bspc rule -a 'Firefox-nightly:*' state=floating
+bspc rule -a Firefox-nightly:Navigator state=tiled
 bspc rule -a xfreerdp border=off
 bspc rule -a Ninix_main.rb manage=off
 bspc rule -a Wine:Steam.exe border=off
@@ -62,8 +64,8 @@ urxvtd &
 # compositor
 compton &
 
-# terminal emulator for scratchpad
-urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd -e sh -c "bspc query -N -n > /tmp/scratchid${DISPLAY:-} && zsh"
-
 # panel
 ~/.config/bspwm/panel &
+
+# terminal emulator for scratchpad
+urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd -e sh -c "bspc query -N -n .hidden > /tmp/scratchid${DISPLAY:-} && zsh" &
