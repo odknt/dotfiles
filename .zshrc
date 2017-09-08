@@ -19,17 +19,27 @@ setopt nohup
 setopt nocheckjobs
 setopt PROMPT_SUBST
 setopt inc_append_history
-setopt hist_ignore_dups
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
 
 bindkey -e
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
+zshaddhistory() {
+  local line=${1%%$'\n'}
+  local cmd=${line%% *}
+  [[ ${#line} -ge 5
+    && ! ${cmd} =~ '(ggr|torify|w3m)'
+  ]]
+}
+
 __git_files() { _files }
 
 if [[ -d /usr/share/fzf ]]; then
-    . /usr/share/fzf/completion.zsh
-    . /usr/share/fzf/key-bindings.zsh
+  . /usr/share/fzf/completion.zsh
+  . /usr/share/fzf/key-bindings.zsh
 fi
 
 precmd() {
