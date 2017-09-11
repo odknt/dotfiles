@@ -1,5 +1,5 @@
 ! "Enabled modi" Set from: Default
-! rofi.modi:                           window,run,ssh
+rofi.modi:                           run,drun,ssh
 ! "Window width" Set from: Default
 ! rofi.width:                          50
 ! "Number of lines" Set from: Default
@@ -51,7 +51,7 @@ rofi.disable-history:                true
 ! "Cycle through the results list" Set from: Default
 ! rofi.cycle:                          true
 ! "Enable sidebar-mode" Set from: Default
-! rofi.sidebar-mode:                   false
+rofi.sidebar-mode:                   true
 ! "Row height (in chars)" Set from: Default
 ! rofi.eh:                             1
 ! "Enable auto select mode" Set from: Default
