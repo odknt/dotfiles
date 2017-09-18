@@ -1,187 +1,205 @@
-#!/usr/bin/env python3
-# coding: utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import alsaaudio
-import configparser
+import codecs
 import os
 import select
 import sys
 import subprocess
-import threading
 
 from datetime import datetime
 from signal import signal, SIGINT, SIGTERM, SIGUSR1, SIGQUIT, SIGHUP
 
-
-conf           = configparser.SafeConfigParser()
-streams        = []
-panel_cmd      = '/bin/lemonbar -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s -o %s -u %s'
-pipe_r, pipe_w = os.pipe()
-panel          = None
-shell          = None
-config         = os.path.dirname(os.path.realpath(__file__))+'/config.ini'
-defpadding     = 0
+try:
+    import configparser
+except:
+    import ConfigParser as configparser
 
 
-def load_config(sig = None, stack = None):
-    conf.optionxform = str
-    conf.read(config)
-    if 'general' not in conf:
-        sys.exit(1)
+CONFIG = os.path.dirname(os.path.realpath(__file__))+'/config.ini'
 
 
-def start_panel():
-    global panel, shell
-    if 'panel_cmd' in conf['general']:
-        sys.exit(-1)
-
-    cmd = panel_cmd % (conf['general']['wm_name'], conf['general']['height'],
-                       conf['font']['global'], conf['font']['icons'],
-                       conf['color']['default_fg'], conf['color']['default_bg'],
-                       conf['general']['vertical_offset'], conf['general']['line_width'])
-
-    panel = subprocess.Popen(cmd.strip().split(' '), stdin=pipe_r, stdout=subprocess.PIPE)
-    shell = subprocess.Popen('/bin/sh', stdin=panel.stdout)
-
-    subprocess.Popen(['bspc', 'config', 'top_padding', conf['general']['height']])
+def handle_utf8(data):
+    """ unicode handling
+    """
+    if sys.version_info > (3, 0):
+        return data.encode('utf-8')
+    else:
+        return data
 
 
-def exit(sig, stack):
-    exit_panel()
-    subprocess.Popen(['bspc', 'config', 'top_padding', defpadding])
-    sys.exit()
+class Panel:
+    """ Panel class
+    """
+
+    def __init__(self):
+        """ Initialize
+        """
+        self.conf = configparser.SafeConfigParser()
+        self.cmd =  '/bin/lemonbar -a 32 -n %s -g x%s -f %s -f %s -F %s -B %s -o %s -u %s'
+        self.streams = []
+        self.p_panel = None
+        self.p_shell = None
+        self.defpadding = 0
+        self.pipe_r, self.pipe_w = os.pipe()
+
+        signal(SIGINT,   self.exit)
+        signal(SIGTERM,  self.exit)
+        signal(SIGQUIT,  self.exit)
+
+        # for reload config
+        signal(SIGUSR1, self.load_config)
+        signal(SIGHUP,  self.restart_panel)
+
+        self.defpadding = subprocess.check_output(['bspc', 'config', 'top_padding']).decode('utf-8')
 
 
-def exit_panel():
-    global panel, shell
-    if shell is not None:
-        shell.kill()
-        shell = None
-
-    if panel is not None:
-        panel.kill()
-        panel = None
-
-
-def restart_panel(sig, stack):
-    exit_panel()
-
-    load_config()
-    start_panel()
+    def load_config(self, sig = None, stack = None):
+        """ Load configuration from a file
+        """
+        self.conf.optionxform = str
+        try:
+            self.conf.read(CONFIG)
+        except configparser.Error as e:
+            sys.stderr.write('Not found: %s' % CONFIG)
+            sys.exit(-1)
 
 
-def send(info):
-    global panel
-    if panel is None:
-        return
+    def start_panel(self):
+        self.load_config()
+        if self.conf.has_option('general', 'panel_cmd') is None:
+            sys.exit(-1)
 
-    os.write(pipe_w, info.encode('utf-8'))
+        panel_cmd = self.cmd % (self.conf.get('general', 'wm_name'), self.conf.get('general', 'height'),
+                           self.conf.get('font', 'global'), self.conf.get('font', 'icons'),
+                           self.conf.get('color', 'default_fg'), self.conf.get('color', 'default_bg'),
+                           self.conf.get('general', 'vertical_offset'), self.conf.get('general', 'line_width'))
 
+        self.panel = subprocess.Popen(panel_cmd.strip().split(' '), stdin=self.pipe_r, stdout=subprocess.PIPE)
+        self.shell = subprocess.Popen('/bin/sh', stdin=self.panel.stdout)
+        os.close(self.pipe_r)
+        self.panel.stdout.close()
 
-def parse_monitor(line):
-    wm = ''
-    snum = 0
-    dnum = 0
-    for s in line.strip().split(':'):
-        if s[0] in 'mM':
-            if dnum > 1:
-              snum += 1
-            # fg = conf['color'][s[0]+'_fg']
-            # bg = conf['color'][s[0]+'_bg']
-            # wm += '%{{S{0}}}%{{F{1}}}%{{B{2}}}%{{A:bspc monitor -m {3} -f {4}:}}  {4}  %{{A}}%{{B-}}%{{F-}}'.format(snum, fg, bg, snum+1, s[1:])
-            wm += '%{{S{0}}} '.format(snum)
-            # reset
-            dnum = 0
-
-        elif s[0] in 'fF':
-            fg = conf['color'][s[0]+'_fg']
-            bg = conf['color'][s[0]+'_bg']
-            name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
-            target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
-            wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
-            dnum += 1
-
-        elif s[0] in 'oOuU':
-            fg = conf['color'][s[0]+'_fg']
-            bg = conf['color'][s[0]+'_bg']
-            name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
-            target = subprocess.check_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
-            wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name, fg)
-            dnum += 1
-
-        elif s[0] in 'LTG':
-            wm += ''
-    return wm
+        subprocess.Popen(['bspc', 'config', 'top_padding', self.conf.get('general', 'height')])
 
 
-def get_output_per_monitor(str):
-    lines = subprocess.check_output(['bspc', 'query', '-M'])
-
-    output = ''
-    for i in range(len(lines.splitlines())):
-        output += '%{{S{0}}}{1}'.format(i, str)
-
-    return output
+    def exit(self, sig, stack):
+        self.exit_panel()
+        subprocess.Popen(['bspc', 'config', 'top_padding', self.defpadding])
+        sys.exit()
 
 
-def handler():
-    if panel is None:
-        return
+    def exit_panel(self):
+        if self.shell is not None:
+            self.shell.kill()
+            self.shell = None
 
-    date, time, title, wm  = ('', '', '', '')
-
-    while True:
-        rstreams, _, _ = select.select(streams, [], [], 1.0)
-        for stream in rstreams:
-            line = stream.readline().decode('utf-8')
-            if line.startswith('T'):
-                title = ("%s" % line[1:-1]).replace('%', '%%')
-            elif line.startswith('W'):
-                wm = parse_monitor(line[1:-1])
-
-        # date
-        date = datetime.now().strftime('  %a %h %d')
-        # time
-        sys_prefix = '%{{B{0}}}%{{F{1}}}'.format(conf['color']['sys_bg'], conf['color']['sys_fg'])
-        sys_suffix = '%{F-}%{B-}'
-        time = datetime.now().strftime(sys_prefix+' %R  '+sys_suffix)
-        # volume
-        mix = alsaaudio.Mixer('Master')
-        volume = mix.getvolume()[0]
-        if 1 in mix.getmute():
-            volume = '   off'
-        else:
-            volume = '   {0}%'.format(volume)
-
-        left   = wm
-        center = get_output_per_monitor(title)
-        right  = get_output_per_monitor(volume + date + time)
-
-        output = '%{{l}}{l}%{{c}}{c}%{{r}}{r}\n'.format(l=left, c=center, r=right)
-
-        send(output)
+        if self.panel is not None:
+            self.panel.kill()
+            self.panel = None
 
 
-def init():
-    global defpadding
+    def restart_panel(self, sig, stack):
+        self.exit_panel()
+        self.load_config()
+        self.start_panel()
 
-    signal(SIGINT,   exit)
-    signal(SIGTERM,  exit)
-    signal(SIGQUIT,  exit)
 
-    # for reload config
-    signal(SIGUSR1, load_config)
-    signal(SIGHUP,  restart_panel)
+    def send(self, info):
+        if self.panel is None:
+            return
+        os.write(self.pipe_w, handle_utf8(info))
 
-    defpadding = subprocess.check_output(['bspc', 'config', 'top_padding']).decode('utf-8')
+
+    def parse_monitor(self, line):
+        wm = ''
+        snum = 0
+        dnum = 0
+        for s in line.strip().split(':'):
+            if s[0] in 'mM':
+                if dnum > 1:
+                  snum += 1
+                wm += '%{{S{0}}} '.format(snum)
+                dnum = 0
+
+            elif s[0] in 'fF':
+                fg = self.conf.get('color', s[0]+'_fg')
+                bg = self.conf.get('color', s[0]+'_bg')
+                name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
+                target = self.get_command_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
+                wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
+                dnum += 1
+
+            elif s[0] in 'oOuU':
+                fg = self.conf.get('color', s[0]+'_fg')
+                bg = self.conf.get('color', s[0]+'_bg')
+                name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
+                target = self.get_command_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
+                wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
+                dnum += 1
+        return wm
+
+
+    def get_command_output(self, cmds):
+        return subprocess.check_output(cmds)
+
+
+    def get_output_per_monitor(self, str):
+        lines = self.get_command_output(['bspc', 'query', '-M'])
+
+        output = ''
+        for i in range(len(lines.splitlines())):
+            output += '%{{S{0}}}{1}'.format(i, str)
+
+        return output
+
+
+    def handler(self):
+        if self.panel is None:
+            return
+
+        date, time, title, wm  = ('', '', '', '')
+
+        while True:
+            rstreams, _, _ = select.select(self.streams, [], [], 1.0)
+            for stream in rstreams:
+                line = stream.readline().decode('utf-8')
+                if line.startswith('T'):
+                    title = ("%s" % line[1:-1]).replace('%', '%%')
+                elif line.startswith('W'):
+                    wm = self.parse_monitor(line[1:-1])
+
+            # date
+            date = datetime.now().strftime('  %a %h %d')
+            # time
+            sys_prefix = '%{{B{0}}}%{{F{1}}}'.format(self.conf.get('color', 'sys_bg'), self.conf.get('color', 'sys_fg'))
+            sys_suffix = '%{F-}%{B-}'
+            time = datetime.now().strftime(sys_prefix+' %R  '+sys_suffix)
+            # volume
+            mix = alsaaudio.Mixer('Master')
+            volume = mix.getvolume()[0]
+            if 1 in mix.getmute():
+                volume = '   off'
+            else:
+                volume = '   {0}%'.format(volume)
+
+            left   = wm
+            center = self.get_output_per_monitor(title)
+            right  = self.get_output_per_monitor(volume + date + time)
+
+            output = '%{{l}}{0}%{{c}}{1}%{{r}}{2}\n'.format(left, center, right)
+
+            self.send(output)
+
+
+def main():
+    panel = Panel()
+    panel.start_panel()
+    panel.streams.append(subprocess.Popen(['xtitle', '-sf', 'T%s\n'], stdout=subprocess.PIPE).stdout)
+    panel.streams.append(subprocess.Popen(['bspc', 'subscribe', 'report'], stdout=subprocess.PIPE).stdout)
+    panel.handler()
 
 
 if __name__ == '__main__':
-    init()
-    load_config()
-    start_panel()
-
-    streams.append(subprocess.Popen(['xtitle', '-sf', 'T%s\n'], stdout=subprocess.PIPE).stdout)
-    streams.append(subprocess.Popen(['bspc', 'subscribe', 'report'], stdout=subprocess.PIPE).stdout)
-
-    handler()
+    main()
