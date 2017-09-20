@@ -66,7 +66,10 @@ urxvtd &
 compton &
 
 # panel
-~/.config/bspwm/panel &
+# ~/.config/bspwm/panel &
+for mon in $(bspc query -M --names); do
+  MONITOR="${mon}" polybar -q bspwm &
+done
 
 # terminal emulator for scratchpad
 urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd -e sh -c "bspc query -N -n .hidden > /tmp/scratchid${DISPLAY:-} && zsh" &
