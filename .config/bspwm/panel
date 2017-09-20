@@ -120,23 +120,23 @@ class Panel:
             if s[0] in 'mM':
                 if dnum > 1:
                   snum += 1
-                wm += '%{{S{0}}} '.format(snum)
+                wm = '{0}%{{S{1}}} '.format(wm, snum)
                 dnum = 0
 
             elif s[0] in 'fF':
-                fg = self.conf.get('color', s[0]+'_fg')
-                bg = self.conf.get('color', s[0]+'_bg')
+                fg = self.conf.get('color', '{}_fg'.format(s[0]))
+                bg = self.conf.get('color', '{}_bg'.format(s[0]))
                 name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
                 target = self.get_command_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
-                wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
+                wm = '{0}%{{A:bspc desktop -f {1}:}}{2}%{{A}}'.format(wm, target[dnum], name)
                 dnum += 1
 
             elif s[0] in 'oOuU':
-                fg = self.conf.get('color', s[0]+'_fg')
-                bg = self.conf.get('color', s[0]+'_bg')
+                fg = self.conf.get('color', '{}_fg'.format(s[0]))
+                bg = self.conf.get('color', '{}_bg'.format(s[0]))
                 name = '%{{B{0}}}%{{F{1}}} {2} %{{F-}}%{{B-}}'.format(bg, fg, "")
                 target = self.get_command_output(['bspc', 'query', '-D', '-m', '^{0}'.format(snum+1)]).decode('utf-8').splitlines()
-                wm += '%{{A:bspc desktop -f {0}:}}{1}%{{A}}'.format(target[dnum], name)
+                wm = '{0}%{{A:bspc desktop -f {1}:}}{2}%{{A}}'.format(wm, target[dnum], name)
                 dnum += 1
         return wm
 
@@ -150,7 +150,7 @@ class Panel:
 
         output = ''
         for i in range(len(lines.splitlines())):
-            output += '%{{S{0}}}{1}'.format(i, str)
+            output = '{0}%{{S{1}}}{2}'.format(output, i, str)
 
         return output
 
@@ -160,13 +160,14 @@ class Panel:
             return
 
         date, time, title, wm  = ('', '', '', '')
+        mix = alsaaudio.Mixer('Master')
 
         while True:
             rstreams, _, _ = select.select(self.streams, [], [], 1.0)
             for stream in rstreams:
                 line = stream.readline().decode('utf-8')
                 if line.startswith('T'):
-                    title = ("%s" % line[1:-1]).replace('%', '%%')
+                    title = "{}".format(line[1:-1]).replace('%', '%%')
                 elif line.startswith('W'):
                     wm = self.parse_monitor(line[1:-1])
 
@@ -175,9 +176,8 @@ class Panel:
             # time
             sys_prefix = '%{{B{0}}}%{{F{1}}}'.format(self.conf.get('color', 'sys_bg'), self.conf.get('color', 'sys_fg'))
             sys_suffix = '%{F-}%{B-}'
-            time = datetime.now().strftime(sys_prefix+' %R  '+sys_suffix)
+            time = datetime.now().strftime('{} %R  {}'.format(sys_prefix, sys_suffix))
             # volume
-            mix = alsaaudio.Mixer('Master')
             volume = mix.getvolume()[0]
             if 1 in mix.getmute():
                 volume = '   off'
@@ -186,7 +186,7 @@ class Panel:
 
             left   = wm
             center = self.get_output_per_monitor(title)
-            right  = self.get_output_per_monitor(volume + date + time)
+            right  = self.get_output_per_monitor(''.join([volume, date, time]))
 
             output = '%{{l}}{0}%{{c}}{1}%{{r}}{2}\n'.format(left, center, right)
 
