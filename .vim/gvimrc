@@ -4,8 +4,8 @@ if has('gui_mac') || has('gui_macvim')
 endif
 
 set guioptions=
-set guifont=monospace\ 9
-set guifontwide=monospace\ 9
+set guifont=monospace\ 9,FontAwesome\ 9
+set guifontwide=monospace\ 9,FontAwesome\ 9
 set novb
 set linespace=0
 
