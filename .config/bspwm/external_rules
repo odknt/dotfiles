@@ -1,0 +1,12 @@
+#!/bin/sh
+# vim: sw=2 ts=2 sts=2 et
+
+if [ -z "${1:-}" ]; then
+  exit
+fi
+
+TITLE="$(xdotool getwindowname "${1}")"
+
+case "${TITLE}" in
+  'scratchpad') echo 'state=floating sticky=on'
+esac
