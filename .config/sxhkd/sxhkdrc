@@ -6,7 +6,7 @@ sylpheed
 
 # terminal emulator
 super + Return
-    urxvtc
+    "${TERMINAL}"
 
 # program launcher
 super + space

@@ -72,6 +72,9 @@ if [ -f "$HOME/.env" ]; then
   . "$HOME/.env"
 fi
 
+# Default Terminal
+export TERMINAL="${TERMINAL:-urxvtc}"
+
 # Default WM
 session=${1:-i3}
 case $session in

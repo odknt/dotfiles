@@ -60,9 +60,6 @@ bspc rule -a URxvt:scratchpad sticky=on state=floating hidden=on
 # background image
 nitrogen --restore
 
-# urxvtd
-urxvtd &
-
 # compositor
 compton &
 
@@ -73,4 +70,4 @@ for mon in $(bspc query -M --names); do
 done
 
 # terminal emulator for scratchpad
-urxvtc -name scratchpad -depth 32 -bg rgba:1000/1000/1000/dddd -e sh -c "bspc query -N -n .hidden > /tmp/scratchid${DISPLAY:-} && zsh" &
+lilyterm -T scratchpad
