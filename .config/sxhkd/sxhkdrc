@@ -133,6 +133,9 @@ super + x
     id=$(cat "/tmp/scratchid$DISPLAY"); \
     bspc node $id -g hidden; bspc node -f $id
 
+super + mod5 + x
+    bspc query -N -n .focused > "/tmp/scratchid$DISPLAY"
+
 #
 # screen lock
 #

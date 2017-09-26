@@ -24,6 +24,7 @@ bspc config auto_cancel             true
 bspc config auto_alternate          true
 bspc config pointer_follows_monitor true
 bspc config pointer_modifier        mod4
+bspc config external_rules_command  ~/.config/bspwm/external_rules
 
 #
 # Colors
@@ -64,7 +65,6 @@ nitrogen --restore
 compton &
 
 # panel
-# ~/.config/bspwm/panel &
 for mon in $(bspc query -M --names); do
   MONITOR="${mon}" polybar -q bspwm &
 done
