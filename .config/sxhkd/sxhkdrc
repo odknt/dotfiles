@@ -134,7 +134,7 @@ super + x
     bspc node $id -g hidden; bspc node -f $id
 
 super + mod5 + x
-    bspc query -N -n .focused > "/tmp/scratchid$DISPLAY"
+    bspc query -N -n .focused.local > "/tmp/scratchid$DISPLAY"
 
 #
 # screen lock
