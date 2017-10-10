@@ -19,6 +19,8 @@ set thesaurus=/usr/share/mythes/th_en_US_v2.dat
 set emoji ambiwidth=double
 set switchbuf=usetab,newtab
 set formatoptions=q
+set cmdheight=1 laststatus=0
+set showmode modeline modelines=10
 
 hi SpecialKey ctermbg=none ctermfg=12
 if &encoding ==? 'utf-8'
@@ -35,16 +37,13 @@ if executable('rg')
 endif
 command! -nargs=+ Grep execute 'silent grep! <args>' | copen 20
 
-function! s:mkdir_if_doesnt_exists(dir)
+function! s:mkdir_if_not_exists(dir)
   if !isdirectory(expand(a:dir))
     call mkdir(expand(a:dir), 'p')
   endif
 endfunction
-call s:mkdir_if_doesnt_exists('~/.cache/vim/swap')
+call s:mkdir_if_not_exists('~/.cache/vim/swap')
 set directory=~/.cache/vim/swap
-
-set cmdheight=1 laststatus=0
-set showmode modeline modelines=10
 
 set linebreak showbreak=> breakat=\ \ ;:,!?
 if exists('+breakindent')
@@ -55,7 +54,7 @@ endif
 
 if has('unnamedplus')
     set clipboard^=unnamed,unnamedplus
-else
+elseif has('clipboard')
     set clipboard^=unnamed
 endif
 
@@ -64,29 +63,6 @@ if $TERM =~? 'screen*'
   set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
-let g:mapleader="\<Space>"
-nnoremap <silent> <leader><C-l> :<C-u>Unite gtags/file<CR>
-nnoremap <silent> <leader><C-g> :<C-u>Unite gtags/grep<CR>
-nnoremap <silent> <leader><C-]> :<C-u>Unite gtags/def<CR>
-vnoremap <silent> <leader><C-]> :<C-u>Unite gtags/def<CR>
-nnoremap <silent> <leader><C-k> :<C-u>Unite gtags/ref<CR>
-vnoremap <silent> <leader><C-k> :<C-u>Unite gtags/ref<CR>
-nnoremap <silent> <leader>/ :<C-u>Unite gtags/completion<CR>
-nnoremap <silent> <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
-
-augroup on_filetype
-  au!
-  au FileType c,java,php,go :packadd gen_tags.vim
-  au FileType c,java,php,go :packadd unite-gtags
-augroup END
-
-if has('vim_starting')
-  let s:repo_dir = substitute(system('git rev-parse --show-toplevel'), '\\', '/', 'g')
-  let s:repo_dir = substitute(s:repo_dir, '\n', '', 'g')
-  let s:tag_file = expand('~/.cache/tags_dir/') . substitute(s:repo_dir, '/', '', 'g'). '/prj_tags'
-  let &tags .= ',' . s:tag_file
 endif
 
 let @d = ':bp|bw! #'

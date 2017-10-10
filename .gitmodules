@@ -16,12 +16,6 @@
 [submodule ".vim/pack/default/start/vimproc.vim"]
 	path = .vim/pack/default/start/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
-[submodule ".vim/pack/default/opt/gen_tags.vim"]
-	path = .vim/pack/default/opt/gen_tags.vim
-	url = https://github.com/jsfaint/gen_tags.vim.git
-[submodule ".vim/pack/default/opt/unite-gtags"]
-	path = .vim/pack/default/opt/unite-gtags
-	url = https://github.com/hewes/unite-gtags.git
 [submodule ".config/nvim/pack/default/start/denite.nvim"]
 	path = .config/nvim/pack/default/start/denite.nvim
 	url = https://github.com/Shougo/denite.nvim
