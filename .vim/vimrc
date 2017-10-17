@@ -33,7 +33,7 @@ hi VertSplit ctermfg=black ctermbg=61
 
 if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
-  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepprg=rg\ --vimgrep\ --no-heading\ --glob\ '!tags'
 endif
 command! -nargs=+ Grep execute 'silent grep! <args>' | copen 20
 
