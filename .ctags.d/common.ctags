@@ -1,0 +1,6 @@
+--recurse=yes
+--append=no
+--sort=yes
+--exclude=*.js
+--php-kinds=cfdnit
+--java-kinds=cfimp
