@@ -50,7 +50,7 @@ bspc rule -a 'Firefox-nightly:*' state=floating
 bspc rule -a Firefox-nightly:Navigator state=tiled
 bspc rule -a xfreerdp border=off
 bspc rule -a Ninix_main.rb manage=off
-bspc rule -a Wine:Steam.exe border=off
+bspc rule -a steam.exe border=off
 bspc rule -a mpv state=floating
 bspc rule -a URxvt:tty-clock border=off state=floating rectangle=220x130+0+0
 bspc rule -a Pinentry state=floating
