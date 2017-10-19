@@ -73,4 +73,4 @@ if filereadable(expand('~/.vim/vimrc-local'))
   source ~/.vim/vimrc-local
 endif
 
-filetype plugin on
+filetype on
