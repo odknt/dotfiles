@@ -52,8 +52,11 @@ modules-right = filesystem xbacklight volume xkeyboard memory cpu battery temper
 
 tray-position = right
 tray-padding = 2
+tray-detached = false
+tray-offset-x = 0
+tray-offset-y = 0
 ;tray-transparent = true
-;tray-background = #0063ff
+tray-background = ${colors.background}
 
 wm-restack = bspwm
 ;wm-restack = i3
