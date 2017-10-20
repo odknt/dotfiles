@@ -53,9 +53,13 @@ else
 endif
 
 if has('unnamedplus')
-    set clipboard^=unnamed,unnamedplus
+  set clipboard^=unnamed,unnamedplus
+  augroup vimrc_clipboard
+    au!
+    au VimLeave * call system("xclip -sel c", getreg("+"))
+  augroup end
 elseif has('clipboard')
-    set clipboard^=unnamed
+  set clipboard^=unnamed
 endif
 
 "" for tmux
