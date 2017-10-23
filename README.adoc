@@ -8,70 +8,78 @@ My desktop environment on Arch Linux.
 | Window Manager | bspwm, xmonad
 | Editor         | vim
 | Input Method   | uim-skk
-| Terminal       | urxvt
+| Terminal       | lilyterm
 | GTK Theme      | Adwaita with Lúv icons
 |===
 
-
 == Install
+
+First, clone the repository as a home directory, then execute below steps.
 
 === Yaourt
 
-execute as `root` user.
-
-```sh
-cat <<'EOS'>> /etc/pacman.conf
+[source, sh]
+----
+cat <<'EOS' | sudo tee -a /etc/pacman.conf
 
 [archlinuxfr]
 SigLevel = Never
 Server = http://repo.archlinux.fr/$arch
 EOS
 
-pacman -Sy --noconfirm yaourt
-```
+sudo pacman -Sy --noconfirm yaourt
+----
 
 === Install dependencies
 
-```sh
+[source, sh]
+----
 ./init.sh install
-```
+----
 
 == vim
 
 Install and initialize submodules.
 
-```sh
+[source, sh]
+----
 git submodule update --init
 
 pushd ~/.vim/pack/default/start/cpsm
 ./install.sh
 popd
-```
+----
 
 == Pulseaudio with ALSA
 
-```sh
+[source, sh]
+----
 systemctl --user start pulseaudio
 systemctl --user enable pulseaudio
-```
+----
 
 == Start X
 
-```sh
+[source, sh]
+----
 startx ~/.xinitrc <WM | application>
-```
 
+# or
+
+xinit <WM | application>
+----
 
 == Performance settings
 
 === yaourt
 
-edit below options in `/etc/makepkg.conf`.
+Edit below options in `/etc/makepkg.conf`.
 
-```sh
+[source, conf]
+----
 MAKEFLAGS="-j8" # set number of CPU cores at least
 
 COMPRESSGZ=(pigz -c -f -n)
 COMPRESSBZ2=(pbzip2 -c -f)
 COMPRESSXZ=(xz -T O -c -z -)
-```
+----
