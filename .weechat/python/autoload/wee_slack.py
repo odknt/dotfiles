@@ -1278,6 +1278,7 @@ class SlackChannel(object):
                 w.buffer_set(self.channel_buffer, "localvar_set_server", self.team.preferred_name)
         # else:
         #    self.eventrouter.weechat_controller.register_buffer(self.channel_buffer, self)
+        self.get_history()
         self.update_nicklist()
 
         if "info" in SLACK_API_TRANSLATOR[self.type]:
@@ -1405,8 +1406,8 @@ class SlackChannel(object):
             # we have probably reconnected. flush the buffer
             if self.team.connected:
                 w.buffer_clear(self.channel_buffer)
-            w.hook_signal_send("logger_backlog", w.WEECHAT_HOOK_SIGNAL_POINTER, self.channel_buffer)
             self.got_history = True
+            w.hook_signal_send("logger_backlog", w.WEECHAT_HOOK_SIGNAL_POINTER, self.channel_buffer)
 
     def send_add_reaction(self, msg_number, reaction):
         self.send_change_reaction("reactions.add", msg_number, reaction)
