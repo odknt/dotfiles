@@ -153,21 +153,3 @@ mod5 + {Left,Right}
 
 mod5 + Return
     xdotool mousedown -- 1 && xdotool mouseup -- 1
-
-#
-# special keys
-#
-{@XF86AudioPlay,@XF86AudioStop,@XF86AudioPrev,@XF86AudioNext}
-    mpc {toggle,stop,prev,next}
-@XF86AudioMute
-    amixer set Master toggle
-@XF86AudioRaiseVolume
-    amixer set Master 5%+
-@XF86AudioLowerVolume
-    amixer set Master 5%-
-@XF86Search
-    dmenu_run -fn 'monospace:size=10' -h 25 -w 500 -y 24 -o 0.9 -l 10'
-@XF86HomePage
-    "${BROWSER}"
-@XF86Mail
-    sylpheed
