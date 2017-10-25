@@ -74,7 +74,7 @@ let @d = ':bp|bw! #'
 nnoremap <C-p> :FZFFiles<CR>
 command! FZFFiles call fzf#run({
   \ 'source': 'find * -type f | grep -Pv "((.git|.hg|.svn|node_modules|bower_components|vendors|vendor|target).+|.+\.(exe|so|dll|class|a|o|pyc|ejs))"',
-  \ 'sink' : 'e'
+  \ 'sink' : 'tabe'
   \ })
 
 if filereadable(expand('~/.vim/vimrc-local'))
