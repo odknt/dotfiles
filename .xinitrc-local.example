@@ -1,18 +1,16 @@
-#!/bin/bash
+#!/bin/sh
+
+# Default browser
+export BROWSER='firefox'
 
 # Override i3-sensible-terminal
 export TERMINAL=lilyterm
 export COLORTERM=lilyterm
 
-# Audio
-jack_control start
-sudo schedtool -R -p 20 "$(pidof jackdbus)"
-jack_control eps realtime true
-jack_control ds alsa
-jack_control dps device hw:0
-jack_control dps rate 48000
-jack_control dps nperiods 2
-jack_control dps periods 256
+# Keyboard
+setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps
+xset r rate 200 30
+numlockx on
 
 # Mouse Speed
 xinput set-prop 8 'libinput Accel Speed' -0.5
