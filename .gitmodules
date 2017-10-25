@@ -1,12 +1,6 @@
 [submodule ".vim/pack/default/start/PreserveNoEOL"]
 	path = .vim/pack/default/start/PreserveNoEOL
 	url = https://github.com/vim-scripts/PreserveNoEOL.git
-[submodule ".vim/pack/default/start/ctrlp.vim"]
-	path = .vim/pack/default/start/ctrlp.vim
-	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule ".vim/pack/default/start/cpsm"]
-	path = .vim/pack/default/start/cpsm
-	url = https://github.com/nixprime/cpsm.git
 [submodule ".vim/pack/default/start/editorconfig-vim"]
 	path = .vim/pack/default/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git

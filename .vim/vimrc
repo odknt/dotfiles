@@ -70,8 +70,12 @@ if $TERM =~? 'screen*'
 endif
 
 let @d = ':bp|bw! #'
-let g:ctrlp_match_func = { 'match': 'cpsm#CtrlPMatch' }
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/](\.git|\.hg|\.svn|\.cache|__pycache__|node_modules|bower_components|vendors|vendor|target)', 'file': '\v\.(exe|so|dll|class|a|o|pyc)$' }
+
+nnoremap <C-p> :FZFFiles<CR>
+command! FZFFiles call fzf#run({
+  \ 'source': 'find * -type f | grep -Pv "((.git|.hg|.svn|node_modules|bower_components|vendors|vendor|target).+|.+\.(exe|so|dll|class|a|o|pyc|ejs))"',
+  \ 'sink' : 'e'
+  \ })
 
 if filereadable(expand('~/.vim/vimrc-local'))
   source ~/.vim/vimrc-local
