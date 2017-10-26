@@ -5,24 +5,23 @@ scriptencoding utf-8
 set fileencoding=utf-8 fileencodings=utf-8,sjis,enc-jp bomb binary nofixendofline
 filetype off
 filetype plugin indent off
-set smartindent autoindent
-set ruler nonumber regexpengine=1
-set nocompatible nostartofline nowritebackup notitle
+set autoindent expandtab
+set noruler nonumber regexpengine=1
+set regexpengine=1
+set nowritebackup notitle
 set noequalalways splitbelow splitright
 set lazyredraw ttyfast novisualbell t_ut= belloff=all
-set background=dark display=lastline textwidth=0
 set mouse=
-set completeopt=menuone complete=. pumheight=20
 set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
 set dictionary=/usr/share/dict/words
 set thesaurus=/usr/share/mythes/th_en_US_v2.dat
 set emoji ambiwidth=double
 set switchbuf=usetab,newtab
-set formatoptions=q
-set cmdheight=1 laststatus=0
 set showmode modeline modelines=10
+let &g:statusline=' %f%m%r%h%w%=%{&filetype} [%{&fileencoding}][%{&fileformat}] [%l/%L] '
 
 hi SpecialKey ctermbg=none ctermfg=12
+hi NonText ctermbg=none ctermfg=none
 if &encoding ==? 'utf-8'
   exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
   set list listchars=tab:˫\ ,trail:-,extends:»,precedes:«,nbsp:%
