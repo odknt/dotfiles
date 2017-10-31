@@ -52,7 +52,13 @@ __ps1_desk_name() {
   fi
 }
 
-export PROMPT='%B%(?..[%?] )%b$(__ps1_desk_name)%n@%U%m%u${vcs_info_msg_0_}>'
+__ps1_vim() {
+  if [[ -n ${VIMRUNTIME} ]]; then
+    echo -n "%F{red}(vim)%f "
+  fi
+}
+
+export PROMPT='%B%(?..[%?] )%b$(__ps1_vim)$(__ps1_desk_name)%n@%U%m%u${vcs_info_msg_0_}>'
 
 alias ls="ls -F --color"
 
