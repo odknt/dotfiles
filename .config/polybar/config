@@ -47,8 +47,8 @@ font-1 = NotoEmoji:size=10:antialias=true;1
 font-2 = FontAwesome:size=11:antialias=true;1
 
 modules-left = bspwm xwindow
-modules-center = mpd
-modules-right = filesystem volume xkeyboard memory cpu battery temperature date powermenu
+modules-center =
+modules-right = mpd filesystem volume xkeyboard memory cpu battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -157,7 +157,7 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song>    <icon-prev>  <toggle>  <icon-stop>  <icon-next>
 
 icon-prev = 
 icon-stop = 
