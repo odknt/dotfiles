@@ -72,7 +72,7 @@ let @d = ':bp|bw! #'
 
 nnoremap <C-p> :FZFFiles<CR>
 command! FZFFiles call fzf#run(fzf#wrap({
-  \ 'source': 'find * -type f | grep -Pv "((.git|.hg|.svn|node_modules|bower_components|vendors|vendor|target).+|.+\.(exe|so|dll|class|a|o|pyc|ejs))"',
+  \ 'source': 'find * -type f | grep -Pv "((.git|.hg|.svn|node_modules|bower_components|vendors|vendor|target).+|.+\.(exe|so|dll|class|a|o|pyc|ejs))$"',
   \ }))
 
 if filereadable(expand('~/.vim/vimrc-local'))
