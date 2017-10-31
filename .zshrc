@@ -9,7 +9,7 @@ zstyle ':completion:*'   list-colors        'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=
 
 # completion
 bashcompinit
-compinit -C
+compinit
 
 # prompt theme
 promptinit
