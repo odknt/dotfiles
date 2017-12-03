@@ -5,7 +5,7 @@ My desktop environment on Arch Linux.
 == GUI
 
 |===
-| Window Manager | bspwm, xmonad (unmainted)
+| Window Manager | bspwm, xmonad (no longer maintained)
 | Editor         | vim
 | Input Method   | uim-skk
 | Terminal       | mlterm
