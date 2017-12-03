@@ -68,6 +68,3 @@ compton &
 for mon in $(bspc query -M --names); do
   MONITOR="${mon}" polybar -q bspwm &
 done
-
-# terminal emulator for scratchpad
-lilyterm -T scratchpad
