@@ -1,11 +1,14 @@
 if has('gui_mac') || has('gui_macvim')
     set guifont=Menlo:h12
     set transparency=7
+elseif has('gui_win32')
+    set guifont=MS\ Gothic:h10
+else
+    set guifont=monospace\ 9,EmojiOneColor\ 9
+    set guifontwide=monospace\ 9,EmojiOneColor\ 9
 endif
 
 set guioptions=
-set guifont=monospace\ 9,FontAwesome\ 9
-set guifontwide=monospace\ 9,FontAwesome\ 9
 set novb
 set linespace=0
 
