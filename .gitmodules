@@ -4,12 +4,6 @@
 [submodule ".vim/pack/default/start/editorconfig-vim"]
 	path = .vim/pack/default/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule ".vim/pack/default/start/vimproc.vim"]
-	path = .vim/pack/default/start/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim.git
-[submodule ".config/nvim/pack/default/start/denite.nvim"]
-	path = .config/nvim/pack/default/start/denite.nvim
-	url = https://github.com/Shougo/denite.nvim
 [submodule ".config/nvim/pack/default/opt/nvim-go"]
 	path = .config/nvim/pack/default/opt/nvim-go
 	url = https://github.com/zchee/nvim-go
