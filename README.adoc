@@ -5,10 +5,10 @@ My desktop environment on Arch Linux.
 == GUI
 
 |===
-| Window Manager | bspwm, xmonad
+| Window Manager | bspwm, xmonad (unmainted)
 | Editor         | vim
 | Input Method   | uim-skk
-| Terminal       | lilyterm
+| Terminal       | mlterm
 | GTK Theme      | Adwaita with Lúv icons
 |===
 
@@ -44,10 +44,6 @@ Install and initialize submodules.
 [source, sh]
 ----
 git submodule update --init
-
-pushd ~/.vim/pack/default/start/cpsm
-./install.sh
-popd
 ----
 
 == Pulseaudio with ALSA
@@ -67,6 +63,13 @@ startx ~/.xinitrc <WM | application>
 # or
 
 xinit <WM | application>
+----
+
+== Fontconfig
+
+[source, sh]
+----
+fc-cache -f
 ----
 
 == Performance settings
