@@ -4,9 +4,6 @@
 [submodule ".vim/pack/default/start/editorconfig-vim"]
 	path = .vim/pack/default/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule ".vim/pack/default/start/unite.vim"]
-	path = .vim/pack/default/start/unite.vim
-	url = https://github.com/Shougo/unite.vim.git
 [submodule ".vim/pack/default/start/vimproc.vim"]
 	path = .vim/pack/default/start/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
@@ -16,9 +13,6 @@
 [submodule ".config/nvim/pack/default/opt/nvim-go"]
 	path = .config/nvim/pack/default/opt/nvim-go
 	url = https://github.com/zchee/nvim-go
-[submodule ".vim/pack/default/start/vim-grepper"]
-	path = .vim/pack/default/start/vim-grepper
-	url = https://github.com/mhinz/vim-grepper.git
 [submodule ".config/nvim/pack/default/start/ale"]
 	path = .config/nvim/pack/default/start/ale
 	url = https://github.com/w0rp/ale.git
