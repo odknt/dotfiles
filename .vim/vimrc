@@ -69,6 +69,8 @@ if $TERM =~? 'screen*'
 endif
 
 let @d = ':bp|bw! #'
+let g:netrw_use_errorwindow = 0
+let g:netrw_banner = 0
 
 let g:fzf_action = {'ctrl-t': 'tab drop', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
 nnoremap <C-p> :FZF<CR>
