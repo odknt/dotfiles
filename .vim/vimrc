@@ -44,7 +44,7 @@ endfunction
 call s:mkdir_if_not_exists('~/.cache/vim/swap')
 set directory=~/.cache/vim/swap
 
-set linebreak showbreak=> breakat=\ \ ;:,!?
+set linebreak showbreak=>
 if exists('+breakindent')
   set wrap breakindent breakindentopt=shift:4,sbr
 else
