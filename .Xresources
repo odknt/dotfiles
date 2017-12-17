@@ -26,7 +26,7 @@ URxvt*font:                             xft:monospace:size=9
 URxvt*boldFont:                         xft:monospace:bold:size=9
 URxvt*inputMethod:                      uim
 URxvt*imLocale:                         ja_JP.UTF-8
-URxvt*imFont:                           xtf:monospace:size=9
+URxvt*imFont:                           xft:monospace:size=9
 URxvt*allow_bold:                       false
 URxvt*preeditType:                      OnTheSpot
 URxvt*perl_ext:                         xim-onthespot
