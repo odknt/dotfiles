@@ -10,7 +10,7 @@ set noruler nonumber regexpengine=1
 set regexpengine=1
 set nowritebackup notitle
 set noequalalways splitbelow splitright
-set lazyredraw ttyfast novisualbell t_ut= belloff=all
+set lazyredraw ttyfast novisualbell t_ut= belloff=all background=dark
 set mouse=
 set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
 set dictionary=/usr/share/dict/words
