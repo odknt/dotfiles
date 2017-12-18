@@ -13,22 +13,20 @@ set noequalalways splitbelow splitright
 set lazyredraw ttyfast novisualbell t_ut= belloff=all background=dark
 set mouse=
 set nohlsearch incsearch ignorecase smartcase wrapscan noshowmatch
-set dictionary=/usr/share/dict/words
-set thesaurus=/usr/share/mythes/th_en_US_v2.dat
 set emoji ambiwidth=double
 set switchbuf=usetab,newtab
 set showmode modeline modelines=10
 let &g:statusline=' %f%m%r%h%w%=%{&filetype} [%{&fileencoding}][%{&fileformat}] [%l/%L] '
+set linebreak showbreak=>
+set wrap breakindent breakindentopt=shift:4,sbr
+set directory=$XDG_RUNTIME_DIR
 
-hi SpecialKey ctermbg=none ctermfg=12
-hi NonText ctermbg=none ctermfg=none
-if &encoding ==? 'utf-8'
+if &encoding ==? 'utf-8' && &term != 'linux'
   exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
   set list listchars=tab:˫\ ,trail:-,extends:»,precedes:«,nbsp:%
 else
-  exec 'set list fillchars=vert:\|,fold:-,diff:.'
+  set fillchars=vert:\|,fold:-,diff:.
 endif
-hi VertSplit ctermfg=black ctermbg=61
 
 if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
@@ -36,48 +34,27 @@ if executable('rg')
 endif
 command! -nargs=+ Grep execute 'silent grep! <args>' | copen 20
 
-function! s:mkdir_if_not_exists(dir)
-  if !isdirectory(expand(a:dir))
-    call mkdir(expand(a:dir), 'p')
-  endif
-endfunction
-call s:mkdir_if_not_exists('~/.cache/vim/swap')
-set directory=~/.cache/vim/swap
-
-set linebreak showbreak=>
-if exists('+breakindent')
-  set wrap breakindent breakindentopt=shift:4,sbr
-else
-  set nowrap
-endif
-
 if has('unnamedplus')
   set clipboard^=unnamed,unnamedplus
-  augroup vimrc_clipboard
-    au!
-    au VimLeave * call system("xclip -sel c", getreg("+"))
-  augroup end
 elseif has('clipboard')
   set clipboard^=unnamed
 endif
 
-"" for tmux
-if $TERM =~? 'screen*'
-  set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
+hi SpecialKey ctermbg=none ctermfg=12
+hi NonText ctermbg=none ctermfg=1
+hi VertSplit ctermfg=black ctermbg=61
 
 let @d = ':bp|bw! #'
 let g:netrw_use_errorwindow = 0
 let g:netrw_banner = 0
-
 let g:fzf_action = {'ctrl-t': 'tab drop', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
-nnoremap <C-p> :FZF<CR>
+
 command! FZFFiles call fzf#run(fzf#wrap({
   \ 'source': 'rg --no-ignore-vcs --files --hidden --follow --ignore-file ~/.rgignore',
   \ }))
+nnoremap <C-p> :FZF<CR>
 
+"" for privacy
 if filereadable(expand('~/.vim/vimrc-local'))
   source ~/.vim/vimrc-local
 endif
