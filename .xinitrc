@@ -53,8 +53,9 @@ export TERMINAL="${TERMINAL:-urxvtc}"
 xbindkeys
 
 # Default WM
-session=${1:-i3}
+session=${1:-bspwm}
 case $session in
+  bspwm             ) exec bspwm;;
   i3|i3wm           ) exec i3;;
   ratpoison         ) exec ratpoison;;
   xmonad            ) exec xmonad;;

@@ -4,8 +4,9 @@
 export BROWSER='firefox'
 
 # Override i3-sensible-terminal
-export TERMINAL=lilyterm
-export COLORTERM=lilyterm
+export TERMINAL=st
+export COLORTERM="${TERMINAL}"
+export DVTM_TERM=dvtm
 
 # Keyboard
 setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps

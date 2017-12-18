@@ -1,3 +1,4 @@
+abduco
 accountsservice
 alsa-tools
 alsa-utils
@@ -9,6 +10,7 @@ bspwm
 cmake
 compton
 dunst
+dvtm
 firefox
 fontconfig
 fzf
