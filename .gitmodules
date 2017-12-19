@@ -10,9 +10,3 @@
 [submodule ".config/nvim/pack/default/start/ale"]
 	path = .config/nvim/pack/default/start/ale
 	url = https://github.com/w0rp/ale.git
-[submodule ".vim/pack/default/start/vim-surround"]
-	path = .vim/pack/default/start/vim-surround
-	url = https://github.com/tpope/vim-surround.git
-[submodule ".vim/pack/default/start/vim-multiple-cursors"]
-	path = .vim/pack/default/start/vim-multiple-cursors
-	url = https://github.com/terryma/vim-multiple-cursors.git

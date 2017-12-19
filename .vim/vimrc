@@ -6,7 +6,7 @@ set fileencoding=utf-8 fileencodings=utf-8,sjis,enc-jp bomb binary nofixendoflin
 filetype off
 filetype plugin indent off
 set autoindent expandtab
-set noruler nonumber regexpengine=1
+set noruler nonumber
 set regexpengine=1
 set nowritebackup notitle noswapfile
 set noequalalways splitbelow splitright
@@ -20,23 +20,15 @@ let &g:statusline=' %f%m%r%h%w%=%{&filetype} [%{&fileencoding}][%{&fileformat}] 
 set linebreak showbreak=>
 set wrap breakindent breakindentopt=shift:4,sbr
 
-if &encoding ==? 'utf-8' && &term != 'linux'
-  exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
+set fillchars=vert:\|,fold:-,diff:.
+if &term != 'linux'
+  let &fillchars = "vert:\u23AE,fold:\u23BC,diff:\u23BC"
   set list listchars=tab:˫\ ,trail:-,extends:»,precedes:«,nbsp:%
-else
-  set fillchars=vert:\|,fold:-,diff:.
 endif
 
-if executable('rg')
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-  set grepprg=rg\ --vimgrep\ --no-heading\ --glob\ '!tags'
-endif
-command! -nargs=+ Grep execute 'silent grep! <args>' | copen 20
-
+set clipboard=unnamed,exclude:cns\|linux
 if has('unnamedplus')
-  set clipboard^=unnamed,unnamedplus
-elseif has('clipboard')
-  set clipboard^=unnamed
+  set clipboard^=unnamedplus
 endif
 
 hi SpecialKey ctermbg=none ctermfg=12
