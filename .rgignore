@@ -1,0 +1,17 @@
+.git/
+.hg/
+.svn/
+node_modules/
+bower_components/
+vendors/
+vendor/
+target/
+
+*.exe
+*.so
+*.dll
+*.class
+*.a
+*.o
+*.pyc
+*.ejs
