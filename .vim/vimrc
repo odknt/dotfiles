@@ -8,7 +8,7 @@ filetype plugin indent off
 set autoindent expandtab
 set noruler nonumber regexpengine=1
 set regexpengine=1
-set nowritebackup notitle
+set nowritebackup notitle noswapfile
 set noequalalways splitbelow splitright
 set lazyredraw ttyfast novisualbell t_ut= belloff=all background=dark
 set mouse=
@@ -19,14 +19,6 @@ set showmode modeline modelines=10
 let &g:statusline=' %f%m%r%h%w%=%{&filetype} [%{&fileencoding}][%{&fileformat}] [%l/%L] '
 set linebreak showbreak=>
 set wrap breakindent breakindentopt=shift:4,sbr
-
-if !empty($XDG_RUNTIME_DIR)
-  set directory=$XDG_RUNTIME_DIR
-elseif !empty($SUDO_UID)
-  set directory=/run/user/$SUDO_UID
-else
-  set directory=/tmp
-endif
 
 if &encoding ==? 'utf-8' && &term != 'linux'
   exec "set fillchars=vert:\u23AE,fold:\u23BC,diff:\u23BC"
