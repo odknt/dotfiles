@@ -37,7 +37,6 @@ bspc config normal_border_color  '#292825'
 # Rules
 #
 
-bspc rule -a Sylpheed:compose state=floating
 bspc rule -a Lxappearance state=floating
 bspc rule -a Pcmanfm state=floating
 bspc rule -a Pavucontrol state=floating
@@ -53,11 +52,10 @@ bspc rule -a xfreerdp border=off
 bspc rule -a Ninix_main.rb manage=off
 bspc rule -a steam.exe border=off
 bspc rule -a mpv state=floating
-bspc rule -a URxvt:tty-clock border=off state=floating rectangle=220x130+0+0
 bspc rule -a Pinentry state=floating
 
 # scratchpad
-bspc rule -a URxvt:scratchpad sticky=on state=floating hidden=on
+st -T scratchpad
 
 # background image
 nitrogen --restore
