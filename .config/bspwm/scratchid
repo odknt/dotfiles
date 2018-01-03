@@ -1,0 +1,4 @@
+#!/bin/sh
+
+bspc query -N -n .floating > "/tmp/scratchid${DISPLAY}"
+"${SHELL}"

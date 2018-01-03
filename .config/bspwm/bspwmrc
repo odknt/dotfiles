@@ -53,15 +53,16 @@ bspc rule -a Ninix_main.rb manage=off
 bspc rule -a steam.exe border=off
 bspc rule -a mpv state=floating
 bspc rule -a Pinentry state=floating
-
-# scratchpad
-st -T scratchpad
+bspc rule -a scratchpad sticky=on state=floating
 
 # background image
 nitrogen --restore
 
 # compositor
 compton &
+
+# scratchpad
+st -c scratchpad -e ~/.config/bspwm/scratchid &
 
 # panel
 for mon in $(bspc query -M --names); do
