@@ -31,7 +31,7 @@ zshaddhistory() {
   local line=${1%%$'\n'}
   local cmd=${line%% *}
   [[ ${#line} -ge 5
-    && ! ${cmd} =~ '(ggr|torify|w3m)'
+    && ! ${cmd} =~ '(ggr|torify|w3m|jtalk)'
   ]]
 }
 
