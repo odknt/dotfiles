@@ -1,12 +1,11 @@
 #!/bin/sh
 # vim: sw=2 ts=2 sts=2 et
+# arguments: 1=Window ID, 2=Class, 3=Instance
 
-if [ -z "${1:-}" ]; then
-  exit
+HINTS="$(xprop -id "${1}" WM_NORMAL_HINTS)"
+GRAVITY="$(grep -Po '(?<=window gravity: ).*(?=$)' <<<"${HINTS}")"
+
+if [ "${GRAVITY}" = 'Static' ]; then
+  echo 'state=floating'
+  return
 fi
-
-TITLE="$(xdotool getwindowname "${1}")"
-
-case "${TITLE}" in
-  'scratchpad') echo 'state=floating sticky=on'
-esac
