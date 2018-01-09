@@ -12,7 +12,7 @@ ZSH_PLUGIN_DIR=/usr/share/zsh/plugins
 zplug_load() {
   test -n "${1:-}" \
   && test -f "${ZSH_PLUGIN_DIR}/${1}/"*.plugin.zsh \
-  && source "${ZSH_PLUGIN_DIR}/${1}/"*.plugin.zsh
+  && . "${ZSH_PLUGIN_DIR}/${1}/"*.plugin.zsh
 }
 zplug_load zsh-syntax-highlighting
 zplug_load zsh-autosuggestions
@@ -79,21 +79,19 @@ precmd() {
     vcs_info
 }
 
-__ps1_desk_name() {
+prompt_desk() {
   if [[ -n ${DESK_NAME:-} ]]; then
     echo -n "[%F{cyan}${DESK_NAME}%f] "
   fi
 }
 
-__ps1_vim() {
+prompt_vim() {
   if [[ -n ${VIMRUNTIME} ]]; then
     echo -n "%F{red}(vim)%f "
   fi
 }
 
-PROMPT='%B%(?..[%?] )%b$(__ps1_vim)$(__ps1_desk_name)%n@%U%m%u${vcs_info_msg_0_}>'
-
-alias ls="ls -F --color"
+PROMPT='%B%(?..[%?] )%b$(prompt_vim)$(prompt_desk)%n@%U%m%u${vcs_info_msg_0_}>'
 
 if [[ -n $DESK_ENV ]]; then
     source "$DESK_ENV"
