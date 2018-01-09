@@ -1,29 +1,19 @@
-export HISTFILE=~/.zhistory
-export HISTSIZE=1000
-export SAVEHIST=100000
+HISTFILE=~/.zhistory
+HISTSIZE=1000
+SAVEHIST=100000
 
-export GOPATH=~/go
-export EDITOR=vim
+GOPATH=~/go
+EDITOR=vim
 
-export LSCOLORS=exfxcxdxbxegedabagacad
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+LSCOLORS=exfxcxdxbxegedabagacad
+LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-export FZF_DEFAULT_COMMAND='rg --no-ignore-vcs --files --hidden --follow'
+FZF_DEFAULT_COMMAND='rg --no-ignore-vcs --files --hidden --follow'
 
 # zip encoding
-export ZIPINFOOPT='-OCP932'
-export UNZIPOPT='-OCP932'
-
-if [ "$TERM" = "xterm" ]; then
-  if [ "$COLORTERM" = "gnome-terminal" ] && infocmp gnome-256color >/dev/null 2>&1; then
-    export TERM=gnome-256color
-  elif infocmp xterm-256color >/dev/null 2>&1; then
-    case "$COLORTERM" in
-      gnome-*|xfce4-*|lilyterm) export TERM=xterm-256color;;
-    esac
-  fi
-fi
+ZIPINFOOPT='-OCP932'
+UNZIPOPT='-OCP932'
 
 [[ -f ~/.env ]] && source ~/.env

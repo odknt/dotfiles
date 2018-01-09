@@ -7,6 +7,39 @@ zstyle ':vcs_info:*'     formats            ' (%F{green}%b%c%u%f)'
 zstyle ':vcs_info:*'     actionformats      '[%b|%a]'
 zstyle ':completion:*'   list-colors        'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
 
+# plugin settings
+ZSH_PLUGIN_DIR=/usr/share/zsh/plugins
+zplug_load() {
+  test -n "${1:-}" \
+  && test -f "${ZSH_PLUGIN_DIR}/${1}/"*.plugin.zsh \
+  && source "${ZSH_PLUGIN_DIR}/${1}/"*.plugin.zsh
+}
+zplug_load zsh-syntax-highlighting
+zplug_load zsh-autosuggestions
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_STYLES[default]=none
+ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=009
+ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=009,standout
+ZSH_HIGHLIGHT_STYLES[alias]=fg=white,bold
+ZSH_HIGHLIGHT_STYLES[builtin]=fg=white,bold
+ZSH_HIGHLIGHT_STYLES[function]=fg=white,bold
+ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=white,underline
+ZSH_HIGHLIGHT_STYLES[commandseparator]=none
+ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=009
+ZSH_HIGHLIGHT_STYLES[path]=fg=214,underline
+ZSH_HIGHLIGHT_STYLES[globbing]=fg=063
+ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,underline
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=none
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=none
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]=none
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=yellow
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]=fg=009
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg=009
+ZSH_HIGHLIGHT_STYLES[assign]=none
+
 # completion
 bashcompinit
 compinit
@@ -58,7 +91,7 @@ __ps1_vim() {
   fi
 }
 
-export PROMPT='%B%(?..[%?] )%b$(__ps1_vim)$(__ps1_desk_name)%n@%U%m%u${vcs_info_msg_0_}>'
+PROMPT='%B%(?..[%?] )%b$(__ps1_vim)$(__ps1_desk_name)%n@%U%m%u${vcs_info_msg_0_}>'
 
 alias ls="ls -F --color"
 
