@@ -22,3 +22,4 @@ prompt_vim() {
 }
 
 PROMPT='%B%(?..[%?] )%b$(prompt_vim)$(prompt_desk)%n@%U%m%u${vcs_info_msg_0_}>'
+RPROMPT='%F{green}%~%f'
