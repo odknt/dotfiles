@@ -16,4 +16,4 @@ FZF_DEFAULT_COMMAND='rg --no-ignore-vcs --files --hidden --follow'
 ZIPINFOOPT='-OCP932'
 UNZIPOPT='-OCP932'
 
-[[ -f ~/.env ]] && source ~/.env
+[[ -f ~/.env ]] && . ~/.env
