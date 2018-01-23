@@ -10,6 +10,7 @@ set sidebar_new_mail_only=no
 set sidebar_format='%B%?F? [%F]?%* %?N?%N/?%S''
 set sidebar_sort_method = 'unsorted'
 set mail_check_stats
+set sleep_time = 0
 color sidebar_new green default
 color sidebar_highlight white color8
 color sidebar_divider color8 default
