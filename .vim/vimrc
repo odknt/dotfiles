@@ -13,6 +13,7 @@ set mouse=
 set emoji ambiwidth=double
 set switchbuf=usetab,newtab
 set showmode modeline modelines=10
+set clipboard=unnamedplus,unnamed
 
 hi SpecialKey ctermbg=none ctermfg=12
 hi NonText ctermbg=none ctermfg=1
