@@ -15,7 +15,7 @@
     ignore_newline = no
     shrink         = no
 
-    geometry            = "350x5-10+40"
+    geometry            = "350x5-10-10"
     line_height         = 0
     notification_height = 0
     padding             = 10
@@ -31,7 +31,7 @@
 
     max_icon_size = 22
     icon_position = left
-    icon_folders  = /home/oda/.config/dunst/icons/:/usr/share/icons/Adwaita/22x22/status/
+    icon_path  = /home/oda/.config/dunst/icons/:/usr/share/icons/Adwaita/22x22/status/
 
     always_run_script = true
 
