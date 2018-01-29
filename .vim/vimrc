@@ -15,6 +15,7 @@ set switchbuf=usetab,newtab
 set showmode modeline modelines=10
 set clipboard=unnamedplus,unnamed
 set hlsearch ignorecase incsearch wildmenu
+set list listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 
 hi SpecialKey ctermbg=none ctermfg=12
 hi NonText ctermbg=none ctermfg=1
