@@ -7,7 +7,7 @@ rofi.modi:                           run,drun,ssh
 ! "Number of columns" Set from: Default
 ! rofi.columns:                        1
 ! "Font to use" Set from: Default
-! rofi.font:                           mono 12
+rofi.font:                           sans-serif 12
 ! "Color scheme for normal row" Set from: Default
 ! rofi.color-normal:                   #fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5
 ! "Color scheme for urgent row" Set from: Default
