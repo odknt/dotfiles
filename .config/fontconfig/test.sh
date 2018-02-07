@@ -14,6 +14,8 @@ _check() {
 }
 
 _check 'Helvetica' 'Helvetica'
+_check 'Source Han Sans JP' 'Source Han Sans JP'
+_check 'Source Han Serif JP' 'Source Han Serif JP'
 _check 'Arial:lang=ja' 'Helvetica'
 _check 'Arial:lang=en' 'Helvetica'
 _check 'sans-serif:lang=ja' 'Helvetica'
