@@ -50,8 +50,7 @@ st.bold_font: 1
 st.borderpx: 2
 st.cursorfg: #ba8baf
 st.reverse-cursor: black
-! over-the-spot
-st.imstyle: 1
+st.imstyle: OverTheSpot
 
 !-----------------------------------------------------------
 ! Color
