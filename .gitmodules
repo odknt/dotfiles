@@ -1,12 +1,3 @@
-[submodule ".vim/pack/default/start/PreserveNoEOL"]
-	path = .vim/pack/default/start/PreserveNoEOL
-	url = https://github.com/vim-scripts/PreserveNoEOL.git
 [submodule ".vim/pack/default/start/editorconfig-vim"]
 	path = .vim/pack/default/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule ".config/nvim/pack/default/opt/nvim-go"]
-	path = .config/nvim/pack/default/opt/nvim-go
-	url = https://github.com/zchee/nvim-go
-[submodule ".config/nvim/pack/default/start/ale"]
-	path = .config/nvim/pack/default/start/ale
-	url = https://github.com/w0rp/ale.git
