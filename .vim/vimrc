@@ -6,7 +6,6 @@ set fileencoding=utf-8 fileencodings=utf-8,sjis,enc-jp bomb binary nofixendoflin
 filetype off
 filetype plugin indent off
 set autoindent expandtab
-set regexpengine=1
 set nowritebackup notitle noswapfile
 set lazyredraw ttyfast novisualbell t_ut= belloff=all background=dark
 set mouse=
@@ -14,7 +13,7 @@ set emoji ambiwidth=double
 set switchbuf=usetab,newtab
 set showmode modeline modelines=10
 set clipboard=unnamedplus,unnamed
-set hlsearch ignorecase incsearch wildmenu
+set hlsearch smartcase incsearch wildmenu
 set list listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 
 hi SpecialKey ctermbg=none ctermfg=12
