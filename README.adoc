@@ -14,7 +14,11 @@ My desktop environment on Arch Linux.
 
 == Install
 
-First, clone the repository as a home directory, then execute below steps.
+[source, sh]
+----
+cd ~
+git clone https://github.com/odknt/dotfiles.git
+----
 
 === Yaourt
 
@@ -37,16 +41,30 @@ sudo pacman -Sy --noconfirm yaourt
 ./init.sh install
 ----
 
-== vim
+=== Enable configs
 
-Install and initialize submodules.
+[source, sh]
+----
+cd ~/dotfiles
+
+# stow <directory>
+stow vim
+
+# or stow -d ~/dotfiles -t ~ vim
+----
+
+== Optional
+
+=== vim
+
+Install and initialize submodules for editorconfig.
 
 [source, sh]
 ----
 git submodule update --init
 ----
 
-== Pulseaudio with ALSA
+=== Pulseaudio with ALSA
 
 [source, sh]
 ----
@@ -63,13 +81,6 @@ startx ~/.xinitrc <WM | application>
 # or
 
 xinit <WM | application>
-----
-
-== Fontconfig
-
-[source, sh]
-----
-fc-cache -f
 ----
 
 == Performance settings
