@@ -14,7 +14,12 @@ EOS
     return 1
 }
 
+__require() {
+  sudo pacman -Q stow >/dev/null || sudo pacman -S --noconfirm --needed stow
+}
+
 __install() {
+  __require
   which yaourt &>/dev/null || cat <<'EOS'> /dev/stderr
 
 \e[37;41m!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\e[0m
