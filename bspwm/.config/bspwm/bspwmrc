@@ -24,7 +24,7 @@ bspc config auto_cancel             true
 bspc config auto_alternate          true
 bspc config pointer_follows_monitor true
 bspc config pointer_modifier        mod4
-bspc config external_rules_command  ~/.config/bspwm/external_rules
+bspc config external_rules_command  "${HOME}/.config/bspwm/external_rules"
 
 #
 # Colors
@@ -59,10 +59,12 @@ bspc rule -a scratchpad sticky=on state=floating
 nitrogen --restore
 
 # autostart
-find ~/.config/autostart/ -type f -executable -name '*.sh' -exec sh -c '{} &' \;
+if [ -d "${HOME}/.config/autostart" ]; then
+  find "${HOME}/.config/autostart/" -type f -executable -name '*.sh' -exec sh -c '{} &' \;
+fi
 
 # scratchpad
-st -c scratchpad -e ~/.config/bspwm/scratchid &
+st -c scratchpad -e "${HOME}/.config/bspwm/scratchid" &
 
 # panel
 for mon in $(bspc query -M --names); do
