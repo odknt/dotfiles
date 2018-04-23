@@ -3,7 +3,7 @@
 # arguments: 1=Window ID, 2=Class, 3=Instance
 
 HINTS="$(xprop -id "${1}" WM_NORMAL_HINTS)"
-GRAVITY="$(grep -Po '(?<=window gravity: ).*(?=$)' <<<"${HINTS}")"
+GRAVITY="$(echo "${HINTS}" | grep -Po '(?<=window gravity: ).*(?=$)')"
 
 if [ "${GRAVITY}" = 'Static' ]; then
   echo 'state=floating'
