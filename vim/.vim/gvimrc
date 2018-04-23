@@ -11,6 +11,7 @@ endif
 set guioptions=
 set novb
 set linespace=0
+set guicursor=a:blinkon0
 
 " Disable italic
 function! s:disable_italic()
