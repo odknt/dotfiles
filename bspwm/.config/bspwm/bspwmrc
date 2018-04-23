@@ -58,8 +58,8 @@ bspc rule -a scratchpad sticky=on state=floating
 # background image
 nitrogen --restore
 
-# compositor
-compton &
+# autostart
+find ~/.config/autostart/ -type f -executable -name '*.sh' -exec sh -c '{} &' \;
 
 # scratchpad
 st -c scratchpad -e ~/.config/bspwm/scratchid &
