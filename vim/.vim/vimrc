@@ -19,6 +19,10 @@ set clipboard^=unnamedplus
 hi SpecialKey ctermbg=none ctermfg=12
 hi NonText ctermbg=none ctermfg=1
 hi VertSplit ctermfg=black ctermbg=61
+hi MatchParen ctermfg=0
+hi DiffAdd ctermfg=0 ctermbg=2
+hi DiffChange ctermfg=0 ctermbg=3
+hi DiffDelete ctermfg=15 ctermbg=1
 
 let @d = ':bp|bw! #'
 let g:netrw_use_errorwindow = 0
