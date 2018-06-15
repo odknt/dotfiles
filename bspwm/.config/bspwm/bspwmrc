@@ -64,7 +64,7 @@ if [ -d "${HOME}/.config/autostart" ]; then
 fi
 
 # scratchpad
-st -c scratchpad -e "${HOME}/.config/bspwm/scratchid" &
+st -T scratchpad -c scratchpad -e "${HOME}/.config/bspwm/scratchid" &
 
 # panel
 for mon in $(bspc query -M --names); do
