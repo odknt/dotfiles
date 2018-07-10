@@ -43,7 +43,7 @@ tab_width = 4
 ############################################################################
 ## HTML, JS, CSS base languages
 ############################################################################
-[*.{html,htm,tmpl,tpl,css,less,scss,js,ts,jsx,coffee,yml,yaml,toml,json,tag,slim}]
+[*.{html,htm,tmpl,tpl,css,less,scss,js,ts,jsx,coffee,yml,yaml,toml,json,tag,slim,vue}]
 indent_size = 2
 
 ############################################################################
