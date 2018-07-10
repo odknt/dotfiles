@@ -32,4 +32,8 @@ let g:fzf_action = {'ctrl-t': 'tab drop', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
 command! FZFFiles call fzf#run(fzf#wrap({'source':'rg --no-ignore-vcs --files --hidden --follow --ignore-file ~/.rgignore'}))
 nnoremap <C-p> :FZF<CR>
 
-filetype on
+"if filereadable(expand('./.vimrc'))
+"    call execute('source ' . expand('./.vimrc'))
+"endif
+
+filetype plugin on
