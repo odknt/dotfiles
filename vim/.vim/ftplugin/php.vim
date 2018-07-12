@@ -11,7 +11,7 @@ if !g:php_fixer_init
 
         if executable('phan_client') && filereadable('./.phan/config.php')
             let l:origin_errfmt = &errorformat
-            let &errorformat = '%.%#:%m in %f on line %l,%-G%.%#'
+            let &errorformat = '%.%#error: %m in %f on line %l,%.%#:%m in %f on line %l,%-G%.%#'
 
             call setqflist([])
             caddexpr system('phan_client -l ' . a:file)
