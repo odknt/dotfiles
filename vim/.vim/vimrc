@@ -15,6 +15,7 @@ set showmode modeline modelines=10
 set hlsearch ignorecase smartcase incsearch wildmenu
 set list listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 set clipboard^=unnamedplus
+set viminfo+=n~/.cache/vim/viminfo
 
 hi SpecialKey ctermbg=none ctermfg=12
 hi NonText ctermbg=none ctermfg=1
@@ -31,9 +32,5 @@ let g:fzf_action = {'ctrl-t': 'tab drop', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
 
 command! FZFFiles call fzf#run(fzf#wrap({'source':'rg --no-ignore-vcs --files --hidden --follow --ignore-file ~/.rgignore'}))
 nnoremap <C-p> :FZF<CR>
-
-"if filereadable(expand('./.vimrc'))
-"    call execute('source ' . expand('./.vimrc'))
-"endif
 
 filetype plugin on
