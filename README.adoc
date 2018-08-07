@@ -5,11 +5,11 @@ My desktop environment on Arch Linux.
 == GUI
 
 |===
-| Window Manager | bspwm, xmonad (no longer maintained)
+| Window Manager | bspwm
 | Editor         | vim
-| Input Method   | uim-skk
-| Terminal       | mlterm
-| GTK Theme      | Adwaita with Lúv icons
+| Input Method   | uim
+| Terminal       | st, mlterm
+| GTK Theme      | Arc-Darker
 |===
 
 == Install
@@ -20,25 +20,16 @@ cd ~
 git clone https://github.com/odknt/dotfiles.git
 ----
 
-=== Yaourt
-
-[source, sh]
-----
-cat <<'EOS' | sudo tee -a /etc/pacman.conf
-
-[archlinuxfr]
-SigLevel = Never
-Server = http://repo.archlinux.fr/$arch
-EOS
-
-sudo pacman -Sy --noconfirm yaourt
-----
-
 === Install dependencies
 
 [source, sh]
 ----
-./init.sh install
+# Base Packages (CLI)
+cat .base.plist | sudo pacman -S --needed --noconfirm -
+# GUI packages
+cat .gui.plist | sudo pacman -S --needed --noconfirm -
+# AUR packages
+cat .aur.plist | YOUR_AUR_HELPER -S --needed --noconfirm -
 ----
 
 === Enable configs
@@ -85,7 +76,7 @@ xinit <WM | application>
 
 == Performance settings
 
-=== yaourt
+=== Pacman
 
 Edit below options in `/etc/makepkg.conf`.
 
