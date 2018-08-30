@@ -1,11 +1,6 @@
 ######################################################################
 # Prompt
 ######################################################################
-prompt_desk() {
-  test -n "${DESK_NAME:-}" \
-  && echo -n "[\033[34m${DESK_NAME}\033[0m] "
-}
-
 prompt_vim() {
   test -n "${VIMRUNTIME}" \
   && echo -n "\033[31m(vim)\033[0m "
@@ -13,7 +8,6 @@ prompt_vim() {
 
 prompt() {
   prompt_vim
-  prompt_desk
 
   # default
   if (( USER_ID )); then
