@@ -45,7 +45,7 @@ font-1 = emoji:size=10:antialias=true;2
 
 modules-left = bspwm xwindow
 modules-center =
-modules-right = mpd filesystem pulseaudio xkeyboard memory cpu battery temperature date powermenu
+modules-right = filesystem pulseaudio xkeyboard memory cpu battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
