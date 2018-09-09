@@ -214,15 +214,14 @@ format = <label> <bar-used>
 
 label = ram:
 
-bar-used-width = 20
+bar-used-width = 14
 bar-used-gradient = true
 bar-used-foreground-0 = #449f3d
 bar-used-foreground-1 = #2f8419
 bar-used-foreground-2 = #f5a70a
 bar-used-foreground-3 = #ed5456
-bar-used-indicator = █
+bar-used-indicator =
 bar-used-indicator-font = 3
-bar-used-indicator-foreground = #fff
 bar-used-fill = █
 bar-used-fill-font = 3
 bar-used-empty = █
