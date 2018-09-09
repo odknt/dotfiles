@@ -42,10 +42,11 @@ module-margin-right = 2
 
 font-0 = sans-serif:size=10:antialias=true;2
 font-1 = emoji:size=10:antialias=true;2
+font-2 = monospace:size=6:antialias=true;1
 
 modules-left = bspwm xwindow
 modules-center =
-modules-right = filesystem pulseaudio xkeyboard memory cpu battery temperature date powermenu
+modules-right = cpu memory pulseaudio filesystem battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -70,29 +71,13 @@ wm-restack = bspwm
 type = internal/xwindow
 label = %title:0:50:...%
 
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
-
 [module/filesystem]
 type = internal/fs
 interval = 25
 
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%％
+label-mounted =  %percentage_used%％
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -167,7 +152,6 @@ label-song-maxlen = 25
 label-song-ellipsis = true
 
 label-offline  = mpd is offline
-label-offline-foreground = ${colors.foreground-alt}
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -193,19 +177,57 @@ card = intel_backlight
 
 [module/cpu]
 type = internal/cpu
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = %percentage%％
+interval = 1.5
+
+format = <ramp-coreload>
+format-prefix = "cpu: "
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 3
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 3
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 3
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 3
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 3
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 3
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 3
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 3
+ramp-coreload-7-foreground = #ff5555
 
 [module/memory]
 type = internal/memory
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
-label = %percentage_used%％
+interval = 1
+format = <label> <bar-used>
+
+label = ram:
+
+bar-used-width = 20
+bar-used-gradient = true
+bar-used-foreground-0 = #449f3d
+bar-used-foreground-1 = #2f8419
+bar-used-foreground-2 = #f5a70a
+bar-used-foreground-3 = #ed5456
+bar-used-indicator = █
+bar-used-indicator-font = 3
+bar-used-indicator-foreground = #fff
+bar-used-fill = █
+bar-used-fill-font = 3
+bar-used-empty = █
+bar-used-empty-font = 3
+bar-used-empty-foreground = #44
 
 [module/wlan]
 type = internal/network
@@ -242,7 +264,6 @@ interval = 3.0
 
 format-connected-underline = #55aa55
 format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
 format-disconnected =
@@ -262,7 +283,6 @@ time = %H:%M
 time-alt = %H:%M:%S
 
 format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
 label = %date% %time%
@@ -270,32 +290,11 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <ramp-volume> <bar-volume>
+format-volume = <ramp-volume> <label-volume>
 
-format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = muted
+format-muted-prefix = "婢 "
 
-bar-volume-width = 10
-bar-volume-foreground-0 = #55c555
-bar-volume-foreground-1 = #55c555
-bar-volume-foreground-2 = #55c555
-bar-volume-foreground-3 = #55c555
-bar-volume-foreground-4 = #55c555
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #c55555
-bar-volume-gradient = false
-bar-volume-indicator =
-bar-volume-indicator-font = 1
-bar-volume-fill = 
-bar-volume-fill-font = 1
-bar-volume-empty = 
-bar-volume-empty-font = 1
-bar-volume-empty-foreground = ${colors.foreground-alt}
-
-ramp-volume-0 = " "
-ramp-volume-1 = " "
-ramp-volume-2 = " "
+ramp-volume-0 = "墳"
 
 ramp-headphones-0 = " "
 
@@ -312,7 +311,6 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
@@ -348,7 +346,6 @@ label-warn-foreground = ${colors.secondary}
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
 type = custom/menu
