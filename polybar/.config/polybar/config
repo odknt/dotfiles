@@ -34,17 +34,17 @@ line-color = #f00
 border-size = 0
 border-color = #00000000
 
-padding-left = 0
-padding-right = 2
+padding-left = 3
+padding-right = 3
 
-module-margin-left = 1
-module-margin-right = 2
+module-margin-left = 0
+module-margin-right = 3
 
 font-0 = sans-serif:size=10:antialias=true;2
 font-1 = emoji:size=10:antialias=true;2
 font-2 = monospace:size=6:antialias=true;1
 
-modules-left = bspwm xwindow
+modules-left = archlogo bspwm xwindow
 modules-center =
 modules-right = cpu memory pulseaudio filesystem battery temperature date powermenu
 
@@ -86,22 +86,22 @@ type = internal/bspwm
 
 pin-workspaces = true
 enable-click = true
+format = <label-state>
 
 label-focused = 
-label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
-label-focused-padding = 2
+label-focused-padding = 1
 
 label-occupied = 
-label-occupied-padding = 2
+label-occupied-padding = 1
 
 label-urgent = 
 label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent-padding = 1
 
 label-empty = 
 label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
+label-empty-padding = 1
 
 [module/i3]
 type = internal/i3
@@ -345,6 +345,12 @@ label-warn-foreground = ${colors.secondary}
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
+
+[module/archlogo]
+type = custom/text
+content = ""
+content-foreground = #1793d1
+content-font = 2
 
 [module/powermenu]
 type = custom/menu
