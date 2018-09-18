@@ -2,44 +2,97 @@
 ! Xterm
 !-----------------------------------------------------------
 
-XTerm*utf8:                             1
-XTerm*locale:                           true
-XTerm*cjkWidth:                         true
-XTerm*saveLine:                         2000
-XTerm*allowBoldFonts:                   false
-XTerm*charClass:                        33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
-XTerm*faceName:                         monospace:size=9
-XTerm*faceNameDoublesize:               monospace:size=9
+XTerm*utf8:                 1
+XTerm*locale:               true
+XTerm*cjkWidth:             true
+XTerm*saveLine:             2000
+XTerm*allowBoldFonts:       false
+XTerm*charClass:            33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
+XTerm*faceName:             monospace:size=9
+XTerm*faceNameDoublesize:   monospace:size=9
 
 !-----------------------------------------------------------
 ! URxvt
 !-----------------------------------------------------------
 
-URxvt*perl-ext-common:                  default,xim-onthespot
-URxvt*url-select.underline:             true
-URxvt*keysym.M-u:                       perl:url-select:select_next
-URxvt*keysym.M-Escape:                  perl:keyboard-select:activate
-URxvt*keysym.M-s:                       perl:keyboard-select:search
-URxvt.skipBuiltinGlyphs:                false
-URxvt*scrollBar:                        false
-URxvt*font:                             xft:monospace:size=9
-URxvt*boldFont:                         xft:monospace:bold:size=9
-URxvt*inputMethod:                      uim
-URxvt*imLocale:                         ja_JP.UTF-8
-URxvt*imFont:                           xft:monospace:size=9
-URxvt*allow_bold:                       false
-URxvt*preeditType:                      OnTheSpot
-URxvt*perl_ext:                         xim-onthespot
-URxvt*skipBuiltinGlyphs:                false
-URxvt*lineSpace:                        0
-URxvt*letterSpace:                      0
-URxvt*scrollTtyOutput:                  false
-URxvt*scrollWithBuffer:                 true
-URxvt*scrollTtyKeypress:                true
+URxvt*perl-ext-common:      default,xim-onthespot
+URxvt*url-select.underline: true
+URxvt*keysym.M-u:           perl:url-select:select_next
+URxvt*keysym.M-Escape:      perl:keyboard-select:activate
+URxvt*keysym.M-s:           perl:keyboard-select:search
+URxvt.skipBuiltinGlyphs:    false
+URxvt*scrollBar:            false
+URxvt*font:                 xft:monospace:size=9
+URxvt*boldFont:             xft:monospace:bold:size=9
+URxvt*inputMethod:          uim
+URxvt*imLocale:             ja_JP.UTF-8
+URxvt*imFont:               xft:monospace:size=9
+URxvt*allow_bold:           false
+URxvt*preeditType:          OnTheSpot
+URxvt*perl_ext:             xim-onthespot
+URxvt*skipBuiltinGlyphs:    false
+URxvt*lineSpace:            0
+URxvt*letterSpace:          0
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
 
 ! Xterm escapes, word by word movement
-URxvt.keysym.Control-Left:              \033[1;5D
-URxvt.keysym.Control-Right:             \033[1;5C
+URxvt.keysym.Control-Left:  \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+
+!-----------------------------------------------------------
+! Color
+! Base16 Default
+! Scheme: Chris Kempson (http://chriskempson.com)
+!-----------------------------------------------------------
+#define black       #181818
+#define gray01      #282828
+#define gray02      #383838
+#define gray03      #585858
+#define gray04      #b8b8b8
+#define lightgray01 #d8d8d8
+#define lightgray02 #e8e8e8
+#define white       #f8f8f8
+#define red         #ab4642
+#define orange      #dc9656
+#define yellow      #f7ca88
+#define green       #a1b56c
+#define cyan        #86c1b9
+#define blue        #7cafc2
+#define magenta     #ba8baf
+#define brown       #a16946
+
+*foreground:   lightgray01
+*background:   black
+*cursorColor:  magenta
+
+*color0: black
+*color1: red
+*color2: green
+*color3: yellow
+*color4: blue
+*color5: magenta
+*color6: cyan
+*color7: lightgray01
+
+*color8:  gray03
+*color9:  red
+*color10: green
+*color11: yellow
+*color12: blue
+*color13: magenta
+*color14: cyan
+*color15: white
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+*color16: orange
+*color17: brown
+*color18: gray01
+*color19: gray02
+*color20: gray04
+*color21: lightgray02
 
 !------------------------------------------------------------
 ! st
@@ -48,71 +101,18 @@ st.termname: st-256color
 st.font: monospace:size=9
 st.bold_font: 1
 st.borderpx: 2
-st.cursorbg: #ba8baf
+st.cursorbg: magenta
 st.cursorfg: black
-st.imstyle: OverTheSpot
-
-!-----------------------------------------------------------
-! Color
-! Base16 Default
-! Scheme: Chris Kempson (http://chriskempson.com)
-!-----------------------------------------------------------
-#define base00 #181818
-#define base01 #282828
-#define base02 #383838
-#define base03 #585858
-#define base04 #b8b8b8
-#define base05 #d8d8d8
-#define base06 #e8e8e8
-#define base07 #f8f8f8
-#define base08 #ab4642
-#define base09 #dc9656
-#define base0A #f7ca88
-#define base0B #a1b56c
-#define base0C #86c1b9
-#define base0D #7cafc2
-#define base0E #ba8baf
-#define base0F #a16946
-
-*foreground:   base05
-*background:   base00
-*cursorColor:  base0E
-
-*color0:       base00
-*color1:       base08
-*color2:       base0B
-*color3:       base0A
-*color4:       base0D
-*color5:       base0E
-*color6:       base0C
-*color7:       base05
-
-*color8:       base03
-*color9:       base08
-*color10:      base0B
-*color11:      base0A
-*color12:      base0D
-*color13:      base0E
-*color14:      base0C
-*color15:      base07
-
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
-*color16:      base09
-*color17:      base0F
-*color18:      base01
-*color19:      base02
-*color20:      base04
-*color21:      base06
+st.imstyle:  OverTheSpot
 
 !------------------------------------------------------------
 ! fontconifg
 !------------------------------------------------------------
 
-Xft.antialias:	true
-Xft.autohint:	false
-Xft.dpi:	96
-Xft.hinting:	true
-Xft.hintstyle:	hintslight
-Xft.lcdfilter:	lcdlight
-Xft.rgba:	rgb
+Xft.antialias: true
+Xft.autohint:  false
+Xft.dpi:       96
+Xft.hinting:   true
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcdlight
+Xft.rgba:      rgb
