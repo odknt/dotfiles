@@ -1,0 +1,6 @@
+window.popup menuitem {
+  padding: 5px; margin: 0;
+}
+window.popup separator {
+  border: solid 1px #eee;
+}
