@@ -11,13 +11,13 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 indent_style = space
 indent_size = 4
+tab_width = 4
 
 ############################################################################
 ## Extraordinary files
 ############################################################################
 [Makefile]
 indent_style = tab
-tab_width = 4
 max_line_length = 80
 
 [*.md]
@@ -25,6 +25,9 @@ trim_trailing_whitespace = false
 
 [*.csv]
 insert_final_newline = false
+
+[PKGBUILD]
+indent_size = 2
 
 ############################################################################
 ## Favorite languages
@@ -38,7 +41,6 @@ max_line_length = 120
 
 [*.{go,s,S}]
 indent_style = tab
-tab_width = 4
 
 ############################################################################
 ## HTML, JS, CSS base languages
