@@ -50,8 +50,6 @@ fi
 # Default Terminal
 export TERMINAL="${TERMINAL:-urxvtc}"
 
-xbindkeys
-
 # Default WM
 session=${1:-bspwm}
 case $session in

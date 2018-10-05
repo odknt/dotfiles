@@ -132,7 +132,6 @@ super + {Left,Down,Up,Right}
 super + x
     id=$(cat "/tmp/scratchid$DISPLAY"); \
     bspc node $id -g hidden; bspc node -f $id
-
 super + mod5 + x
     bspc query -N -n .focused.local > "/tmp/scratchid$DISPLAY"
 
@@ -147,9 +146,31 @@ super + mod5 + l
 #
 mod5 + {Up,Down}
     xdotool mousemove_relative -- 0 {-10,10}
-
 mod5 + {Left,Right}
     xdotool mousemove_relative -- {-10,10} 0
-
 mod5 + Return
     xdotool mousedown -- 1 && xdotool mouseup -- 1
+
+#
+# special keys
+#
+XF86AudioRaiseVolume
+    amixer set Master 5%+
+XF86AudioLowerVolume
+    amixer set Master 5%-
+XF86AudioMute
+    amixer set Master toggle"
+
+XF86AudioPlay
+    mpc toggle
+XF86AudioStop
+    mpc stop
+XF86AudioPrev
+    mpc prev
+XF86AudioNext
+    mpc next
+
+XF86Search
+    rofi -show run
+XF86HomePage
+    "${BROWSER}"
