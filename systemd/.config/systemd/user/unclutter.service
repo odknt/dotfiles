@@ -1,8 +1,0 @@
-[Unit]
-Description=Erase mouse cursor
-
-[Service]
-ExecStart=/usr/bin/unclutter -idle 1.0 -root
-
-[Install]
-WantedBy=graphical.target
