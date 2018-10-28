@@ -22,10 +22,12 @@ PS1="$(prompt) "
 ######################################################################
 # Aliases
 ######################################################################
-alias ls='ls -F --color'
-alias enja='trans en:ja'
-alias jaen='trans ja:en'
-alias mutt='(cd ~/attachments && mutt)'
+if type trans > /dev/null; then
+  alias enja='trans en:ja'
+  alias jaen='trans ja:en'
+fi
+type mutt > /dev/null && alias mutt='(cd ~/attachments && mutt)'
+alias ls='ls -F --color=auto'
 
 ######################################################################
 # Keybingdings
