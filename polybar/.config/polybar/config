@@ -289,12 +289,11 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
+label-volume = %percentage%％
+label-muted = %percentage%％
 format-volume = <ramp-volume> <label-volume>
-
 format-muted-prefix = "婢 "
-
 ramp-volume-0 = "墳"
-
 ramp-headphones-0 = " "
 
 [module/battery]
