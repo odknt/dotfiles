@@ -2,6 +2,7 @@ accountsservice
 alsa-tools
 alsa-utils
 archlinux-keyring
+editorconfig-core-c
 fzf
 git
 mksh
