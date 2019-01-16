@@ -1,3 +1,6 @@
+# decode attachment file name
+set rfc2047_parameters=yes
+
 # parse text/html by using w3m
 set mailcap_path=~/.mutt/mailcap
 auto_view text/html
