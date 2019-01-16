@@ -54,6 +54,7 @@ bspc rule -a steam.exe border=off
 bspc rule -a mpv state=floating
 bspc rule -a Pinentry state=floating
 bspc rule -a scratchpad sticky=on state=floating
+bspc rule -a 'Wine:*' border=off
 
 # background (by using feh)
 [ -f "${HOME}/.fehbg" ] && "${HOME}/.fehbg"
