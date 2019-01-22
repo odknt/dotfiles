@@ -10,7 +10,7 @@ super + Return
 
 # program launcher
 super + space
-    rofi -show run
+    dmenu_run -fn monospace:size=11 -l 8 -y 24 -p '>'
 
 # make sxhkd reload its configuration files:
 super + Escape
