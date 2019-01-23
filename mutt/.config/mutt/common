@@ -2,7 +2,7 @@
 set rfc2047_parameters=yes
 
 # parse text/html by using w3m
-set mailcap_path=~/.mutt/mailcap
+set mailcap_path=$XDG_CONFIG_HOME/mutt/mailcap
 auto_view text/html
 alternative_order text/plain text/enriched text/html
 
