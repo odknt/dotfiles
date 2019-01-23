@@ -1,4 +1,4 @@
 #!/bin/sh
 
-bspc query -N -n .floating > "/tmp/scratchid${DISPLAY}"
+bspc query -N -n .floating > "${XDG_RUNTIME_DIR}/scratchid${DISPLAY}"
 "${SHELL}"
