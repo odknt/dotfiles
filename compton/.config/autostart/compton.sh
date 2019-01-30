@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec compton
+exec compton --config "${XDG_CONFIG_HOME}/compton/compton.conf"
