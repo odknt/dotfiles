@@ -46,7 +46,7 @@ font-2 = monospace:size=6:antialias=true;1
 
 modules-left = archlogo bspwm xwindow
 modules-center =
-modules-right = cpu memory pulseaudio filesystem battery temperature date powermenu
+modules-right = github cpu memory pulseaudio filesystem battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -377,6 +377,12 @@ menu-2-0 =  Back
 menu-2-0-exec = menu-open-0
 menu-2-1 =  Poweroff
 menu-2-1-exec = sudo poweroff
+
+[module/github]
+type     = internal/github
+token    = ${env:GITHUB_ACCESS_TOKEN}
+interval = 60
+label    = " %notifications%"
 
 [settings]
 screenchange-reload = true
