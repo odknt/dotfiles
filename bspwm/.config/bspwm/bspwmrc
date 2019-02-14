@@ -11,27 +11,27 @@ done
 # Configs
 #
 
-bspc config border_width            3
-bspc config window_gap              10
+bspc config border_width 3
+bspc config window_gap 10
 
-bspc config split_ratio             0.50
-bspc config borderless_monocle      true
-bspc config gapless_monocle         true
-bspc config click_to_focus          true
-bspc config history_aware_focus     false
-bspc config ignore_ewmh_focus       true
-bspc config auto_cancel             true
-bspc config auto_alternate          true
+bspc config split_ratio 0.50
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config click_to_focus true
+bspc config history_aware_focus false
+bspc config ignore_ewmh_focus true
+bspc config auto_cancel true
+bspc config auto_alternate true
 bspc config pointer_follows_monitor true
-bspc config pointer_modifier        mod4
-bspc config external_rules_command  "${HOME}/.config/bspwm/external_rules"
+bspc config pointer_modifier mod4
+bspc config external_rules_command "${HOME}/.config/bspwm/external_rules"
 
 #
 # Colors
 #
 
 bspc config focused_border_color '#A73E28'
-bspc config normal_border_color  '#292825'
+bspc config normal_border_color '#292825'
 
 #
 # Rules
