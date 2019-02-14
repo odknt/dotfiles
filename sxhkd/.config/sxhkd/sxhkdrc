@@ -90,6 +90,10 @@ super + {_,shift} + {1-9,0}
 alt + {_,shift} + {1-9,0}
     bspc {monitor -f,node -m} ^{1-9,10}
 
+# switch focus on between floating and tiled
+super + semicolon
+    "$XDG_CONFIG_HOME/bspwm/switch_focus"
+
 #
 # preselect
 #
