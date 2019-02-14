@@ -5,7 +5,7 @@ scriptencoding utf-8
 set fileencoding=utf-8 fileencodings=utf-8,sjis,enc-jp bomb binary nofixendofline
 filetype off
 filetype plugin indent off
-set autoindent expandtab
+set autoindent expandtab copyindent preserveindent
 set nowritebackup notitle noswapfile
 set lazyredraw ttyfast novisualbell belloff=all background=dark
 set mouse=
