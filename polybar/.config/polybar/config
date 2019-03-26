@@ -139,8 +139,8 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 [module/mpd]
 type = internal/mpd
-format-online =   <label-song>
-format-offline =   <label-offline>
+format-online =  <label-song>
+format-offline =  <label-offline>
 
 icon-prev = 
 icon-stop = 
