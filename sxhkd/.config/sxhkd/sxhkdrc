@@ -131,15 +131,6 @@ super + {Left,Down,Up,Right}
     bspc node -v {-20 0,0 20,0 -20,20 0}
 
 #
-# scratchpad
-#
-super + x
-    id="$(cat "$XDG_RUNTIME_DIR/scratchid$DISPLAY" | head -n1)"; \
-    bspc node $id -g hidden; bspc node -f $id
-super + mod5 + x
-    bspc query -N -n .focused.local > "$XDG_RUNTIME_DIR/scratchid$DISPLAY"
-
-#
 # screen lock
 #
 super + mod5 + l
