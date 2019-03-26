@@ -3,7 +3,7 @@ if !exists("g:php_fixer_init")
 endif
 
 if !g:php_fixer_init
-    function! g:PhpFix(file)
+    function! s:PhpFix(file)
         if executable('php-cs-fixer') && filereadable('./.php_cs')
             call system('php-cs-fixer fix ' . a:file)
             edit!
@@ -29,7 +29,7 @@ if !g:php_fixer_init
 
     augroup php_fixer
         au!
-        au BufWritePost *.php call PhpFix(expand('%:p'))
+        au BufWritePost *.php call s:PhpFix(expand('%:p'))
     augroup END
 
     let g:php_fixer_init = 1
