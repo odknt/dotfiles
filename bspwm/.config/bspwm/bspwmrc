@@ -63,7 +63,5 @@ if [ -d "${HOME}/.config/autostart" ]; then
   find "${HOME}/.config/autostart/" -type f -executable -name '*.sh' -exec sh -c '{} &' \;
 fi
 
-# panel
-for mon in $(bspc query -M --names); do
-  MONITOR="${mon}" polybar -q bspwm &
-done
+# status bar
+bspwmbar
