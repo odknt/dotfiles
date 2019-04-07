@@ -2,8 +2,6 @@
 # wm independent hotkeys
 #
 
-sylpheed
-
 # terminal emulator
 super + Return
     "${TERMINAL}"
