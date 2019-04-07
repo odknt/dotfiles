@@ -166,6 +166,6 @@ XF86AudioNext
     mpc next
 
 XF86Search
-    rofi -show run
+    dmenu_run -fn monospace:size=11 -l 8 -y 24 -p '>'
 XF86HomePage
     "${BROWSER}"
