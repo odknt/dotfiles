@@ -4,8 +4,9 @@ if has('gui_mac') || has('gui_macvim')
 elseif has('gui_win32')
     set guifont=MS\ Gothic:h10
 else
-    set guifont=monospace\ 9,EmojiOneColor\ 9
-    set guifontwide=monospace\ 9,EmojiOneColor\ 9
+    set guifont=monospace\ 9
+    set guifontwide=monospace\ 9
+    set imstyle=0
 endif
 
 set guioptions=

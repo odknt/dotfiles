@@ -4,3 +4,6 @@ window.popup menuitem {
 window.popup separator {
   border: solid 1px #eee;
 }
+window#vim-main-window {
+  background-color: #1d1f21;
+}
