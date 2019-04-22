@@ -1,1 +1,2 @@
 text/html; w3m -I %{charset} -T text/html -s -dump -o display_link_number=yes -o decode_url=yes; copiousoutput;
+image/*; sxiv %s
