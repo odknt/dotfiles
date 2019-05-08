@@ -25,5 +25,8 @@ export ZIPINFOOPT='-OCP932'
 export UNZIPOPT='-OCP932'
 export RLWRAP_HOME="${HOME}/.cache/rlwrap"
 
+[ "${TERM}" = 'linux' ] && \
+export LANG=en_US.utf8
+
 # private environment variables
-[[ -f ~/.env ]] && . ~/.env
+[ -f "~/.env" ] && . ~/.env
