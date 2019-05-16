@@ -29,4 +29,4 @@ export RLWRAP_HOME="${HOME}/.cache/rlwrap"
 export LANG=en_US.utf8
 
 # private environment variables
-[ -f "~/.env" ] && . ~/.env
+[ -f "${HOME}/.env" ] && . "${HOME}/.env"
