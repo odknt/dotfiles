@@ -148,11 +148,11 @@ mod5 + Return
 # special keys
 #
 XF86AudioRaiseVolume
-    amixer set Master 5%+
+    amixer sset Master 5%+
 XF86AudioLowerVolume
-    amixer set Master 5%-
+    amixer sset Master 5%-
 XF86AudioMute
-    amixer set Master toggle
+    amixer sset Master toggle
 
 XF86AudioPlay
     mpc toggle
