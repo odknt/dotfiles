@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + space
-    dmenu_run -fn monospace:size=11 -l 8 -y 24 -p '>'
+    bemenu-run --fn 'sans-serif [14]' -b -p 'run:' -i -w
 
 # make sxhkd reload its configuration files:
 super + Escape
