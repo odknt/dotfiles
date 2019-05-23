@@ -1,5 +1,5 @@
 [global]
-    font     = Monospace 10
+    font     = sans-serif 10
 
     markup   = full
     sort     = yes
@@ -25,7 +25,7 @@
 
     startup_notification = false
 
-    dmenu = /usr/bin/dmenu_run -fn 'monospace:size=10' -h 25 -w 500 -y 24 -o 0.9 -l 10 -p dunst:
+    dmenu = /usr/bin/bemenu --fn 'sans-serif:size=10' -w -b -p dunst:
 
     browser = "${BROWSER}"
 
