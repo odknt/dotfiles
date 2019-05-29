@@ -26,7 +26,8 @@ bind index,pager \CO sidebar-open
 bind index,pager B sidebar-toggle-visible
 
 # thread
-folder-hook . 'set sort=threads'
+set sort=threads
+set sort_aux=last-date-received
 
 # all mark read
 macro index A \
