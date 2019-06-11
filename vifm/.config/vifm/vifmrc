@@ -69,7 +69,7 @@ colorscheme Default
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
 " See man date or man strftime for details.
 
-set timefmt=%m/%d\ %H:%M
+set timefmt=%Y/%m/%d\ %H:%M
 
 " Show list of matches on tab completion in command-line mode
 
@@ -393,7 +393,7 @@ set vifminfo=dhistory,chistory,state,tui,shistory,
 " Customize view columns a bit (enable ellipsis for truncated file names)
 "
 " set viewcolumns=-{name}..,6{}.
-set viewcolumns=-{name}..,16{mtime},10{}.
+set viewcolumns=-{name}..,20{mtime},10{}.
 
 " Filter-out build and temporary files
 "
