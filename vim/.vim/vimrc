@@ -34,6 +34,7 @@ let g:fzf_action = {'ctrl-t': 'tab drop', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
 nnoremap <C-p> :FZF<CR>
 
 augroup VIMRC
+  autocmd!
   autocmd VimLeave * call system("xclip -sel c", getreg('+'))
 augroup END
 
