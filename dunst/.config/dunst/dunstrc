@@ -1,5 +1,5 @@
 [global]
-    font     = sans-serif 10
+    font     = monospace 10
 
     markup   = full
     sort     = yes
