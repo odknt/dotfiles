@@ -25,7 +25,7 @@
 
     startup_notification = false
 
-    dmenu = /usr/bin/bemenu --fn 'sans-serif:size=10' -w -b -p dunst:
+    dmenu = /usr/bin/dmenu -fn 'sans-serif:size=10' -i -b -p 'dunst:' -nb '#101010'
 
     browser = "${BROWSER}"
 
