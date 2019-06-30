@@ -8,11 +8,13 @@ focused_node_state() {
 }
 
 switch_to_floating() {
-  bspc node last.floating.local -f
+  bspc node last.floating.local -f \
+  || bspc node any.floating.local -f
 }
 
 switch_to_tiled() {
-  bspc node last.tiled.local -f
+  bspc node last.tiled.local -f \
+  || bspc node any.tiled.local -f
 }
 
 case "$(focused_node_state)" in
