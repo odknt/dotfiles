@@ -16,11 +16,11 @@ super + Escape
 
 # password manager
 super + mod5 + p
-    passmenu -fn 'sans-serif [14]' -b -p 'pass:' -i -nb '#101010'
+    ls -1 "$HOME/.password-store" | grep -Po '(?<=^).*(?=.gpg)' | dmenu -fn 'sans-serif [14]' -b -p 'pass:' -i -nb '#101010' | xargs -Iname pass -c name
 
 # otp manager
 super + mod5 + o
-    ls -1 "$HOME/.password-store" | grep -Po '(?<=^).*(?=.gpg)' | dmenu -fn 'sans-serif [14]' -b -p 'otp:' -i -nb '#101010' | xargs -Iname pass otp -c name
+    ls -1 "$HOME/.password-store/otp" | grep -Po '(?<=^).*(?=.gpg)' | dmenu -fn 'sans-serif [14]' -b -p 'otp:' -i -nb '#101010' | xargs -Iname pass otp -c name
 
 #
 # bspwm hotkeys
