@@ -64,4 +64,4 @@ if [ -d "${HOME}/.config/autostart" ]; then
 fi
 
 # status bar
-bspwmbar
+bspwmbar &

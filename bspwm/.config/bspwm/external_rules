@@ -9,3 +9,11 @@ if [ "${GRAVITY}" = 'Static' ]; then
   echo 'state=floating'
   return
 fi
+
+if [ "${2}" = 'firefox' ]; then
+  ROLE="$(xprop -id "${1}" WM_WINDOW_ROLE | grep -Po '(?<= ").*(?=")')"
+  case "${ROLE}" in
+    About|page-info) echo 'state=floating' ;;
+  esac
+  return
+fi
