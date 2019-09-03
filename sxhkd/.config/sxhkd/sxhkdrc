@@ -20,7 +20,7 @@ super + mod5 + p
 
 # otp manager
 super + mod5 + o
-    ls -1 "$HOME/.password-store/otp" | grep -Po '(?<=^).*(?=.gpg)' | dmenu -fn 'sans-serif [14]' -b -p 'otp:' -i -nb '#101010' | xargs -Iname pass otp -c name
+    ls -1 "$HOME/.password-store/otp" | grep -Po '(?<=^).*(?=.gpg)' | dmenu -fn 'sans-serif [14]' -b -p 'otp:' -i -nb '#101010' | xargs -Iname pass otp -c otp/name
 
 #
 # bspwm hotkeys
