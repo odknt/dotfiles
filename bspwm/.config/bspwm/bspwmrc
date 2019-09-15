@@ -42,17 +42,14 @@ bspc rule -a Pcmanfm state=floating
 bspc rule -a Pavucontrol state=floating
 bspc rule -a Uim-pref-gtk state=floating
 bspc rule -a Sxiv state=floating
-bspc rule -a Nitrogen state=floating
 bspc rule -a 'Firefox:*' state=floating
 bspc rule -a Firefox:Popup border=off
 bspc rule -a Firefox:Navigator state=tiled
 bspc rule -a rdesktop border=off
 bspc rule -a xfreerdp border=off
-bspc rule -a ssp.exe manage=off
 bspc rule -a steam.exe border=off
 bspc rule -a mpv state=floating
 bspc rule -a Pinentry state=floating
-bspc rule -a scratchpad sticky=on state=floating
 bspc rule -a 'Wine:*' border=off
 
 # background (by using feh)
