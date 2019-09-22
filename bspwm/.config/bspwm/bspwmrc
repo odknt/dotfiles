@@ -58,4 +58,4 @@ if [ -d "${HOME}/.config/autostart" ]; then
 fi
 
 # status bar
-bspwmbar 2>&1 > /tmp/bspwmbar.log &
+bspwmbar &
