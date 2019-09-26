@@ -3,10 +3,11 @@
 # arguments: 1=Window ID, 2=Class, 3=Instance
 
 HINTS="$(xprop -id "${1}" WM_NORMAL_HINTS)"
+LOCATION="$(echo "${HINTS}" | grep -Po '(?<=program specified location: ).*(?=$)')"
 GRAVITY="$(echo "${HINTS}" | grep -Po '(?<=window gravity: ).*(?=$)')"
 
-if [ "${GRAVITY}" = 'Static' ]; then
-  echo 'state=floating'
+if [ "${GRAVITY}" = 'Static' -a -n "${LOCATION}" ]; then
+  echo 'state=floating border=on'
   return
 fi
 
