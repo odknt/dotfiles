@@ -7,7 +7,7 @@ LOCATION="$(echo "${HINTS}" | grep -Po '(?<=program specified location: ).*(?=$)
 GRAVITY="$(echo "${HINTS}" | grep -Po '(?<=window gravity: ).*(?=$)')"
 
 if [ "${GRAVITY}" = 'Static' -a -n "${LOCATION}" ]; then
-  echo 'state=floating border=on'
+  echo 'state=floating'
   return
 fi
 
