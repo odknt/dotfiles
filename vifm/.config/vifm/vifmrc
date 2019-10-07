@@ -189,6 +189,8 @@ filextype *.djvu
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus
+       \ {Play using mpv}
+       \ mpv --no-video %c,
        \ {Play using ffplay}
        \ ffplay -nodisp %c,
        \ {Play using MPlayer}
@@ -283,9 +285,9 @@ fileviewer *.torrent dumptorrent -v %c
 " FuseZipMount
 filetype *.zip,*.jar,*.war,*.ear,*.oxt,*.apkg
        \ {Mount with fuse-zip}
-       \ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR,
+       \ FUSE_MOUNT|fuse-zip -omodules=iconv,from_code=cp932,to_code=utf8 %SOURCE_FILE %DESTINATION_DIR,
        \ {View contents}
-       \ zip -sf %c | less,
+       \ unzip -l %c | less,
        \ {Extract here}
        \ tar -xf %c,
 fileviewer *.zip,*.jar,*.war,*.ear,*.oxt zip -sf %c
