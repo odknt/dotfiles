@@ -6,13 +6,9 @@ export BROWSER='firefox'
 # Override i3-sensible-terminal
 export TERMINAL=st
 export COLORTERM="${TERMINAL}"
-export DVTM_TERM=dvtm
+
+export LANG=ja_JP.utf8
 
 # Keyboard
-setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps
 xset r rate 200 30
 numlockx on
-
-# Mouse Speed
-xinput set-prop 8 'libinput Accel Speed' -0.5
-
