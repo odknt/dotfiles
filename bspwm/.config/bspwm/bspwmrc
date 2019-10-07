@@ -39,9 +39,8 @@ bspc rule -a Pcmanfm state=floating
 bspc rule -a Pavucontrol state=floating
 bspc rule -a Uim-pref-gtk state=floating
 bspc rule -a Sxiv state=floating
-bspc rule -a firefox state=floating
-bspc rule -a firefox:Popup border=off
-bspc rule -a firefox:Navigator state=tiled
+bspc rule -a '*:Popup' border=off state=floating
+bspc rule -a '*:Browser' state=floating
 bspc rule -a rdesktop border=off
 bspc rule -a xfreerdp border=off
 bspc rule -a steam.exe border=off
