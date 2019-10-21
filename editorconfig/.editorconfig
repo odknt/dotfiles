@@ -13,9 +13,6 @@ indent_style = space
 indent_size = 4
 tab_width = 4
 
-############################################################################
-## Extraordinary files
-############################################################################
 [Makefile]
 indent_style = tab
 max_line_length = 80
@@ -26,16 +23,20 @@ trim_trailing_whitespace = false
 [*.csv]
 insert_final_newline = false
 
+[*.sh]
+indent_size = 2
+max_line_length = 80
+
+[*.tf]
+indent_size = 2
+
 [PKGBUILD]
 indent_size = 2
 
-############################################################################
-## Favorite languages
-############################################################################
 [*.{c,h}]
 indent_style = tab
 
-[*.{sh,hpp,cc,cpp}]
+[*.{hpp,cc,cpp}]
 indent_size = 2
 max_line_length = 80
 
@@ -45,15 +46,9 @@ max_line_length = 120
 [*.{go,s,S}]
 indent_style = tab
 
-############################################################################
-## HTML, JS, CSS base languages
-############################################################################
 [*.{html,htm,tmpl,tpl,css,less,scss,js,ts,jsx,coffee,yml,yaml,toml,json,tag,slim,vue}]
 indent_size = 2
 
-############################################################################
-## Windows file
-############################################################################
 [*.bat]
 end_of_line = crlf
 indent_style = tab
