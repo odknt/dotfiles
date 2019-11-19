@@ -1,20 +1,63 @@
-#!/bin/sh
-# vim: sw=2 ts=2 sts=2 et
+#!/usr/bin/env python
 # arguments: 1=Window ID, 2=Class, 3=Instance
 
-HINTS="$(xprop -id "${1}" WM_NORMAL_HINTS)"
-LOCATION="$(echo "${HINTS}" | grep -Po '(?<=program specified location: ).*(?=$)')"
-GRAVITY="$(echo "${HINTS}" | grep -Po '(?<=window gravity: ).*(?=$)')"
+import re
+import subprocess
+import sys
 
-if [ "${GRAVITY}" = 'Static' -a -n "${LOCATION}" ]; then
-  echo 'state=floating'
-  return
-fi
+from typing import List, Optional, Type, TypeVar
 
-if [ "${2}" = 'firefox' ]; then
-  ROLE="$(xprop -id "${1}" WM_WINDOW_ROLE | grep -Po '(?<= ").*(?=")')"
-  case "${ROLE}" in
-    About|page-info) echo 'state=floating' ;;
-  esac
-  return
-fi
+T = TypeVar('T', bound='XProperty')
+
+rNetWmWindowType = r'(?<=_NET_WM_WINDOW_TYPE\(ATOM\) = ).*(?=)'
+rLocation = r'(?<=program specified location: ).*(?=)'
+rGravity = r'(?<=window gravity: ).*(?=)'
+
+class Rule():
+    def __init__(self, state: Optional[str] = None, border: Optional[bool] = None):
+        self.state = state
+        self.border = border
+
+
+    def __str__(self):
+        rule: List[str] = []
+        if self.state is not None:
+            rule.append('state=%s' % self.state)
+        if self.border is not None:
+            rule.append('border=%s' % ('on' if self.border else 'off'))
+        return ' '.join(rule)
+
+
+class XProperty():
+    def __init__(self, xprop: str):
+        self.gravity = re.search(rGravity, xprop)
+        self.location = re.search(rLocation, xprop)
+        self.window_type = re.search(rNetWmWindowType, xprop)
+
+
+    @classmethod
+    def xprop(cls: Type[T], wid: str) -> T:
+        output = subprocess.check_output(['xprop', '-id', wid]).decode('utf-8')
+        return cls(output)
+
+
+    def is_dialog(self) -> bool:
+        if self.window_type is None:
+            return False
+        return self.window_type.group(0) == '_NET_WM_WINDOW_TYPE_DIALOG'
+
+
+    def rule(self) -> Rule:
+        rule = Rule()
+
+        if self.gravity is not None and self.gravity == 'Static' and self.location is not None:
+            rule.state = 'floating'
+        elif self.is_dialog():
+            rule.state = 'floating'
+            rule.border = True
+
+        return rule
+
+
+if __name__ == '__main__':
+    print(XProperty.xprop(sys.argv[1]).rule())
