@@ -4,7 +4,6 @@ arc-gtk-theme
 arc-icon-theme
 awesome-terminal-fonts
 bspwm
-compton
 dmenu
 dunst
 feh
@@ -13,6 +12,7 @@ gtk-engine-murrine
 gvim
 numlockx
 pavucontrol
+picom
 slop
 sxhkd
 sxiv
