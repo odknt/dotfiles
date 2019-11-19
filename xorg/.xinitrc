@@ -57,9 +57,7 @@ WM="${1:-bspwm}"
 case "${WM}" in
   bspwm)
     export BSPWM_SOCKET="${XDG_RUNTIME_DIR:-/tmp}/bspwm_${DISPLAY}_socket"
-    exec bspwm
   ;;
-
-  # No known session, try to run it as command
-  *) exec "${1}";;
 esac
+
+[ "${0##*/}" != '.xprofile' ] && exec "${WM}"
