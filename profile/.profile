@@ -3,6 +3,7 @@
 ######################################################################
 export PATH="${HOME}/bin:${HOME}/go/bin:${HOME}/.local/bin:/opt/bin:/usr/lib/ccache/bin:${PATH}"
 export EDITOR=vim
+export VOLTPATH="${HOME}/.vim/volt"
 
 # golang environment
 export GOPATH=~/go

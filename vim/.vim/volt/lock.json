@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "current_profile_name": "default",
+  "repos": [
+    {
+      "type": "git",
+      "path": "github.com/editorconfig/editorconfig-vim",
+      "version": "2ad3d7882d2e9622a7fdc1a5ba1c5d0064d89472"
+    },
+    {
+      "type": "git",
+      "path": "github.com/fatih/vim-go",
+      "version": "2a37642747383ac49aeefefddd98b50fc8d14f8a"
+    },
+    {
+      "type": "git",
+      "path": "github.com/prabirshrestha/async.vim",
+      "version": "627a8c4092df24260d3dc2104bc1d944c78f91ca"
+    },
+    {
+      "type": "git",
+      "path": "github.com/prabirshrestha/vim-lsp",
+      "version": "499794bb219f57b79be31e148e394dc347a2e943"
+    }
+  ],
+  "profiles": [
+    {
+      "name": "default",
+      "repos_path": [
+        "github.com/editorconfig/editorconfig-vim",
+        "github.com/fatih/vim-go",
+        "github.com/prabirshrestha/async.vim",
+        "github.com/prabirshrestha/vim-lsp"
+      ]
+    }
+  ]
+}
