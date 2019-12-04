@@ -1,18 +1,20 @@
 = dotfiles
 
-My desktop environment on Arch Linux.
+My dotfiles on Arch Linux.
 
-== GUI
+== Desktop environment
 
 |===
 | Window Manager | bspwm
 | Editor         | vim
 | Input Method   | uim
-| Terminal       | st, mlterm
+| Terminal       | st
 | GTK Theme      | Arc-Darker
 |===
 
-== Install
+== Usage
+
+You need clone the repository to under your "${HOME}".
 
 [source, sh]
 ----
@@ -20,7 +22,7 @@ cd ~
 git clone https://github.com/odknt/dotfiles.git
 ----
 
-=== Install dependencies
+Install dependencies by using `pacman` and AUR helper.
 
 [source, sh]
 ----
@@ -33,6 +35,8 @@ cat .aur.plist | YOUR_AUR_HELPER -S --needed --noconfirm -
 ----
 
 === Enable configs
+
+Use `stow` for enable configuration of the dotfiles.
 
 [source, sh]
 ----
@@ -48,14 +52,19 @@ stow vim
 
 === vim
 
-Install and initialize submodules for editorconfig.
+Plugins install required [volt](https://github.com/vim-volt/volt).
+
+If you need install all plugins then execute the following command after creates symlink from `vim` to the home directory by using `stow`.
+Also need set `VOLTPATH` to "${HOME}/.vim/volt". If you were executed `stow profile` then `VOLTPATH` has been set in `.profile`.
 
 [source, sh]
 ----
-git submodule update --init
+volt get -l
 ----
 
 === Pulseaudio with ALSA
+
+You'd like to avoid sound trouble, use PulseAudio.
 
 [source, sh]
 ----
@@ -76,9 +85,9 @@ xinit <WM | application>
 
 == Performance settings
 
-=== Pacman
+=== makepkg
 
-Edit below options in `/etc/makepkg.conf`.
+If you'd like to improved performance on `makepkg` then edit below options in `/etc/makepkg.conf`.
 
 [source, conf]
 ----
@@ -87,4 +96,5 @@ MAKEFLAGS="-j8" # set number of CPU cores at least
 COMPRESSGZ=(pigz -c -f -n)
 COMPRESSBZ2=(pbzip2 -c -f)
 COMPRESSXZ=(xz -T O -c -z -)
+COMPRESSZST=(zstdmt -c -z -q -)
 ----
