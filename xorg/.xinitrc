@@ -49,6 +49,9 @@ if [ -f "${HOME}/.env" ]; then
   . "${HOME}/.env"
 fi
 
+# screen locker
+xss-lock -- "${XLOCKER:-xsecurelock}" &
+
 # Default Terminal
 export TERMINAL="${TERMINAL:-st}"
 
