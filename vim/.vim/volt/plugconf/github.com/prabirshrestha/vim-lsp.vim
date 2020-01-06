@@ -6,6 +6,7 @@ function! s:on_load_pre()
   let g:lsp_signs_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
 
+  " C/C++
   if executable('clangd')
     augroup volt_vim_lsp
     au!
@@ -18,6 +19,16 @@ function! s:on_load_pre()
     nmap <C-]> :tab split<cr><plug>(lsp-definition)
     nmap gr <plug>(lsp-references)
     nmap gR <plug>(lsp-rename)
+  endif
+
+  " Golang
+  if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'gopls',
+      \ 'cmd': {server_info->['gopls']},
+      \ 'whitelist': ['go'],
+      \ })
+    autocmd BufWritePre *.go LspDocumentFormatSync
   endif
 endfunction
 

@@ -3,10 +3,6 @@
 " Plugin configuration like the code written in vimrc.
 " This configuration is executed *before* a plugin is loaded.
 function! s:on_load_pre()
-  let g:go_doc_popup_window = 1
-  let g:go_metalinter_autosave = 1
-  let g:go_template_autocreate = 0
-  let g:go_fmt_command = "goimports"
 endfunction
 
 " Plugin configuration like the code written in vimrc.
@@ -25,7 +21,7 @@ endfunction
 " This function must contain 'return "<str>"' code.
 " (the argument of :return must be string literal)
 function! s:loaded_on()
-  return 'filetype=go'
+  return 'start'
 endfunction
 
 " Dependencies of this plugin.
@@ -35,5 +31,5 @@ endfunction
 " (the argument of :return must be list literal, and the elements are string)
 " e.g. return ['github.com/tyru/open-browser.vim']
 function! s:depends()
-  return []
+  return ['github.com/prabirshrestha/async.vim', 'github.com/prabirshrestha/vim-lsp']
 endfunction

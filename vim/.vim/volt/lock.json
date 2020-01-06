@@ -9,8 +9,8 @@
     },
     {
       "type": "git",
-      "path": "github.com/fatih/vim-go",
-      "version": "2a37642747383ac49aeefefddd98b50fc8d14f8a"
+      "path": "github.com/mattn/vim-goimports",
+      "version": "3fc146492068e0073e305e0889a44339e4a1b18d"
     },
     {
       "type": "git",
@@ -28,7 +28,7 @@
       "name": "default",
       "repos_path": [
         "github.com/editorconfig/editorconfig-vim",
-        "github.com/fatih/vim-go",
+        "github.com/mattn/vim-goimports",
         "github.com/prabirshrestha/async.vim",
         "github.com/prabirshrestha/vim-lsp"
       ]
