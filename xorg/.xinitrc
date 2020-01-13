@@ -33,7 +33,7 @@ export XMODIFIERS='@im=uim'
 
 # for old applications
 fontsdir="${XDG_DATA_HOME:-~/.local/share}/fonts"
-if [ -d "${fontsdir}" ]; then
+if [ -f "${fontsdir}/fonts.dir" ]; then
   xset +fp "${fontsdir}"
   xset fp rehash
 fi
