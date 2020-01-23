@@ -140,7 +140,7 @@ super + {Left,Down,Up,Right}
 # screen lock
 #
 super + mod5 + l
-    loginctl lock-session && dpms force suspend
+    loginctl lock-session
 
 #
 # mouse emulation
