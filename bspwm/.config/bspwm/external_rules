@@ -9,6 +9,7 @@ from typing import List, Optional, Type, TypeVar
 
 T = TypeVar('T', bound='XProperty')
 
+rWmWindowRole = r'(?<=WM_WINDOW_ROLE\(STRING\) = ").*(?=")'
 rNetWmWindowType = r'(?<=_NET_WM_WINDOW_TYPE\(ATOM\) = ).*(?=)'
 rLocation = r'(?<=program specified location: ).*(?=)'
 rGravity = r'(?<=window gravity: ).*(?=)'
@@ -33,6 +34,7 @@ class XProperty():
         self.gravity = re.search(rGravity, xprop)
         self.location = re.search(rLocation, xprop)
         self.window_type = re.search(rNetWmWindowType, xprop)
+        self.window_role = re.search(rWmWindowRole, xprop)
 
 
     @classmethod
@@ -55,6 +57,9 @@ class XProperty():
         elif self.is_dialog():
             rule.state = 'floating'
             rule.border = True
+
+        if self.window_role.group(0) == 'Popup':
+            rule.border = False
 
         return rule
 
