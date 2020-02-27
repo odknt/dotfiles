@@ -58,7 +58,7 @@ class XProperty():
             rule.state = 'floating'
             rule.border = True
 
-        if self.window_role.group(0) == 'Popup':
+        if self.window_role is not None and self.window_role.group(0) == 'Popup':
             rule.border = False
 
         return rule
