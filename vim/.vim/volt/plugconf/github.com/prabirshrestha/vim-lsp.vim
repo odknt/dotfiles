@@ -13,7 +13,7 @@ function! s:on_load_pre()
     au User lsp_setup call lsp#register_server({
       \ 'name': 'clangd',
       \ 'cmd': {server_info->['clangd', '--pch-storage=memory']},
-      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+      \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
       \ })
     augroup END
     nmap <C-]> :tab split<cr><plug>(lsp-definition)
@@ -26,9 +26,19 @@ function! s:on_load_pre()
     au User lsp_setup call lsp#register_server({
       \ 'name': 'gopls',
       \ 'cmd': {server_info->['gopls']},
-      \ 'whitelist': ['go'],
+      \ 'allowlist': ['go'],
       \ })
     autocmd BufWritePre *.go LspDocumentFormatSync
+  endif
+
+  " Python
+  if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+      \ 'name': 'pyls',
+      \ 'cmd': {server_info->['pyls']},
+      \ 'allowlist': ['python'],
+      \ })
+    autocmd BufWritePre *.py LspDocumentFormatSync
   endif
 endfunction
 

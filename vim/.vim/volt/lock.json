@@ -5,22 +5,22 @@
     {
       "type": "git",
       "path": "github.com/editorconfig/editorconfig-vim",
-      "version": "21fbc2afe8f30e98b890fb42fc6bc18fc0c0380e"
+      "version": "047c4b455b9d56adee63a52d6d7cdf5bb6521d53"
     },
     {
       "type": "git",
       "path": "github.com/mattn/vim-goimports",
-      "version": "075ad92d543ac2b959c801a6496c1f95d49003e8"
+      "version": "cc0eab9ffa055718425d39911c300e8290b7c704"
     },
     {
       "type": "git",
       "path": "github.com/prabirshrestha/async.vim",
-      "version": "f67ecb5a1120d0d0fb9312afcf262c829b218ca2"
+      "version": "236debf1a68d69a74f1f6647c273b0477e1ec1bf"
     },
     {
       "type": "git",
       "path": "github.com/prabirshrestha/vim-lsp",
-      "version": "80ec75e1da775990dd82f48819acbf0d39f90327"
+      "version": "ca2b527dc5f8cc4e6fbccda735e179ff19e388a1"
     }
   ],
   "profiles": [
