@@ -14,11 +14,12 @@ rNetWmWindowType = r'(?<=_NET_WM_WINDOW_TYPE\(ATOM\) = ).*(?=)'
 rLocation = r'(?<=program specified location: ).*(?=)'
 rGravity = r'(?<=window gravity: ).*(?=)'
 
-class Rule():
-    def __init__(self, state: Optional[str] = None, border: Optional[bool] = None):
+
+class Rule:
+    def __init__(self, state: Optional[str] = None,
+                 border: Optional[bool] = None):
         self.state = state
         self.border = border
-
 
     def __str__(self):
         rule: List[str] = []
@@ -29,36 +30,42 @@ class Rule():
         return ' '.join(rule)
 
 
-class XProperty():
+class XProperty:
     def __init__(self, xprop: str):
-        self.gravity = re.search(rGravity, xprop)
-        self.location = re.search(rLocation, xprop)
-        self.window_type = re.search(rNetWmWindowType, xprop)
-        self.window_role = re.search(rWmWindowRole, xprop)
-
+        self.gravity = re.search(rGravity, xprop).group(0)
+        self.location = re.search(rLocation, xprop).group(0)
+        self.window_type = re.search(rNetWmWindowType, xprop).group(0)
+        self.window_role = re.search(rWmWindowRole, xprop).group(0)
 
     @classmethod
     def xprop(cls: Type[T], wid: str) -> T:
         output = subprocess.check_output(['xprop', '-id', wid]).decode('utf-8')
         return cls(output)
 
-
     def is_dialog(self) -> bool:
         if self.window_type is None:
             return False
-        return self.window_type.group(0) == '_NET_WM_WINDOW_TYPE_DIALOG'
+        return self.window_type == '_NET_WM_WINDOW_TYPE_DIALOG'
 
+    def is_floating(self) -> bool:
+        is_static = self.gravity is not None and self.gravity == 'Static'
+        if is_static and self.location:
+            return True
+
+        if self.window_role == 'PictureInPicture':
+            return True
+        return False
 
     def rule(self) -> Rule:
         rule = Rule()
 
-        if self.gravity is not None and self.gravity == 'Static' and self.location is not None:
+        if self.is_floating():
             rule.state = 'floating'
         elif self.is_dialog():
             rule.state = 'floating'
             rule.border = True
 
-        if self.window_role is not None and self.window_role.group(0) == 'Popup':
+        if self.window_role == 'Popup':
             rule.border = False
 
         return rule
