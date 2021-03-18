@@ -11,7 +11,7 @@ export XDG_DATA_HOME=~/.local/share
 export GOPATH=~/go
 
 # append user's PATH to system PATH
-export PATH="~/bin:${GOPATH}/bin:~/.local/bin:/usr/lib/ccache/bin:${PATH}"
+export PATH="${HOME}/bin:${GOPATH}/bin:${HOME}/.local/bin:/usr/lib/ccache/bin:${PATH}"
 
 # set editor to vim
 export EDITOR=vim
