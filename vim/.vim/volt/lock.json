@@ -20,7 +20,7 @@
     {
       "type": "git",
       "path": "github.com/prabirshrestha/vim-lsp",
-      "version": "ca2b527dc5f8cc4e6fbccda735e179ff19e388a1"
+      "version": "8be2f495b8c5801131c8af87a9aa7a30be19ae33"
     }
   ],
   "profiles": [
