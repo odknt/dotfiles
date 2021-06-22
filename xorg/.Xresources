@@ -98,7 +98,7 @@ URxvt.keysym.Control-Right: \033[1;5C
 ! st
 !------------------------------------------------------------
 st.termname: st-256color
-st.font: monospace:size=9
+st.font: monospace:size=11
 st.bold_font: 1
 st.borderpx: 2
 st.cursorbg: magenta
