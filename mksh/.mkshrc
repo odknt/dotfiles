@@ -33,6 +33,12 @@ alias gostatic='go build --ldflags "-extldflags -static"'
 alias gsw='git branch | fzf | xargs -r git switch'
 
 ######################################################################
+# gpg-agent
+######################################################################
+export GPG_TTY="$(tty)"
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
+######################################################################
 # Keybingdings
 ######################################################################
 set -o emacs -o utf8-mode
