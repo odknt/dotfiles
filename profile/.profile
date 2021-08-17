@@ -31,7 +31,7 @@ export VOLTPATH=~/.vim/volt
 export FZF_DEFAULT_COMMAND='rg --no-ignore-vcs --files --hidden --follow'
 
 # ssh agent
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
 
 # set encoding for unzip-iconv
 export ZIPINFOOPT=-OCP932
