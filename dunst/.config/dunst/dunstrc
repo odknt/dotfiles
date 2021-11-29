@@ -15,13 +15,13 @@
     ignore_newline = no
     shrink         = no
 
-    geometry            = "350x5-10-10"
+    geometry            = "350x5-0+30"
     line_height         = 0
     notification_height = 0
-    padding             = 10
-    horizontal_padding  = 10
-    separator_color     = frame
-    separator_height    = 0
+    padding             = 20
+    horizontal_padding  = 20
+    separator_color     = "#00000000"
+    separator_height    = 10
 
     startup_notification = false
 
