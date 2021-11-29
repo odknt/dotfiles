@@ -5,7 +5,6 @@ arc-icon-theme
 awesome-terminal-fonts
 bspwm
 dex
-dmenu
 dunst
 feh
 fontconfig
@@ -14,6 +13,7 @@ gvim
 numlockx
 pavucontrol
 picom
+rofi
 slop
 sxhkd
 sxiv
