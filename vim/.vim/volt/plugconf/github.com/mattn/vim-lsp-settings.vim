@@ -1,8 +1,15 @@
 " vim:et:sw=2:ts=2
 
-" Plugin configuration like the code written in vimrc.
-" This configuration is executed *before* a plugin is loaded.
 function! s:on_load_pre()
+  let g:lsp_settings = {
+  \   'pyls-all': {
+  \     'workspace_config': {
+  \       'pyls': {
+  \         'configurationSources': ['flake8']
+  \       }
+  \     }
+  \   },
+  \}
 endfunction
 
 " Plugin configuration like the code written in vimrc.
@@ -15,5 +22,5 @@ function! s:loaded_on()
 endfunction
 
 function! s:depends()
-  return []
+  return ['github.com/prabirshrestha/vim-lsp']
 endfunction
