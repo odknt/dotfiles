@@ -1,11 +1,13 @@
 .git/
 .hg/
 .svn/
+.*_cache/
 node_modules/
 bower_components/
 vendors/
 vendor/
 target/
+venv/
 
 *.exe
 *.so
