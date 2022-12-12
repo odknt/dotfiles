@@ -47,6 +47,7 @@ bspc rule -a steam.exe border=off
 bspc rule -a mpv state=floating
 bspc rule -a Pinentry state=floating
 bspc rule -a Wine border=off
+bspc rule -a ssp.exe manage=off
 
 # background (by using "feh" package)
 if type feh > /dev/null && [ -f "${HOME}/.fehbg" ]; then
@@ -54,9 +55,7 @@ if type feh > /dev/null && [ -f "${HOME}/.fehbg" ]; then
 fi
 
 # autostart (by using "dex" package)
-if type dex > /dev/null && [ -n "${XDG_CONFIG_HOME:-}" ]; then
-  find "${XDG_CONFIG_HOME}/autostart/" -name '*.desktop' -exec dex '{}' \; 2> /dev/null
-fi
+dex -a
 
 # status bar
 bspwmbar &
