@@ -15,11 +15,11 @@ super + Escape
     pkill -USR1 -x sxhkd
 
 # password manager
-super + mod5 + p
+super + {mod5,alt} + p
     ls -1 "$HOME/.password-store" | grep -Po '(?<=^).*(?=.gpg)' | rofi -dmenu -p 'pass' | xargs -Iname pass -c name
 
 # otp manager
-super + mod5 + o
+super + {mod5,alt} + o
     ls -1 "$HOME/.password-store/otp" | grep -Po '(?<=^).*(?=.gpg)' | rofi -dmenu -p 'otp' | xargs -Iname pass otp -c otp/name
 
 #
