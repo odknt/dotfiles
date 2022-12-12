@@ -8,6 +8,7 @@ vendors/
 vendor/
 target/
 venv/
+zig-cache/
 
 *.exe
 *.so
