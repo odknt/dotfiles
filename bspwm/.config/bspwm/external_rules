@@ -32,15 +32,21 @@ class Rule:
 
 class XProperty:
     def __init__(self, xprop: str):
-        self.gravity = re.search(rGravity, xprop).group(0)
-        self.location = re.search(rLocation, xprop).group(0)
-        self.window_type = re.search(rNetWmWindowType, xprop).group(0)
-        self.window_role = re.search(rWmWindowRole, xprop).group(0)
+        self.gravity = self.search(rGravity, xprop)
+        self.location = self.search(rLocation, xprop)
+        self.window_type = self.search(rNetWmWindowType, xprop)
+        self.window_role = self.search(rWmWindowRole, xprop)
 
     @classmethod
     def xprop(cls: Type[T], wid: str) -> T:
         output = subprocess.check_output(['xprop', '-id', wid]).decode('utf-8')
         return cls(output)
+
+    def search(self, regexp: str, text: str) -> str:
+        match = re.search(rGravity, text)
+        if match is None:
+            return None
+        return match.group(0)
 
     def is_dialog(self) -> bool:
         if self.window_type is None:
