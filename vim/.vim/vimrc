@@ -19,6 +19,7 @@ set viminfo+=n~/.cache/vim/viminfo
 set grepprg=rg\ --vimgrep\ --no-heading
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set splitbelow
+set nrformats=
 
 hi SpecialKey ctermbg=none ctermfg=12
 hi NonText ctermbg=none ctermfg=1

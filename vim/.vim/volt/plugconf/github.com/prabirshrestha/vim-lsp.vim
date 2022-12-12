@@ -8,33 +8,9 @@ function! s:on_load_pre()
 
   augroup volt_vim_lsp
     autocmd!
-    autocmd User lsp_buffer_enabled call <SID>on_lsp_buffer_enabled()
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    autocmd BufWritePre *.go LspDocumentFormatSync
   augroup END
-
-  " C/C++
-  " if executable('clangd')
-  "   augroup volt_vim_lsp
-  "   au!
-  "   au User lsp_setup call lsp#register_server({
-  "     \ 'name': 'clangd',
-  "     \ 'cmd': {server_info->['clangd', '--pch-storage=memory']},
-  "     \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
-  "     \ })
-  "   augroup END
-  "   nmap <C-]> :tab split<cr><plug>(lsp-definition)
-  "   nmap gr <plug>(lsp-references)
-  "   nmap gR <plug>(lsp-rename)
-  " endif
-
-  " Golang
-  " if executable('gopls')
-  "   au User lsp_setup call lsp#register_server({
-  "     \ 'name': 'gopls',
-  "     \ 'cmd': {server_info->['gopls']},
-  "     \ 'allowlist': ['go'],
-  "     \ })
-  "   autocmd BufWritePre *.go LspDocumentFormatSync
-  " endif
 endfunction
 
 " Plugin configuration like the code written in vimrc.
@@ -50,8 +26,8 @@ function! s:depends()
   return []
 endfunction
 
-func! s:on_lsp_buffer_enabled(...) abort
-  setlocal completefunc=lsp#complete
+func! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
   setlocal keywordprg=:LspHover
 
   nmap <silent><buffer>gi <plug>(lsp-implementation)
