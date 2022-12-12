@@ -63,4 +63,4 @@ case "${WM}" in
   ;;
 esac
 
-[ "${0##*/}" != '.xprofile' ] && exec "${WM}"
+exec "${WM}"
