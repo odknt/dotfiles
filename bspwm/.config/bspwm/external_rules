@@ -43,7 +43,7 @@ class XProperty:
         return cls(output)
 
     def search(self, regexp: str, text: str) -> str:
-        match = re.search(rGravity, text)
+        match = re.search(regexp, text)
         if match is None:
             return None
         return match.group(0)
