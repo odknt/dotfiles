@@ -38,7 +38,10 @@ export ZIPINFOOPT=-OCP932
 export UNZIPOPT=-OCP932
 
 # set cache directory for rlwrap
-RLWRAP_HOME="${XDG_CACHE_HOME}/rlwrap"
+export RLWRAP_HOME="${XDG_CACHE_HOME}/rlwrap"
+
+export ANSIBLE_DISPLAY_OK_HOSTS=no
+export ANSIBLE_DISPLAY_SKIPPED_HOSTS=no
 
 # private environment variables
 if [ -f "${HOME}/.env" ]; then
