@@ -29,12 +29,9 @@ hi DiffAdd ctermfg=0 ctermbg=2
 hi DiffChange ctermfg=0 ctermbg=3
 hi DiffDelete ctermfg=15 ctermbg=1
 
-let @d = ':bp|bw! #'
 let g:netrw_use_errorwindow = 0
 let g:netrw_banner = 0
 let g:netrw_clipboard = 0
-let g:fzf_action = {'ctrl-t': 'tab drop', 'ctrl-x': 'split', 'ctrl-v': 'vsplit'}
-nnoremap <C-p> :FZF<CR>
 
 augroup VIMRC
   autocmd!
