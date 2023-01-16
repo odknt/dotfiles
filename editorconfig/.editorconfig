@@ -46,7 +46,7 @@ max_line_length = 120
 [*.{go,s,S}]
 indent_style = tab
 
-[*.{html,htm,tmpl,tpl,css,less,scss,js,ts,jsx,coffee,yml,yaml,toml,json,tag,slim,vue}]
+[*.{html,htm,tmpl,tpl,css,less,scss,js,ts,jsx,tsx,coffee,yml,yaml,toml,json,tag,slim,vue}]
 indent_size = 2
 
 [*.bat]
