@@ -4,13 +4,12 @@ function! s:on_load_pre()
   let g:lsp_signs_enabled = 1
   let g:lsp_document_code_action_signs_enabled = 0
   let g:lsp_diagnostics_virtual_text_prefix = ' ‣ '
-  let g:lsp_diagnostics_virtual_text_align = 'right'
   let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 1
 
-  hi LspErrorVirtualText ctermfg=red
-  hi LspWarningVirtualText ctermfg=yellow
-  hi LspInformationVirtualText ctermfg=cyan
-  hi LspHintVirtualTex ctermfg=cyan
+  hi LspErrorVirtualText ctermbg=red
+  hi LspWarningVirtualText ctermfg=black ctermbg=yellow
+  hi LspInformationVirtualText ctermfg=black ctermbg=cyan
+  hi LspHintVirtualTex ctermfg=black ctermbg=cyan
 
   augroup volt_vim_lsp
     autocmd!
