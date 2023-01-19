@@ -40,8 +40,12 @@ export UNZIPOPT=-OCP932
 # set cache directory for rlwrap
 export RLWRAP_HOME="${XDG_CACHE_HOME}/rlwrap"
 
+# ansible
 export ANSIBLE_DISPLAY_OK_HOSTS=no
 export ANSIBLE_DISPLAY_SKIPPED_HOSTS=no
+
+# wine
+export WINEDLLOVERRIDES=winemenubuilder.exe=d
 
 # private environment variables
 if [ -f "${HOME}/.env" ]; then
