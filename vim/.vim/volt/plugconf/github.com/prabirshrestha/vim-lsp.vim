@@ -11,7 +11,7 @@ function! s:on_load_pre()
   hi LspErrorVirtualText ctermbg=red
   hi LspWarningVirtualText ctermfg=black ctermbg=yellow
   hi LspInformationVirtualText ctermfg=black ctermbg=cyan
-  hi LspHintVirtualTex ctermfg=black ctermbg=cyan
+  hi LspHintVirtualText ctermfg=black ctermbg=cyan
 
   augroup volt_vim_lsp
     autocmd!
