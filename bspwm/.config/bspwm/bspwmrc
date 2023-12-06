@@ -18,6 +18,7 @@ bspc config split_ratio 0.50
 bspc config borderless_monocle true
 bspc config gapless_monocle true
 bspc config click_to_focus button1
+bspc config honor_size_hints floating
 bspc config ignore_ewmh_focus true
 bspc config pointer_follows_monitor true
 bspc config pointer_modifier mod4
@@ -39,14 +40,12 @@ bspc rule -a Pcmanfm state=floating
 bspc rule -a Pavucontrol state=floating
 bspc rule -a Uim-pref-gtk state=floating
 bspc rule -a Sxiv state=floating
-bspc rule -a '*:Popup' border=off state=floating
 bspc rule -a '*:Browser' state=floating
+bspc rule -a '*:Toolkit' state=floating
+bspc rule -a '*:Places' state=floating
 bspc rule -a rdesktop border=off
-bspc rule -a xfreerdp border=off
-bspc rule -a steam.exe border=off
 bspc rule -a mpv state=floating
 bspc rule -a Pinentry state=floating
-bspc rule -a Wine border=off
 bspc rule -a ssp.exe manage=off
 
 # background (by using "feh" package)
