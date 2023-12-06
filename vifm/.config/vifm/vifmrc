@@ -63,7 +63,7 @@ set norunexec
 
 " Selected color scheme
 
-colorscheme Default
+" colorscheme Default
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -140,6 +140,8 @@ command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! vgrep vim "+grep %a"
 command! reload :write | restart
+command! avif convert %f %f:r.avif && rm %f
+command! webm ffmpeg -i %f %f:r.webm && rm %f
 
 " ------------------------------------------------------------------------------
 
@@ -238,7 +240,7 @@ filextype *.gif
         \ mpv --fs --loop %f,
 
 " Images
-filextype *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.xpm,*.avif,*.webp
         \ {View in sxiv}
         \ sxiv %f,
         \ {View in gpicview}
