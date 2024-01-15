@@ -6,6 +6,9 @@ set mailcap_path=$XDG_CONFIG_HOME/mutt/mailcap
 auto_view text/html
 alternative_order text/plain text/enriched text/html
 
+# hide markers for wrapped lines
+set markers=no
+
 # sidebar
 set sidebar_visible=yes
 set sidebar_width=30
