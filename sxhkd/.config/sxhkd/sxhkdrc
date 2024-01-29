@@ -64,7 +64,7 @@ super + ctrl + {x,y,z}
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
-    bspc node -{f,s} {west,south,north,east}
+    bspc node -{f,s} {west,south,north,east}.same_class.local
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
@@ -98,7 +98,7 @@ alt + {_,shift} + {1-9,0}
 
 # switch focus on between floating and tiled
 super + semicolon
-    "$XDG_CONFIG_HOME/bspwm/switch_focus"
+    bspc node -f @brother.!same_class.local
 
 #
 # preselect
