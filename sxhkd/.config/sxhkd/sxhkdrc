@@ -153,6 +153,18 @@ mod5 + Return
     xdotool mousedown -- 1 && xdotool mouseup -- 1
 
 #
+# notifications
+#
+ctrl + space
+    dunstctl close
+ctrl + shift + space
+    dunstctl close-all
+ctrl + shift + period
+    dunstctl context
+ctrl + grave
+    dunstctl history-pop
+
+#
 # special keys
 #
 XF86AudioRaiseVolume

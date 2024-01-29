@@ -1,13 +1,12 @@
 [global]
-    font     = monospace 10
+    font = monospace 10
 
-    markup   = full
-    sort     = yes
+    markup = full
+    sort   = yes
 
     indicate_hidden = yes
 
     alignment          = left
-    bounce_freq        = 0
     show_age_threshold = 120
     follow             = mouse
 
@@ -15,34 +14,29 @@
     ignore_newline = no
     shrink         = no
 
-    geometry            = "350x5-0+30"
+    origin              = top-right
+    offset              = 10x35
     line_height         = 0
-    notification_height = 0
     padding             = 20
     horizontal_padding  = 20
-    separator_color     = "#00000000"
-    separator_height    = 10
+    separator_color     = frame
+    separator_height    = 0
+    gap_size            = 10
 
-    startup_notification = false
+    dmenu = /usr/bin/rofi -dmenu -p 'dunst'
 
-    dmenu = /usr/bin/rofi -p 'dunst'
+    browser = /usr/bin/xdg-open
 
-    browser = "${BROWSER}"
-
-    max_icon_size = 22
+    max_icon_size = 32
+    enable_recursive_icon_lookup = true
+    icon_theme = Adwaita
     icon_position = left
-    icon_path  = /home/oda/.config/dunst/icons/:/usr/share/icons/Adwaita/22x22/status/
+    icon_path  = /usr/share/icons/Adwaita/symbolic/status/
 
     always_run_script = true
 
-    frame_width = 0
-    frame_color = "#303033"
-
-[shortcuts]
-    close = ctrl+space
-    close_all = ctrl+shift+space
-    history = ctrl+grave
-    context = ctrl+shift+period
+    frame_width = 2
+    frame_color = "#505053"
 
 [urgency_low]
     background = "#303033"
