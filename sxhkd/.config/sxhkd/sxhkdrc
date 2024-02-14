@@ -64,7 +64,7 @@ super + ctrl + {x,y,z}
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
-    bspc node -{f,s} {west,south,north,east}.same_class.window.local
+    bspc node -{f,s} {west,south,north,east}.local
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
@@ -96,9 +96,13 @@ super + {_,shift} + {1-9,0}
 alt + {_,shift} + {1-9,0}
     bspc {monitor -f,node -m} ^{1-9,10}
 
-# switch focus on between floating and tiled
+# switch focus to a floating node
 super + semicolon
-    bspc node -f any.!same_class.window.local
+    bspc node -f any.floating.local
+
+# switch focus to a tiled node
+super + quoteright
+    bspc node -f any.normal.local
 
 #
 # preselect
