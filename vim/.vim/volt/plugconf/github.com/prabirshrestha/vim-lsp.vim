@@ -41,7 +41,7 @@ func! s:on_lsp_buffer_enabled() abort
   nmap <silent><buffer>ga <plug>(lsp-code-action)
   " nmap <silent><buffer>gd <plug>(lsp-definition)
   nmap <silent><buffer>gd :tab LspDefinition<CR>
-  nmap <silent><buffer>gk <plug>(lsp-peek-definition)
+  nmap <silent><buffer>gK <plug>(lsp-peek-definition)
 
   nmap <silent><buffer>K <plug>(lsp-hover)
   nnoremap <silent><expr><PageUp> lsp#scroll(-4)

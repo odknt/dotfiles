@@ -1,15 +1,7 @@
 " vim:et:sw=2:ts=2
 
 function! s:on_load_pre()
-  let g:lsp_settings = {
-  \   'pyls-all': {
-  \     'workspace_config': {
-  \       'pyls': {
-  \         'configurationSources': ['flake8']
-  \       }
-  \     }
-  \   },
-  \}
+  let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
 endfunction
 
 " Plugin configuration like the code written in vimrc.
