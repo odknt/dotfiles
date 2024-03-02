@@ -45,7 +45,6 @@ bspc rule -a '*:Toolkit' state=floating
 bspc rule -a '*:Places' state=floating
 bspc rule -a rdesktop border=off
 bspc rule -a mpv state=floating
-bspc rule -a Pinentry state=floating
 bspc rule -a ssp.exe manage=off
 
 # background (by using "feh" package)

@@ -81,8 +81,10 @@ class XProperty:
         self.name = self.search(rName, xprop)
         self.gravity = self.search(rGravity, xprop)
         self.location = self.search(rLocation, xprop)
-        self.window_type = self.search(rNetWmWindowType, xprop)
         self.window_role = self.search(rWmWindowRole, xprop)
+
+        window_type = self.search(rNetWmWindowType, xprop)
+        self.window_type = window_type.split(', ') if window_type else []
 
     @classmethod
     def xprop(cls: Type[T], wid: str) -> T:
@@ -101,8 +103,10 @@ class XProperty:
         return self.window_type == '_NET_WM_WINDOW_TYPE_DIALOG'
 
     def is_floating(self) -> bool:
-        if self.gravity is not None and self.location:
+        if '_NET_WM_WINDOW_TYPE_SPLASH' in self.window_type:
             return True
+        # if self.gravity is not None and self.location:
+        #     return True
         return False
 
     def apply(self, rule: Rule) -> Rule:
