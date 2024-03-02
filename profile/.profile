@@ -28,7 +28,7 @@ export LESSHISTFILE='-'
 export VOLTPATH=~/.vim/volt
 
 # use ripgrep in fzf
-export FZF_DEFAULT_COMMAND='rg --no-ignore-vcs --files --hidden --follow'
+export FZF_DEFAULT_COMMAND='rg --no-ignore-vcs --files --hidden'
 
 # ssh agent
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
