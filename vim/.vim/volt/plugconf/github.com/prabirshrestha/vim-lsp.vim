@@ -36,14 +36,22 @@ endfunction
 func! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal keywordprg=:LspHover
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 
-  nmap <silent><buffer>gi <plug>(lsp-implementation)
-  nmap <silent><buffer>ga <plug>(lsp-code-action)
-  " nmap <silent><buffer>gd <plug>(lsp-definition)
-  nmap <silent><buffer>gd :tab LspDefinition<CR>
-  nmap <silent><buffer>gK <plug>(lsp-peek-definition)
+  " nmap <buffer> gd <plug>(lsp-definition)
+  " nmap <silent><buffer> gt <plug>(lsp-type-definition)
+  " nmap <silent><buffer> gi <plug>(lsp-implementation)
 
-  nmap <silent><buffer>K <plug>(lsp-hover)
-  nnoremap <silent><expr><PageUp> lsp#scroll(-4)
-  nnoremap <silent><expr><PageDown> lsp#scroll(+4)
+  nmap <silent><buffer> ga <plug>(lsp-code-action)
+  nmap <silent><buffer> gd :tab LspDefinition<CR>
+  nmap <silent><buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <silent><buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <silent><buffer> gr <plug>(lsp-references)
+  nmap <silent><buffer> <leader>rn <plug>(lsp-rename)
+  nmap <silent><buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <silent><buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <silent><buffer> gK <plug>(lsp-peek-definition)
+  nmap <silent><buffer> K <plug>(lsp-hover)
+  nnoremap <silent><buffer> <expr><PageUp> lsp#scroll(-4)
+  nnoremap <silent><buffer> <expr><PageDown> lsp#scroll(+4)
 endfunc
