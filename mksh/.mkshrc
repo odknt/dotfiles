@@ -26,7 +26,7 @@ if type trans > /dev/null; then
   alias enja='trans en:ja'
   alias jaen='trans ja:en'
 fi
-type mutt > /dev/null && alias mutt='cd ~/attachments && mutt'
+
 alias ls='ls -F --color=auto'
 alias gomodver='TZ=UTC git log -1 --abbrev=12 --pretty=format:"v0.0.0-%cd-%h" --date=format-local:"%Y%m%d%H%M%S"'
 alias gostatic='go build --ldflags "-extldflags -static"'
