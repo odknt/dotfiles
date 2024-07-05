@@ -44,6 +44,9 @@ macro index \CA \
     "<tag-pattern>~O<enter><tag-prefix><clear-flag>O<untag-pattern>.<enter>" \
     "mark all new as read"
 
+# save to ~/attachments
+macro attach s '<save-entry><bol>~/attachments/<eol>' 'save attachment'
+
 # search mail
 macro index <F8> \
     "<enter-command>set my_old_pipe_decode=\$pipe_decode my_old_wait_key=\$wait_key nopipe_decode nowait_key<enter>\
