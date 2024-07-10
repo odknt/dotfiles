@@ -38,7 +38,7 @@ bspc config normal_border_color '#292825'
 bspc rule -a Lxappearance state=floating
 bspc rule -a Pcmanfm state=floating
 bspc rule -a Pavucontrol state=floating
-bspc rule -a Uim-pref-gtk state=floating
+bspc rule -a fcitx5-config-qt state=floating
 bspc rule -a Nsxiv state=floating
 bspc rule -a '*:Browser' state=floating
 bspc rule -a '*:Toolkit' state=floating
