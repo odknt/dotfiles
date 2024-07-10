@@ -272,8 +272,10 @@ filextype {.blend}
         \ {Open in Blender}
         \ blender %c,
 filextype {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
+        \ {View in nsxiv}
+        \ nsxiv %f &,
         \ {View in sxiv}
-        \ sxiv %f,
+        \ sxiv %f &,
         \ {View in gpicview}
         \ gpicview %c,
         \ {View in shotwell}
