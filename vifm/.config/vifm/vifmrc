@@ -141,7 +141,7 @@ command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! vgrep vim "+grep %a"
 command! reload :write | restart full
-command! avif convert %f %f:r.avif && rm %f
+command! avif magick %f %f:r.avif && rm %f
 command! webm ffmpeg -i %f %f:r.webm && rm %f
 
 " ------------------------------------------------------------------------------
@@ -220,10 +220,10 @@ fileviewer {*.wav,*.mp3,*.flac,*.m4a,*.wma,*.ape,*.ac3,*.og[agx],*.spx,*.opus,
 " Video
 filextype {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
           \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-          \*.as[fx],*.unknown_video},
+          \*.as[fx],*.m3u8,*.unknown_video},
          \<video/*>
         \ {Play using mpv}
-        \ mpv --fs %f,
+        \ mpv --no-terminal --fs %f &,
         \ {View using Dragon}
         \ dragon %f:p,
         \ {View using mplayer}
@@ -337,11 +337,9 @@ fileviewer {*.torrent},<application/x-bittorrent>
 
 " FuseArchive and archives
 filetype {*.zip,*.jar,*.war,*.ear,*.oxt,*.apkg,*.rar,*.7z},
-        \<application/zip,application/java-archive,
-        \application/x-rar,
-        \application/x-7z-compressed>,
+        \<application/zip,application/java-archive>,
        \ {Mount with fuse-archive}
-       \ FUSE_MOUNT|fuse-archive %SOURCE_FILE %DESTINATION_DIR,
+       \ FUSE_MOUNT|fuse-archive -o umask=133 %SOURCE_FILE %DESTINATION_DIR,
 fileviewer {*.rar},<application/x-rar> unrar v %c
 fileviewer {*.7z},<application/x-7z-compressed> 7z l %c
 
@@ -377,7 +375,7 @@ filextype {*.odt,*.doc,*.docx,*.xls,*.xlsx,*.odp,*.pptx,*.ppt},
          \<application/vnd.openxmlformats-officedocument.*,
           \application/msword,
           \application/vnd.ms-excel>
-        \ libreoffice %f &
+        \ libreoffice %f 2> /dev/null &
 fileviewer {*.doc},<application/msword> catdoc %c
 fileviewer {*.docx},
           \<application/
