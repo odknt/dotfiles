@@ -4,12 +4,14 @@
 " This configuration is executed *before* a plugin is loaded.
 function! s:on_load_pre()
   let g:fzf_preview_window = []
+  let g:fzf_layout = { 'down': '~25%' }
 endfunction
 
 " Plugin configuration like the code written in vimrc.
 " This configuration is executed *after* a plugin is loaded.
 function! s:on_load_post()
   nnoremap <C-p> :Files<CR>
+  delcommand Windows
 endfunction
 
 " This function determines when a plugin is loaded.
