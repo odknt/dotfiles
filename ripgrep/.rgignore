@@ -1,6 +1,7 @@
 .git/
 .hg/
 .svn/
+.terraform/
 .*_cache/
 node_modules/
 bower_components/
