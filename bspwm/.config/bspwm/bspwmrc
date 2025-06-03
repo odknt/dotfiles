@@ -4,7 +4,7 @@
 sxhkd &
 
 bspc query -M | while read -r id; do
-  bspc monitor "${id}" -d 壱 弐 参 肆 伍
+  bspc monitor "${id}" -d 壱 弐 参 肆 伍 陸 漆 捌 玖
 done
 
 #
