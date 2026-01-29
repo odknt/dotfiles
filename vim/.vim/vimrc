@@ -9,10 +9,10 @@ set autoindent expandtab copyindent preserveindent
 set nowritebackup notitle noswapfile
 set lazyredraw ttyfast novisualbell belloff=all background=dark
 set mouse=
-set emoji ambiwidth=double
+set emoji ambiwidth=single
 set switchbuf=usetab,newtab
 set showmode modeline modelines=10
-set hlsearch ignorecase smartcase incsearch wildmenu
+set hlsearch ignorecase smartcase noincsearch wildmenu
 set list listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 set clipboard^=unnamedplus
 set viminfo+=n~/.cache/vim/viminfo
