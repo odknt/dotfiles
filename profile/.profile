@@ -46,6 +46,7 @@ export ANSIBLE_DISPLAY_SKIPPED_HOSTS=no
 
 # wine
 export WINEDLLOVERRIDES=winemenubuilder.exe=d
+export WINEDEBUG=fixme-all
 
 # private environment variables
 if [ -f "${HOME}/.env" ]; then
